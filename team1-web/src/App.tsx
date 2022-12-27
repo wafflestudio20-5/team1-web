@@ -5,6 +5,7 @@ import Board from './components/Board';
 
 // TODO: eslint, prettier 설정
 // TODO: npm / yarn 통일
+// TODO: Tab이 띄어쓰기 2칸
 
 function AppRoutes() {
   return (
