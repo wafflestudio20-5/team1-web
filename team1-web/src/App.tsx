@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+// TODO: eslint, prettier 설정
+// TODO: npm / yarn 통일
 function App() {
   return (
     <div className="App">
