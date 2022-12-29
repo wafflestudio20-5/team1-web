@@ -1,8 +1,46 @@
+import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import styles from './Layout.module.scss';
 import everytimeLogo from '../resources/everytime-icon.png';
 
+// TODO: "../lib/types" 만들어서 따로 빼기
+type Menu = {
+  id: number;
+  name: string;
+};
+type MenuItemProps = {
+  menu: Menu;
+  handleSelect(menuId: number): void;
+  isSelected: boolean;
+};
+
+// TODO: 따로 함수 만들지 논의.
+function MenuItem({ menu, handleSelect, isSelected }: MenuItemProps) {
+  return (
+    <li
+      className={styles[`${isSelected ? 'selected' : ''}`]}
+      onClick={() => {
+        handleSelect(menu.id);
+      }}
+    >
+      {/* TODO: Link 주소 변경 */}
+      <Link to=''>{menu.name}</Link>
+    </li>
+  );
+}
+
 export default function Layout() {
+  // TODO: context로 관리할지 의논
+  const [selectedMenuId, setSelectedMenuId] = useState<number>(0);
+  // TODO: 이것도 백엔드에서 데이터 받을지 논의
+  const menus: Menu[] = [
+    { id: 0, name: '게시판' },
+    { id: 1, name: '시간표' },
+    { id: 2, name: '강의실' },
+    { id: 3, name: '학점계산기' },
+    { id: 4, name: '친구' },
+  ];
+
   return (
     <div className={styles.app}>
       <header className={styles.header}>
@@ -19,31 +57,22 @@ export default function Layout() {
               </div>
             </Link>
           </div>
-          <ul className={styles.navigation}>
-            {/* TODO: Link 주소 변경 */}
-            <li>
-              <Link to=''>게시판</Link>
-            </li>
-            <li>
-              <Link to=''>시간표</Link>
-            </li>
-            <li>
-              <Link to=''>강의실</Link>
-            </li>
-            <li>
-              <Link to=''>학점계산기</Link>
-            </li>
-            <li>
-              <Link to=''>친구</Link>
-            </li>
-            <li>
-              <Link to=''>책방</Link>
-            </li>
+          <ul className={styles['menu-list']}>
+            {menus.map((menu) => (
+              <MenuItem
+                key={menu.id}
+                menu={menu}
+                handleSelect={() => {
+                  setSelectedMenuId(menu.id);
+                }}
+                isSelected={selectedMenuId === menu.id}
+              />
+            ))}
             <li>
               <a href='https://www.campuspick.com/'>캠퍼스픽</a>
             </li>
           </ul>
-          <div className={styles['menu']}>
+          <div className={styles['account-menu']}>
             {/* TODO: Link 주소 변경 */}
             <Link to='' title='쪽지함'></Link>
             <Link to='' title='내 정보'></Link>

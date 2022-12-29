@@ -58,7 +58,7 @@
           }
         }
       }
-      > .navigation {
+      > .menu-list {
         display: flex;
         text-align: center;
 
@@ -79,8 +79,14 @@
         > li:last-child {
           margin: 0 57.5px 0 12px;
         }
+        > li.selected {
+          border-bottom: 4px solid #c62917;
+          > a {
+            color: #c62917;
+          }
+        }
       }
-      > .menu {
+      > .account-menu {
         justify-content: flex-end;
         align-items: center;
         display: flex;
