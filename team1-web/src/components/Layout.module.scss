@@ -11,26 +11,29 @@
     border-bottom: 1px solid #d6d6d6;
 
     > nav {
-      display: flex;
       width: 1180px;
+      height: 80px;
+      display: grid;
+      grid-template: 80px / 290px 600px 290px;
       margin: 0 auto;
 
       > .logo {
-        float: left;
-        padding-left: 13px;
-        margin-top: 20px;
-        margin-right: 82px;
+        height: 40px;
+        margin: 0 145.5px 0 24px;
+        padding: 20px 0;
         > a {
           > .logo-wrapper {
+            width: 120.5px;
+            float: left;
             display: grid;
-            grid-template: 15px 25px / auto 1fr;
+            grid-template: 15px 25px / 56px 1fr;
             grid-auto-flow: column;
             > div:first-child {
               width: 40px;
               height: 40px;
               grid-row: 1 / 3;
-              margin-bottom: 20px;
               margin-right: 16px;
+              margin-left: 0;
 
               > img {
                 width: 100%;
@@ -48,55 +51,56 @@
             > div:last-child {
               margin-left: 0px;
               line-height: 25px;
-              color: #292929;
               font-size: 22px;
+              color: #292929;
               font-weight: normal;
             }
           }
         }
       }
-      > .nav {
+      > .navigation {
         display: flex;
-        flex-direction: row;
-        width: 600px;
-        margin: 0 auto;
         text-align: center;
 
         > li {
-          margin-right: 24px;
+          margin: 0 12px;
           height: 76px;
-          line-height: 76px;
 
           > a {
+            line-height: 76px;
             font-size: 16px;
             font-weight: bold;
             color: #444444;
           }
         }
+        > li:first-child {
+          margin: 0 12px 0 57.5px;
+        }
+        > li:last-child {
+          margin: 0 57.5px 0 12px;
+        }
       }
-      > .menu-wrapper {
+      > .menu {
+        justify-content: flex-end;
+        align-items: center;
         display: flex;
-        margin-right: 32px;
-        padding: 20px 0;
+        margin-right: 24px;
 
         > a {
-          background-image: url('../resources/chat-icon.png');
-          background-repeat: no-repeat;
-          background-size: 24px 24px;
           width: 40px;
-          color: transparent;
-          background-position: center;
-          margin-left: 4px;
           height: 40px;
-          line-height: 40px;
+          background-image: url('../resources/chat-icon.png');
+          background-position: center;
+          background-size: 24px 24px;
+          background-repeat: no-repeat;
           box-sizing: border-box;
           border: 1px solid #d6d6d6;
           border-radius: 12px;
-          vertical-align: top;
         }
 
         > a:last-child {
           background-image: url('../resources/account-icon.png');
+          margin-left: 4px;
         }
       }
     }
