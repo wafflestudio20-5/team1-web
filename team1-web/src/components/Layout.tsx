@@ -7,8 +7,9 @@ export default function Layout() {
     <div className={styles.app}>
       <header className={styles.header}>
         <nav>
+          {/* 기존 ui와 다르게 구현; 로고 전체를 링크로 감쌈 */}
           <div className={styles.logo}>
-            <Link to='/'>
+            <Link to=''>
               <div className={styles['logo-wrapper']}>
                 <div>
                   <img src={everytimeLogo} alt='logo.png' />
@@ -18,7 +19,7 @@ export default function Layout() {
               </div>
             </Link>
           </div>
-          <ul className={styles.nav}>
+          <ul className={styles.navigation}>
             {/* TODO: Link 주소 변경 */}
             <li>
               <Link to=''>게시판</Link>
@@ -42,7 +43,7 @@ export default function Layout() {
               <a href='https://www.campuspick.com/'>캠퍼스픽</a>
             </li>
           </ul>
-          <div className={styles['menu-wrapper']}>
+          <div className={styles['menu']}>
             {/* TODO: Link 주소 변경 */}
             <Link to='' title='쪽지함'></Link>
             <Link to='' title='내 정보'></Link>

@@ -6,6 +6,7 @@ import Board from './components/Board';
 // TODO: eslint, prettier 설정
 // TODO: npm / yarn 통일
 // TODO: Tab이 띄어쓰기 2칸
+// TODO: prettier 설정 중 작은 따옴표, 큰 따옴표 설정 통일
 
 function AppRoutes() {
   return (
