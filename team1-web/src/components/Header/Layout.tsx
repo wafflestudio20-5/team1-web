@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import styles from './Layout.module.scss';
-import everytimeLogo from '../resources/everytime-icon.png';
+import everytimeLogo from '../../resources/everytime-icon.png';
 
-// TODO: "../lib/types" 만들어서 따로 빼기
+// TODO: "../lib/types" 만들어서 따로 빼기.
 type Menu = {
   id: number;
   name: string;

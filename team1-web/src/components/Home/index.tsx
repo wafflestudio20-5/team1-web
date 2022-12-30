@@ -1,8 +1,9 @@
+import styles from './index.module.scss';
+
 export default function Home() {
   return (
     <>
-      <div>Hello World!</div>
-      <div>Hello World!</div>
+      <div className={styles.temp}>Hello World!</div>
     </>
   );
 }
