@@ -30,7 +30,7 @@ function MenuItem({ menu, handleSelect, isSelected }: MenuItemProps) {
 }
 
 export default function Layout() {
-  // TODO: context로 관리할지 의논
+  // TODO: REDUX로 옮기고 MenuItem props에서 handleSelect, isSelected 제거
   const [selectedMenuId, setSelectedMenuId] = useState<number>(0);
   // TODO: 이것도 백엔드에서 데이터 받을지 논의
   const menus: Menu[] = [
@@ -39,6 +39,7 @@ export default function Layout() {
     { id: 2, name: '강의실' },
     { id: 3, name: '학점계산기' },
     { id: 4, name: '친구' },
+    { id: 5, name: '책방' },
   ];
 
   return (
