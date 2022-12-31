@@ -2,12 +2,8 @@ import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import styles from './Layout.module.scss';
 import everytimeLogo from '../../resources/everytime-icon.png';
+import { Menu } from '../../lib/types';
 
-// TODO: "../lib/types" 만들어서 따로 빼기.
-type Menu = {
-  id: number;
-  name: string;
-};
 type MenuItemProps = {
   menu: Menu;
   handleSelect(menuId: number): void;

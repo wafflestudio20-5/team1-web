@@ -1,22 +1,7 @@
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import styles from './BoardListBoard.module.scss';
-
-// function Board({})
-
-// TODO: ../../lib/types에 추가
-type Board = {
-  id: number;
-  name: string;
-};
-
-type BoardList = {
-  id: number;
-  category: string;
-  size: number;
-  defaultDisplayColumnSize: number;
-  boards: Board[];
-};
+import { Board, BoardList } from '../../lib/types';
 
 function Board({
   board,
