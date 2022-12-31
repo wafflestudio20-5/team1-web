@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import Layout from './components/Header/Layout';
-import Board from './components/Header/BoardList';
+import Board from './components/Header/BoardListBoard';
 
 // TODO: eslint, prettier 설정
 // TODO: npm / yarn 통일
