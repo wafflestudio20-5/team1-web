@@ -1,3 +1,57 @@
-.temp {
-  height: 2000px;
+.home {
+  height: 3000px;
+  > .container {
+    width: 1130px;
+    margin: 25px auto;
+    display: grid;
+    grid-template: auto / 175px 600px 325px;
+    padding: 0 25px;
+    gap: 15px;
+    > .account {
+      border: 1px solid #000;
+      box-sizing: border-box;
+      width: 175px;
+      display: flex;
+      flex-direction: column;
+      row-gap: 5px;
+      > .my-info {
+      }
+      > .my-article {
+      }
+      > .banners {
+      }
+    }
+    > .main {
+      border: 1px solid #000;
+      box-sizing: border-box;
+      width: 600px;
+      display: flex;
+      flex-direction: column;
+      > .banner {
+      }
+      > .boards {
+      }
+      > .bookstore {
+      }
+    }
+    > .topic {
+      border: 1px solid #000;
+      box-sizing: border-box;
+      width: 325px;
+      display: flex;
+      flex-direction: column;
+      > .search-bar {
+      }
+      > .popular-articles {
+      }
+      > .hot-articles {
+      }
+      > .best-board {
+      }
+      > .news {
+      }
+      > .recent-lecture-review {
+      }
+    }
+  }
 }
