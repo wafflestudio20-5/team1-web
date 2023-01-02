@@ -52,7 +52,8 @@ function BoardListItem({ boardList }: { boardList: BoardList }) {
               )
           )}
           {!isMoreClicked && isOverflowed && (
-            // TODO: 링크 주소 더보기 처리
+            // TODO: 더보기 반대 기능 '접기' 기능 구현 여부
+            // TODO: 원본과 구현 차이점 설명
             // TODO: api 처리 관련 회의. 카테고리 일단 전부 가져오냐 or 더보기 클릭 시 다시 가져오냐. 현재는 전부 가져올 때의 구현방식.
             <li>
               <Link
