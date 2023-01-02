@@ -8,15 +8,65 @@
     padding: 0 25px;
     gap: 15px;
     > .account {
-      border: 1px solid #000;
-      box-sizing: border-box;
       width: 175px;
       display: flex;
       flex-direction: column;
       row-gap: 5px;
       > .my-info {
+        height: 219px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #d6d6d6;
+        box-sizing: border-box;
+        background-color: #f9f9f9;
+        text-align: center;
+        > img {
+          margin: 15px auto;
+          border-radius: 6px;
+          width: 60px;
+          height: 60px;
+        }
+        > .nickname {
+          margin-bottom: 5px;
+          line-height: 20px;
+          color: #393939;
+          font-size: 18px;
+          font-weight: bold;
+        }
+        > div {
+          line-height: 15px;
+          color: #a6a6a6;
+          font-size: 12px;
+        }
+        > ul {
+          display: flex;
+          margin-top: 15px;
+          gap: 5px;
+          > li {
+            > button {
+              width: 66.5px;
+              height: 27px;
+              border: 1px solid #d6d6d6;
+              border-radius: 3px;
+              color: #737373;
+              font-size: 13px;
+              text-align: center;
+              line-height: 27px;
+              background-color: #f9f9f9;
+              cursor: pointer;
+            }
+          }
+          > li:last-child {
+            button {
+              width: 71.5px;
+            }
+          }
+        }
       }
       > .my-article {
+        border: 1px solid #000;
+        box-sizing: border-box;
       }
       > .banners {
       }
