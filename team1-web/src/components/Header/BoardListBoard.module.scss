@@ -32,6 +32,10 @@
             color: #444444;
             line-height: 25px;
           }
+          > a.more {
+            font-weight: bold;
+            color: #c62917;
+          }
         }
         > li:hover {
           cursor: pointer;
@@ -40,8 +44,8 @@
           }
         }
         > li.selected {
-          font-weight: bold;
           > a {
+            font-weight: bold;
             color: #c62917;
           }
         }

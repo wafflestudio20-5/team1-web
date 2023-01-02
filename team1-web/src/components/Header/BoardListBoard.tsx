@@ -28,8 +28,10 @@ function BoardItem({
 function BoardListItem({ boardList }: { boardList: BoardList }) {
   // TODO: REDUX로 옮기고 Board props에서 handleSelect, isSelected 제거
   const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
-  const isOverflowed = boardList.size > 8 * boardList.defaultDisplayColumnSize;
-  const lastDefaultDisplayIndex = isOverflowed
+  const [isMoreClicked, setIsMoreClicked] = useState<boolean>(false);
+  const isOverflowed: boolean =
+    boardList.size > 8 * boardList.defaultDisplayColumnSize;
+  const lastDefaultDisplayIndex: number = isOverflowed
     ? boardList.defaultDisplayColumnSize * 8 - 2
     : boardList.size - 1;
   return (
@@ -37,8 +39,8 @@ function BoardListItem({ boardList }: { boardList: BoardList }) {
       <div className={styles.group}>
         <ul>
           {boardList.boards.map(
-            (board, index) =>
-              index <= lastDefaultDisplayIndex && (
+            (board: Board, index: number) =>
+              (isMoreClicked || index <= lastDefaultDisplayIndex) && (
                 <BoardItem
                   key={board.id}
                   board={board}
@@ -49,10 +51,17 @@ function BoardListItem({ boardList }: { boardList: BoardList }) {
                 />
               )
           )}
-          {isOverflowed && (
+          {!isMoreClicked && isOverflowed && (
             // TODO: 링크 주소 더보기 처리
+            // TODO: api 처리 관련 회의. 카테고리 일단 전부 가져오냐 or 더보기 클릭 시 다시 가져오냐. 현재는 전부 가져올 때의 구현방식.
             <li>
-              <Link to='' className={styles['more']}>
+              <Link
+                to=''
+                className={styles['more']}
+                onClick={() => {
+                  setIsMoreClicked(true);
+                }}
+              >
                 더보기
               </Link>
             </li>
@@ -85,13 +94,30 @@ export default function Layout() {
         { id: 8, name: '동아리·학회' },
       ],
     },
+    {
+      id: 1,
+      category: 'council',
+      size: 9,
+      defaultDisplayColumnSize: 1,
+      boards: [
+        { id: 0, name: '총학생회' },
+        { id: 1, name: '신문사' },
+        { id: 2, name: '방송국' },
+        { id: 3, name: '자연대 학생회' },
+        { id: 4, name: '공과대학 학생회' },
+        { id: 5, name: '사회대 학생회' },
+        { id: 6, name: '사범대학 학생회' },
+        { id: 7, name: '간호대학 학생회' },
+        { id: 8, name: '인문대학 학생회' },
+      ],
+    },
   ];
   return (
     <>
       <div className={styles['board-list-layout']}>
         <div className={styles['board-list-board']}>
           <div className={styles['divider']}></div>
-          {boardLists.map((boardList) => (
+          {boardLists.map((boardList: BoardList) => (
             <BoardListItem key={boardList.id} boardList={boardList} />
           ))}
         </div>
