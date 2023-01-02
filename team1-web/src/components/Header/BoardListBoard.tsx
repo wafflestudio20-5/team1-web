@@ -3,7 +3,7 @@ import { Link, Outlet } from 'react-router-dom';
 import styles from './BoardListBoard.module.scss';
 import { Board, BoardList } from '../../lib/types';
 
-function Board({
+function BoardItem({
   board,
   handleSelect,
   isSelected,
@@ -25,7 +25,7 @@ function Board({
   );
 }
 
-function BoardList({ boardList }: { boardList: BoardList }) {
+function BoardListItem({ boardList }: { boardList: BoardList }) {
   // TODO: REDUX로 옮기고 Board props에서 handleSelect, isSelected 제거
   const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
   const isOverflowed = boardList.size > 8 * boardList.defaultDisplayColumnSize;
@@ -39,7 +39,7 @@ function BoardList({ boardList }: { boardList: BoardList }) {
           {boardList.boards.map(
             (board, index) =>
               index <= lastDefaultDisplayIndex && (
-                <Board
+                <BoardItem
                   key={board.id}
                   board={board}
                   handleSelect={() => {
@@ -92,7 +92,7 @@ export default function Layout() {
         <div className={styles['board-list-board']}>
           <div className={styles['divider']}></div>
           {boardLists.map((boardList) => (
-            <BoardList key={boardList.id} boardList={boardList} />
+            <BoardListItem key={boardList.id} boardList={boardList} />
           ))}
         </div>
       </div>
