@@ -1,8 +1,17 @@
 import styles from './Main.module.scss';
 import { BoardList, Board } from '../../lib/types';
+import { Link } from 'react-router-dom';
 
 function BoardItem({ board }: { board: Board }) {
-  return <div className={styles['board']}>{board.name}</div>;
+  return (
+    <div className={styles['board']}>
+      <div>
+        <Link to=''>{board.name}</Link>
+      </div>
+      {/* TODO: 업데이트 */}
+      <div></div>
+    </div>
+  );
 }
 
 export default function Main() {

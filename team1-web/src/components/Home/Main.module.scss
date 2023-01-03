@@ -17,6 +17,21 @@
       height: 192px;
       border: 1px solid #e3e3e3;
       background-color: #fff;
+      > div:first-child {
+        padding: 10px;
+        border-bottom: 1px solid #e3e3e3;
+
+        > a {
+          display: block;
+          width: 100%;
+          line-height: 20px;
+          color: #c62917;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+      > div:last-child {
+      }
     }
   }
   > .bookstore {
