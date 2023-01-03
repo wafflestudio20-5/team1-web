@@ -73,7 +73,7 @@ export default function Layout() {
           <div className={styles['account-menu']}>
             {/* TODO: Link 주소 변경 */}
             <Link to='' title='쪽지함'></Link>
-            <Link to='' title='내 정보'></Link>
+            <Link to='my' title='내 정보'></Link>
           </div>
         </nav>
       </header>

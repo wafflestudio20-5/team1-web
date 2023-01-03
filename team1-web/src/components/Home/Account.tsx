@@ -18,7 +18,7 @@ export default function Account() {
             {/* TODO: 링크 변경 */}
             <button
               onClick={() => {
-                navigate('');
+                navigate('my');
               }}
             >
               내 정보
