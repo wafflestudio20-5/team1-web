@@ -50,7 +50,7 @@ export default function Layout() {
                 <div>
                   <img src={everytimeLogo} alt='logo.png' />
                 </div>
-                <div>에브리타임</div>
+                <div>와플리타임</div>
                 <div>서울대</div>
               </div>
             </Link>
