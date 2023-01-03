@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import styles from './BoardListBoard.module.scss';
 import { Board, BoardList } from '../../lib/types';
 
@@ -12,11 +12,13 @@ function BoardItem({
   handleSelect(boardId: number): void;
   isSelected: boolean;
 }) {
+  const navigate = useNavigate();
   return (
     <li
       className={styles[`${isSelected ? 'selected' : ''}`]}
       onClick={() => {
         handleSelect(board.id);
+        navigate('');
       }}
     >
       {/* TODO: 링크 주소 board.id로 변경 */}
