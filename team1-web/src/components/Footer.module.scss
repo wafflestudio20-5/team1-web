@@ -1,9 +1,9 @@
 .footer {
-  margin: 25px auto;
-  width: 1180px;
   > ul {
+    margin: 25px auto;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     > li {
       margin: 0 4px 4px 4px;
       line-height: 20px;
