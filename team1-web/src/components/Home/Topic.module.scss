@@ -1,0 +1,19 @@
+.topic {
+  border: 1px solid #000;
+  box-sizing: border-box;
+  width: 325px;
+  display: flex;
+  flex-direction: column;
+  > .search-bar {
+  }
+  > .popular-articles {
+  }
+  > .hot-articles {
+  }
+  > .best-board {
+  }
+  > .news {
+  }
+  > .recent-lecture-review {
+  }
+}
