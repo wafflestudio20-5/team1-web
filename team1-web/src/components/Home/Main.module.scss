@@ -9,6 +9,15 @@
   }
   > .boards {
     margin: 15px 0;
+    gap: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    > .board {
+      width: 295px;
+      height: 192px;
+      border: 1px solid #e3e3e3;
+      background-color: #fff;
+    }
   }
   > .bookstore {
   }
