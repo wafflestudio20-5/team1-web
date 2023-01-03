@@ -1,0 +1,51 @@
+.my-page {
+  display: flex;
+  margin-top: 80px;
+  > .container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding-top: 24px;
+    gap: 8px;
+    > .card {
+      width: 480px;
+      margin: 0 auto;
+      padding: 12px 0;
+      border: 1px solid #ededed;
+      border-radius: 12px;
+      box-sizing: border-box;
+      > .title {
+        padding: 12px 24px;
+        line-height: 26px;
+        color: #292929;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
+    > .my-account {
+      > .card-header {
+        display: flex;
+        align-items: center;
+        > .title {
+          width: 336px;
+          padding: 12px 24px;
+          line-height: 30px;
+          font-size: 22px;
+          color: #292929;
+          font-weight: bold;
+        }
+        > button {
+          height: 30px;
+          padding: 0 12px;
+          border: 0px;
+          border-radius: 15px;
+          line-height: 30px;
+          color: #ffffff;
+          font-size: 12px;
+          font-weight: bold;
+          background-color: #c62917;
+        }
+      }
+    }
+  }
+}

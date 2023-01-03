@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import Layout from './components/Header/Layout';
 import Board from './components/Header/BoardListBoard';
+import MyPage from './components/MyPage';
 
 // TODO: eslint, prettier 설정
 // TODO: npm / yarn 통일
@@ -15,7 +16,7 @@ function AppRoutes() {
         <Route element={<Board />}>
           <Route index element={<Home />} />
         </Route>
-        <Route path='temp' index element={<Home />} />{' '}
+        <Route path='my' index element={<MyPage/>} />
       </Route>
     </Routes>
   );
