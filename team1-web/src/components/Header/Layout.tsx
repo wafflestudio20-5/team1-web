@@ -3,6 +3,7 @@ import { Link, Outlet } from 'react-router-dom';
 import styles from './Layout.module.scss';
 import everytimeLogo from '../../resources/everytime-icon.png';
 import { Menu } from '../../lib/types';
+import Footer from '../Footer';
 
 type MenuItemProps = {
   menu: Menu;
@@ -77,6 +78,7 @@ export default function Layout() {
         </nav>
       </header>
       <Outlet />
+      <Footer />
     </div>
   );
 }

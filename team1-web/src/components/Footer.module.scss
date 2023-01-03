@@ -1,0 +1,20 @@
+.footer {
+  margin: 25px auto;
+  width: 1180px;
+  > ul {
+    display: flex;
+    justify-content: center;
+    > li {
+      margin: 0 4px 4px 4px;
+      line-height: 20px;
+      color: #737373;
+      font-size: 12px;
+    }
+    > li:nth-child(3) {
+      font-weight: bold;
+    }
+    > li:last-child {
+      font-weight: bold;
+    }
+  }
+}
