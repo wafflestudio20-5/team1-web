@@ -5,14 +5,7 @@ import everytimeLogo from '../../resources/everytime-icon.png';
 import { Menu } from '../../lib/types';
 import Footer from '../Footer';
 
-type MenuItemProps = {
-  menu: Menu;
-  handleSelect(menuId: number): void;
-  isSelected: boolean;
-};
-
-// TODO: 따로 함수 만들지 논의.
-function MenuItem({ menu, handleSelect, isSelected }: MenuItemProps) {
+function MenuItem({ menu, handleSelect, isSelected }: {menu: Menu, handleSelect(menuId:number): void, isSelected:boolean,}) {
   return (
     <li
       className={styles[`${isSelected ? 'selected' : ''}`]}

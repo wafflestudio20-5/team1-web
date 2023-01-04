@@ -9,9 +9,7 @@ import Register from "./components/Login/Register";
 import { LoginProvider } from "./LoginContext";
 
 // TODO: eslint, prettier 설정
-// TODO: npm / yarn 통일
 // TODO: Tab이 띄어쓰기 2칸
-// TODO: prettier 설정 중 작은 따옴표, 큰 따옴표 설정 통일
 
 function AppRoutes() {
   return (
@@ -22,6 +20,7 @@ function AppRoutes() {
       {/* <Route element={<Layout />}>
         <Route element={<Board />}>
           <Route index element={<Home />} />
+          <Route path=':storeId' />
         </Route>
         <Route path='my' index element={<MyPage/>} />
       </Route> */}
