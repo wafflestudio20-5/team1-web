@@ -46,7 +46,7 @@ export default function Login() {
   return (
     <div id="container" className={styles["login"]}>
       <h1 className={styles["logo"]}>
-        <Link to="/">에브리타임</Link>
+        <Link to="/">와플리타임</Link>
       </h1>
       <p className={styles["input"]}>
         <input
@@ -85,7 +85,7 @@ export default function Login() {
         <Link to="/forgot">아이디/비밀번호 찾기</Link>
       </p>
       <p className={styles["register"]}>
-        <span>에브리타임에 처음이신가요?</span>
+        <span>와플리타임에 처음이신가요?</span>
         <Link to="/register">회원가입</Link>
       </p>
     </div>

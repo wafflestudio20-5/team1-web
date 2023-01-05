@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 export default function Register() {
   return (
     <div className={styles["register"]}>
-      <h2>에브리타임 회원가입</h2>
+      <h2>와플리타임 회원가입</h2>
       <p className={styles["description"]}>
-        에브리타임 계정으로 <strong>캠퍼스픽, 에브리타임</strong> 등<br />
+        와플리타임 계정으로 <strong>캠퍼스픽, 와플리타임</strong> 등<br />
         다양한 대학생 서비스를 모두 이용하실 수 있습니다.
       </p>
       <h2 className={styles["school"]}>학교 선택</h2>
