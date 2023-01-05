@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import Layout from './components/Layout';
-import Board from './components/Header/BoardListBoard';
+import Board from './components/Layout/BoardListBoard';
 import MyPage from './components/MyPage';
 import Main from './components/Login/Main';
 import Login from './components/Login/Login';
