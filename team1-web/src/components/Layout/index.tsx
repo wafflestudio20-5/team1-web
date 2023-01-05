@@ -1,11 +1,19 @@
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import styles from './Layout.module.scss';
+import styles from './index.module.scss';
 import everytimeLogo from '../../resources/everytime-icon.png';
 import { Menu } from '../../lib/types';
-import Footer from '../Footer';
+import Footer from './Footer';
 
-function MenuItem({ menu, handleSelect, isSelected }: {menu: Menu, handleSelect(menuId:number): void, isSelected:boolean,}) {
+function MenuItem({
+  menu,
+  handleSelect,
+  isSelected,
+}: {
+  menu: Menu;
+  handleSelect(menuId: number): void;
+  isSelected: boolean;
+}) {
   return (
     <li
       className={styles[`${isSelected ? 'selected' : ''}`]}
