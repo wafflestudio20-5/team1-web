@@ -18,7 +18,7 @@ function BoardItem({
       className={styles[`${isSelected ? 'selected' : ''}`]}
       onClick={() => {
         handleSelect(board.id);
-        navigate('');
+        navigate('/home/1');
       }}
     >
       {/* TODO: 링크 주소 board.id로 변경 */}
