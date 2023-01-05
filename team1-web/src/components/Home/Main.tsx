@@ -40,7 +40,7 @@ export default function Main() {
       <div className={styles['boards']}>
         {/* TODO: 추후 업데이트 */}
         {boardLists[0].boards.map((board) => (
-          <BoardItem board={board} />
+          <BoardItem key={board.id} board={board} />
         ))}
       </div>
       <div className={styles['bookstore']}></div>
