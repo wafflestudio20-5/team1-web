@@ -3,6 +3,9 @@ import Home from './components/Home';
 import Layout from './components/Header/Layout';
 import Board from './components/Header/BoardListBoard';
 import MyPage from './components/MyPage';
+import Main from './components/Login/Main';
+import Login from './components/Login/Login';
+import Register from './components/Login/Register';
 
 // TODO: eslint, prettier 설정
 // TODO: npm / yarn 통일
@@ -12,12 +15,15 @@ import MyPage from './components/MyPage';
 function AppRoutes() {
   return (
     <Routes>
-      <Route element={<Layout />}>
+      <Route path='/' element={<Main/>} />
+      <Route path='/login' element={<Login/>} />
+      <Route path='/register' element={<Register/>} />
+      {/* <Route element={<Layout />}>
         <Route element={<Board />}>
           <Route index element={<Home />} />
         </Route>
         <Route path='my' index element={<MyPage/>} />
-      </Route>
+      </Route> */}
     </Routes>
   );
 }
