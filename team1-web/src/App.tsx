@@ -1,8 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import Layout from './components/Layout';
-import Board from './components/Layout/BoardListBoard';
+import BoardLayout from './components/Layout/BoardLayout';
+import BoardPage from './components/BoardPage';
 import MyPage from './components/MyPage';
+import Topic from './components/Layout/BoardLayout/Topic';
 import Main from './components/Login/Main';
 import Login from './components/Login/Login';
 import Register from './components/Login/Register';
@@ -19,9 +21,9 @@ function AppRoutes() {
       <Route path='/register' element={<Register />} />
       {/* TODO: home path 변경 */}
       <Route path='home' element={<Layout />}>
-        <Route element={<Board />}>
+        <Route element={<BoardLayout />}>
           <Route index element={<Home />} />
-          {/* <Route path=':storeId' /> */}
+          <Route path='s/:storeId' element={<BoardPage />} />
         </Route>
         <Route path='my' index element={<MyPage />} />
       </Route>
