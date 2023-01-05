@@ -8,10 +8,14 @@ export type User = {
   nickname: string;
   name: string;
   ID: string;
+  myArticles: Article[];
+  myCommentedArticles: Article[];
+  myScrappedArticles: Article[];
 };
 
 export type AdditionalComment = {
   id: number;
+  motherComment: Comment[];
   content: string;
   author: User;
   time: string;

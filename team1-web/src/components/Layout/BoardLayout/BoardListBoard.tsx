@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './BoardListBoard.module.scss';
-import { Board, BoardList } from '../../lib/types';
+import { Board, BoardList } from '../../../lib/types';
 
 function BoardItem({
   board,
@@ -125,7 +125,6 @@ export default function Layout() {
           ))}
         </div>
       </div>
-      <Outlet />
     </>
   );
 }

@@ -1,0 +1,12 @@
+.content {
+  width: 100%;
+  > .container {
+    position: relative;
+    width: 1130px;
+    margin: 25px auto;
+    padding: 0 25px;
+    display: grid;
+    grid-template: auto / 790px 325px;
+    gap: 15px;
+  }
+}
