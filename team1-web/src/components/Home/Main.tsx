@@ -6,7 +6,7 @@ function BoardItem({ board }: { board: Board }) {
   return (
     <div className={styles['board']}>
       <div>
-        <Link to=''>{board.name}</Link>
+        <Link to='/1'>{board.name}</Link>
       </div>
       {/* TODO: 업데이트 */}
       <div></div>
