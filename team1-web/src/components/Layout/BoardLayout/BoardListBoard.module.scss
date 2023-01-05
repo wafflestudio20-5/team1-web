@@ -35,7 +35,12 @@
             color: #444444;
             line-height: 25px;
           }
-          > a.more {
+          > p.more {
+            display: block;
+            width: 100%;
+            font-size: 13px;
+            color: #444444;
+            line-height: 25px;
             font-weight: bold;
             color: #c62917;
           }

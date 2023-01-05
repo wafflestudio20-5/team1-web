@@ -5,19 +5,19 @@ import { Board, BoardList } from '../../../lib/types';
 
 function BoardItem({
   board,
-  handleSelect,
   isSelected,
+  setSelectedBoardId,
 }: {
   board: Board;
-  handleSelect(boardId: number): void;
   isSelected: boolean;
+  setSelectedBoardId(boardId: number): void;
 }) {
   const navigate = useNavigate();
   return (
     <li
       className={styles[`${isSelected ? 'selected' : ''}`]}
       onClick={() => {
-        handleSelect(board.id);
+        setSelectedBoardId(board.id);
         navigate('/home/1');
       }}
     >
@@ -27,9 +27,15 @@ function BoardItem({
   );
 }
 
-function BoardListItem({ boardList }: { boardList: BoardList }) {
-  // TODO: REDUX로 옮기고 Board props에서 handleSelect, isSelected 제거
-  const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
+function BoardListItem({
+  boardList,
+  selectedBoardId,
+  setSelectedBoardId,
+}: {
+  boardList: BoardList;
+  selectedBoardId: number | null;
+  setSelectedBoardId(boardId: number): void;
+}) {
   const [isMoreClicked, setIsMoreClicked] = useState<boolean>(false);
   const isOverflowed: boolean =
     boardList.size > 8 * boardList.defaultDisplayColumnSize;
@@ -46,10 +52,8 @@ function BoardListItem({ boardList }: { boardList: BoardList }) {
                 <BoardItem
                   key={board.id}
                   board={board}
-                  handleSelect={() => {
-                    setSelectedBoardId(board.id);
-                  }}
                   isSelected={selectedBoardId === board.id}
+                  setSelectedBoardId={setSelectedBoardId}
                 />
               )
           )}
@@ -58,15 +62,14 @@ function BoardListItem({ boardList }: { boardList: BoardList }) {
             // TODO: 원본과 구현 차이점 설명
             // TODO: api 처리 관련 회의. 카테고리 일단 전부 가져오냐 or 더보기 클릭 시 다시 가져오냐. 현재는 전부 가져올 때의 구현방식.
             <li>
-              <Link
-                to=''
+              <p
                 className={styles['more']}
                 onClick={() => {
                   setIsMoreClicked(true);
                 }}
               >
-                더보기
-              </Link>
+                더 보기
+              </p>
             </li>
           )}
         </ul>
@@ -78,6 +81,8 @@ function BoardListItem({ boardList }: { boardList: BoardList }) {
 
 export default function Layout() {
   // TODO: 게시판 오른쪽에 동그라미 기준 알아야 함
+  // TODO: REDUX로 옮기고 Board props에서 handleSelect, isSelected 제거
+  const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
   // TODO: boardLists.boards.articles 속성 추가
   const boardLists: BoardList[] = [
     {
@@ -103,15 +108,15 @@ export default function Layout() {
       size: 9,
       defaultDisplayColumnSize: 1,
       boards: [
-        { id: 0, name: '총학생회' },
-        { id: 1, name: '신문사' },
-        { id: 2, name: '방송국' },
-        { id: 3, name: '자연대 학생회' },
-        { id: 4, name: '공과대학 학생회' },
-        { id: 5, name: '사회대 학생회' },
-        { id: 6, name: '사범대학 학생회' },
-        { id: 7, name: '간호대학 학생회' },
-        { id: 8, name: '인문대학 학생회' },
+        { id: 9, name: '총학생회' },
+        { id: 10, name: '신문사' },
+        { id: 11, name: '방송국' },
+        { id: 12, name: '자연대 학생회' },
+        { id: 13, name: '공과대학 학생회' },
+        { id: 14, name: '사회대 학생회' },
+        { id: 15, name: '사범대학 학생회' },
+        { id: 16, name: '간호대학 학생회' },
+        { id: 17, name: '인문대학 학생회' },
       ],
     },
   ];
@@ -121,7 +126,12 @@ export default function Layout() {
         <div className={styles['board-list-board']}>
           <div className={styles['divider']}></div>
           {boardLists.map((boardList: BoardList) => (
-            <BoardListItem key={boardList.id} boardList={boardList} />
+            <BoardListItem
+              key={boardList.id}
+              boardList={boardList}
+              selectedBoardId={selectedBoardId}
+              setSelectedBoardId={setSelectedBoardId}
+            />
           ))}
         </div>
       </div>
