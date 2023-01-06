@@ -29,7 +29,7 @@ export default function Login() {
       .then((response) => {
         // TODO: Set user data
         // setUser(response["data"].owner);
-        setToken(response['data'].access_token);
+        setToken(response.data.accessToken);
         navigate('/home');
         toast.success('로그인되었습니다.');
       })
