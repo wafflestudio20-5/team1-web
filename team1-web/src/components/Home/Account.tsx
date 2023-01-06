@@ -14,11 +14,11 @@ export default function Account() {
 
     const header = {
       headers: {
-        Authorization: 'Bearer' + token,
+        Authorization: 'Bearer ' + token,
       },
     };
     axios
-      .post('http://api.wafflytime.com/api/auth/logout', null, header)
+      .delete('http://api.wafflytime.com/api/auth/logout', header)
       .then((response) => {
         // TODO: Set user data
         // setUser(response["data"].owner);
@@ -27,7 +27,7 @@ export default function Account() {
         toast.success('로그아웃되었습니다.');
       })
       .catch((error) => {
-        console.log(error);
+        console.log(token);
         if (error.response.data.status === 401) {
           toast.error('로그인되어있지 않습니다.');
         } else {
