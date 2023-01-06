@@ -8,6 +8,8 @@ import Main from './components/Login/Main';
 import Login from './components/Login/Login';
 import Register from './components/Login/Register';
 import { LoginProvider } from './LoginContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // TODO: eslint, prettier 설정
 // TODO: Tab이 띄어쓰기 2칸
@@ -35,7 +37,7 @@ export default function App() {
     <LoginProvider>
       <BrowserRouter>
         <AppRoutes />
-        {/* TODO: <ToastContainer /> */}
+        <ToastContainer />
       </BrowserRouter>
     </LoginProvider>
   );

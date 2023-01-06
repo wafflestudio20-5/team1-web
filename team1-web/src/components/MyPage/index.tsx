@@ -1,15 +1,58 @@
 import styles from './index.module.scss';
 import profileImg from '../../resources/profile-image.png';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useLayoutEffect } from 'react';
+import { useLoginProvider } from '../../LoginContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export default function MyPage() {
+  const navigate = useNavigate();
+  const { token, setToken } = useLoginProvider();
+  const logout = () => {
+    // TODO: 로그인 유지 추가
+
+    const header = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+    axios
+      .delete('http://api.wafflytime.com/api/auth/logout', header)
+      .then((response) => {
+        // TODO: Set user data
+        // setUser(response["data"].owner);
+        navigate('/');
+        setToken(null);
+        toast.success('로그아웃되었습니다.');
+      })
+      .catch((error) => {
+        if (error.response.data.status === 401) {
+          toast.error('로그인되어있지 않습니다.');
+        } else {
+          toast.error(error.response.data.error);
+        }
+      });
+  };
+
+  useLayoutEffect(() => {
+    axios.defaults.headers['Content-Type'] = 'application/json';
+  }, []);
+
   return (
     <div className={styles['my-page']}>
       <div className={styles['container']}>
         <div className={`${styles['card']} ${styles['my-account']}`}>
           <div className={styles['card-header']}>
             <div className={styles['title']}>내 정보</div>
-            <button>로그아웃</button>
+            <button
+              onClick={() => {
+                logout();
+              }}
+            >
+              로그아웃
+            </button>
           </div>
           <div className={styles['profile']}>
             <img src={profileImg} alt='프로필 이미지' />
