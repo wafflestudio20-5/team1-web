@@ -84,11 +84,11 @@ export default function Login() {
         <input type="checkbox" name="autologin" value="1" />
         로그인 유지
       </label>
-        {/* TODO: 아이디/비밀번호 찾기 구현 */}
+      {/* TODO: 구현 여부 결정 후 구현 */}
       <p className={styles['find']}>
         <Link to=''>아이디/비밀번호 찾기</Link>
       </p>
-        {/* TODO: 회원가입 구현 */}
+      {/* TODO: 회원가입 구현 */}
       <p className={styles['register']}>
         <span>와플리타임에 처음이신가요?</span>
         <Link to="/register">회원가입</Link>
