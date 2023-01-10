@@ -3,14 +3,27 @@ import everytimeIcon from "../../resources/everytime-icon.png";
 import { Link } from "react-router-dom";
 
 export default function Main() {
+  const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
+
+  const KAKAO_REST_API_KEY = "2e73508a53ba1108841a05a1612720fd";
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
   return (
     <div className={styles["login"]}>
       <Link to="/" className={styles["logo"]}>
-        <img className={styles["img-logo"]} src={everytimeIcon} alt="와플리타임 로고"/>
+        <img
+          className={styles["img-logo"]}
+          src={everytimeIcon}
+          alt="와플리타임 로고"
+        />
       </Link>
       <Link to="/login" className={styles["button-login"]}>
         로그인
       </Link>
+      <a href={KAKAO_AUTH_URL} className={styles["button-login-kakao"]}>
+        카카오톡으로 로그인
+      </a>
       <Link to="/register" className={styles["button-register"]}>
         와플리타임 회원가입
       </Link>
