@@ -8,6 +8,7 @@ import Main from './components/Login/Main';
 import Login from './components/Login/Login';
 import Register from './components/Login/Register';
 import Kakao from './components/Login/Oauth/Kakao';
+import { LoginProvider } from './LoginContext';
 
 function InValidateURL() {
   return (
@@ -45,8 +46,10 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
+    <LoginProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </LoginProvider>
   );
 }
