@@ -7,13 +7,23 @@ import MyPage from './components/MyPage';
 import Main from './components/Login/Main';
 import Login from './components/Login/Login';
 import Register from './components/Login/Register';
-import { LoginProvider } from './LoginContext';
 import Kakao from './components/Login/Oauth/Kakao';
 
-// TODO: eslint, prettier 설정
-// TODO: Tab이 띄어쓰기 2칸
+function InValidateURL() {
+  return (
+    <>
+      <h1>404. That’s an error.</h1>
+      <h2>
+        The requested URL /dwdwdw was not found on this server. That’s all we
+        know.
+      </h2>
+    </>
+  );
+}
 
 function AppRoutes() {
+  // TODO: 로그인 여부 확인 후 redirect 작업
+  // const token = useAppSelector((state: RootState) => state.session.token);
   return (
     <Routes>
       <Route path='/' element={<Main />} />
@@ -28,16 +38,15 @@ function AppRoutes() {
         </Route>
         <Route path='my' index element={<MyPage />} />
       </Route>
+      <Route path='*' element={<InValidateURL />} />
     </Routes>
   );
 }
 
 export default function App() {
   return (
-    <LoginProvider>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </LoginProvider>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }

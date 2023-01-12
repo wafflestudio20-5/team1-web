@@ -1,50 +1,25 @@
 import styles from './Login.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLayoutEffect, useState } from 'react';
-import axios from 'axios';
-import { useLoginProvider } from '../../LoginContext';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
+import { useAppDispatch } from '../../store';
+import { login } from '../../store/sessionSlice';
 
 export default function Login() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const [ID, setID] = useState('');
   const [PW, setPW] = useState('');
 
-  const { setToken, setRefreshToken, setUser } = useLoginProvider();
-
-  const navigate = useNavigate();
-
-  const login = () => {
-    // TODO: 로그인 유지 추가
+  // TODO: 로그인 유지 추가
+  const handleLogin = async () => {
     const data = {
       id: ID,
       password: PW,
     };
-    const header = {
-      // TODO: 추후 아래 내용 삭제
-      // withCredentials: true,
-      // credentials: "include",
-    };
-    axios
-      .post('http://api.wafflytime.com/api/auth/local/login', data, header)
-      .then((response) => {
-        // TODO: Set user data
-        // setUser(response["data"].owner);
-        setToken(response.data.accessToken);
-        navigate('/home');
-        toast.success('로그인되었습니다.');
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          toast.error('잘못된 로그인 정보입니다!');
-        } else {
-          toast.error('ID와 비밀번호를 입력해주세요.');
-        }
-      });
+    await dispatch(login(data));
+    navigate('/home');
   };
-
-  useLayoutEffect(() => {
-    axios.defaults.headers['Content-Type'] = 'application/json';
-  }, []);
 
   return (
     <div id='container' className={styles['login']}>
@@ -77,7 +52,7 @@ export default function Login() {
           type='submit'
           value='로그인'
           className={styles['text']}
-          onClick={login}
+          onClick={handleLogin}
         />
       </p>
       <label className={styles['autologin']}>

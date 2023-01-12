@@ -1,44 +1,18 @@
 import styles from './Account.module.scss';
 import profileImg from '../../resources/profile-image.png';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { useLoginProvider } from '../../LoginContext';
-import { useLayoutEffect } from 'react';
+import { RootState, useAppDispatch, useAppSelector } from '../../store';
+import { logout } from '../../store/sessionSlice';
 
 export default function Account() {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { token, setToken } = useLoginProvider();
-  const logout = () => {
-    // TODO: 로그인 유지 추가
+  const token = useAppSelector((state: RootState) => state.session.token);
 
-    const header = {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    };
-    axios
-      .delete('http://api.wafflytime.com/api/auth/logout', header)
-      .then((response) => {
-        // TODO: Set user data
-        // setUser(response["data"].owner);
-        navigate('/');
-        setToken(null);
-        toast.success('로그아웃되었습니다.');
-      })
-      .catch((error) => {
-        console.log(token);
-        if (error.response.data.status === 401) {
-          toast.error('로그인되어있지 않습니다.');
-        } else {
-          toast.error(error.response.data.error);
-        }
-      });
+  const handleLogout = async () => {
+    await dispatch(logout(token));
+    navigate('/');
   };
-
-  useLayoutEffect(() => {
-    axios.defaults.headers['Content-Type'] = 'application/json';
-  }, []);
 
   return (
     <div className={styles['account']}>
@@ -60,14 +34,7 @@ export default function Account() {
             </button>
           </li>
           <li>
-            {/* TODO: navigate 말고 로그아웃 작업으로 */}
-            <button
-              onClick={() => {
-                logout();
-              }}
-            >
-              로그아웃
-            </button>
+            <button onClick={handleLogout}>로그아웃</button>
           </li>
         </ul>
       </div>
