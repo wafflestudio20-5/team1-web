@@ -1,13 +1,20 @@
 import styles from "./Main.module.scss";
 import everytimeIcon from "../../resources/everytime-icon.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Main() {
   const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
+  const GOOGLE_REDIRECT_URI = "http://localhost:3000/oauth/google/callback";
 
   const KAKAO_REST_API_KEY = "2e73508a53ba1108841a05a1612720fd";
+  const GOOGLE_REST_API_KEY =
+    "586425104922-9d6vrvjkncq158aeu0gon6ipobln6jkj.apps.googleusercontent.com";
 
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&client_id=${GOOGLE_REST_API_KEY}&response_type=code&redirect_uri=${GOOGLE_REDIRECT_URI}&access_type=offline`;
+
+  const navigate = useNavigate();
 
   return (
     <div className={styles["login"]}>
@@ -21,6 +28,9 @@ export default function Main() {
       <Link to="/login" className={styles["button-login"]}>
         로그인
       </Link>
+      <a href={GOOGLE_AUTH_URL} className={styles["button-login-google"]}>
+        구글로 로그인
+      </a>
       <a href={KAKAO_AUTH_URL} className={styles["button-login-kakao"]}>
         카카오톡으로 로그인
       </a>

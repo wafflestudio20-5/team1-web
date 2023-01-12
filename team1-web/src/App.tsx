@@ -11,6 +11,7 @@ import { LoginProvider } from "./LoginContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Kakao from "./components/Login/Oauth/Kakao";
+import Google from "./components/Login/Oauth/Google";
 
 // TODO: eslint, prettier 설정
 // TODO: Tab이 띄어쓰기 2칸
@@ -21,6 +22,7 @@ function AppRoutes() {
       <Route path="/" element={<Main />} />
       <Route path="/login" element={<Login />} />
       <Route path="/oauth/kakao/callback" element={<Kakao />} />
+      <Route path="/oauth/google/callback" element={<Google />} />
       <Route path="/register" element={<Register />} />
       {/* TODO: home path 변경 */}
       <Route path="home" element={<Layout />}>

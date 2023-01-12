@@ -1,19 +1,19 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import styles from "./Kakao.module.scss";
+import styles from "./Google.module.scss";
 import { toast } from "react-toastify";
 import { useLoginProvider } from "../../../LoginContext";
-import kakaoImg from "../../../resources/kakaotalk-seeklogo.com.svg";
+import googleImg from "../../../resources/Google_logo.svg.png";
 
-export default function Kakao() {
-  const [params, setParams] = useSearchParams();
+export default function Google() {
+  const [params, setParmas] = useSearchParams();
 
   const { setToken, setRefreshToken, setUser } = useLoginProvider();
 
   const navigate = useNavigate();
 
-  const KakaoSignup = () => {
+  const GoogleSignup = () => {
     // TODO: 로그인 유지 추가
     const header = {
       // TODO: 추후 아래 내용 삭제
@@ -22,7 +22,7 @@ export default function Kakao() {
     };
     axios
       .post(
-        `http://api.staging.wafflytime.com/api/auth/social/signup/kakao?code=${params.get(
+        `http://api.staging.wafflytime.com/api/auth/social/signup/google?code=${params.get(
           "code"
         )}`
       )
@@ -44,8 +44,9 @@ export default function Kakao() {
       });
   };
 
-  const KakaoLogin = () => {
+  const GoogleLogin = () => {
     // TODO: 로그인 유지 추가
+    console.log(params);
     const header = {
       // TODO: 추후 아래 내용 삭제
       // withCredentials: true,
@@ -53,7 +54,7 @@ export default function Kakao() {
     };
     axios
       .post(
-        `http://api.staging.wafflytime.com/api/auth/social/login/kakao?code=${params.get(
+        `http://api.staging.wafflytime.com/api/auth/social/login/google?code=${params.get(
           "code"
         )}`
       )
@@ -68,7 +69,7 @@ export default function Kakao() {
         if (error.response.status === 401) {
           toast.error("Kakao에서 제공한 코드가 잘못되었습니다.");
         } else if (error.response.status === 404) {
-          KakaoSignup();
+          GoogleSignup();
         } else {
           toast.error("알 수 없는 에러가 발생했습니다. 운영진에게 문의하세요.");
         }
@@ -76,18 +77,18 @@ export default function Kakao() {
   };
 
   useEffect(() => {
-    KakaoLogin();
+    GoogleLogin();
   }, []);
 
   return (
-    <div className={styles["kakao-login-waiting"]}>
-      <p className={styles["kakao-login-message"]}>
-        카카오 로그인을 진행중입니다.
+    <div className={styles["google-login-waiting"]}>
+      <p className={styles["google-login-message"]}>
+        구글 로그인을 진행중입니다.
       </p>
       <img
-        className={styles["kakao-login-img"]}
-        src={kakaoImg}
-        alt="kakao-img"
+        className={styles["google-login-img"]}
+        src={googleImg}
+        alt="google-img"
       />
       <div className={styles["spinner"]} />
     </div>
