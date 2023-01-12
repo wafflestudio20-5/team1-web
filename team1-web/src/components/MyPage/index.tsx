@@ -2,44 +2,18 @@ import styles from './index.module.scss';
 import profileImg from '../../resources/profile-image.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useLayoutEffect } from 'react';
-import { useLoginProvider } from '../../LoginContext';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import { RootState, useAppDispatch, useAppSelector } from '../../store';
+import { logout } from '../../store/sessionSlice';
 
 export default function MyPage() {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { token, setToken } = useLoginProvider();
-  const logout = () => {
-    // TODO: 로그인 유지 추가
-
-    const header = {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    };
-    axios
-      .delete('http://api.wafflytime.com/api/auth/logout', header)
-      .then((response) => {
-        // TODO: Set user data
-        // setUser(response["data"].owner);
-        navigate('/');
-        setToken(null);
-        toast.success('로그아웃되었습니다.');
-      })
-      .catch((error) => {
-        if (error.response.data.status === 401) {
-          toast.error('로그인되어있지 않습니다.');
-        } else {
-          toast.error(error.response.data.error);
-        }
-      });
+  const token = useAppSelector((state: RootState) => state.session.token);
+  
+  const handleLogout = async () => {
+    await dispatch(logout(token));
+    navigate('/');
   };
-
-  useLayoutEffect(() => {
-    axios.defaults.headers['Content-Type'] = 'application/json';
-  }, []);
-
   return (
     <div className={styles['my-page']}>
       <div className={styles['container']}>
@@ -48,7 +22,7 @@ export default function MyPage() {
             <div className={styles['title']}>내 정보</div>
             <button
               onClick={() => {
-                logout();
+                handleLogout();
               }}
             >
               로그아웃
