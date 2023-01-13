@@ -8,8 +8,8 @@ import { useAppSelector, RootState } from '../../store';
 
 export default function Layout() {
   // TODO: 아래 auth 내용 처리 App.tsx Route 단계에서 처리
-  const token = useAppSelector((state: RootState) => state.session.token);
-  const navigate = useNavigate();
+  // const token = useAppSelector((state: RootState) => state.session.token);
+  // const navigate = useNavigate();
   // useLayoutEffect(() => {
   //   if (!token) {
   //     navigate('/Login');
@@ -19,9 +19,9 @@ export default function Layout() {
   return (
     <div className='app'>
       <Header />
-      <section>
+      <main>
         <Outlet />
-      </section>
+      </main>
       <Footer />
     </div>
   );

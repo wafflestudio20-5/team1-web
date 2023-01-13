@@ -11,7 +11,8 @@ import Kakao from './components/Login/Oauth/Kakao';
 import { LoginProvider } from './LoginContext';
 
 function InValidateURL() {
-  return (
+  // TODO: 추후 디자인
+   return (
     <>
       <h1>404. That’s an error.</h1>
       <h2>
