@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 
 function BoardItem({ board }: { board: Board }) {
   return (
-    <div className={styles['board']}>
-      <div>
+    <section className={styles['board']}>
+      <div className={styles['board-title']}>
         <Link to='1'>{board.name}</Link>
       </div>
       {/* TODO: 업데이트 */}
       <div></div>
-    </div>
+    </section>
   );
 }
 
@@ -35,15 +35,15 @@ export default function Main() {
     },
   ];
   return (
-    <div className={styles['main']}>
-      <div className={styles['banner']}>배너</div>
-      <div className={styles['boards']}>
+    <article className={styles['main']}>
+      <article className={styles['banner']}>배너</article>
+      <article className={styles['boards']}>
         {/* TODO: 추후 업데이트 */}
         {boardLists[0].boards.map((board) => (
           <BoardItem key={board.id} board={board} />
         ))}
-      </div>
-      <div className={styles['bookstore']}></div>
-    </div>
+      </article>
+      <article className={styles['bookstore']}></article>
+    </article>
   );
 }

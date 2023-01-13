@@ -18,12 +18,12 @@
       width: 60px;
       height: 60px;
     }
-    > div {
+    > p {
       line-height: 15px;
       color: #a6a6a6;
       font-size: 12px;
     }
-    > div:nth-child(2) {
+    > p:nth-child(2) {
       margin-bottom: 5px;
       line-height: 20px;
       color: #393939;
@@ -35,7 +35,8 @@
       margin-top: 15px;
       gap: 5px;
       > li {
-        > button {
+        > .button {
+          display: block;
           width: 66.5px;
           height: 27px;
           border: 1px solid #d6d6d6;
