@@ -7,12 +7,12 @@ export default function BoardLayout() {
   return (
     <>
       <BoardListBoard />
-      <div className={styles['content']}>
-        <div className={styles['container']}>
+      <article className={styles['content']}>
+        <article className={styles['container']}>
           <Outlet />
           <Topic />
-        </div>
-      </div>
+        </article>
+      </article>
     </>
   );
 }

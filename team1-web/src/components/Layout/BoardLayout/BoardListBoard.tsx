@@ -44,7 +44,7 @@ function BoardListItem({
     : boardList.size - 1;
   return (
     <>
-      <div className={styles.group}>
+      <section className={styles.group}>
         <ul>
           {boardList.boards.map(
             (board: Board, index: number) =>
@@ -73,13 +73,13 @@ function BoardListItem({
             </li>
           )}
         </ul>
-      </div>
-      <div className={styles.divider}></div>
+      </section>
+      <section className={styles.divider}></section>
     </>
   );
 }
 
-export default function Layout() {
+export default function BoardListBoard() {
   // TODO: 게시판 오른쪽에 동그라미 기준 알아야 함
   // TODO: REDUX로 옮기고 Board props에서 handleSelect, isSelected 제거
   const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
@@ -122,9 +122,9 @@ export default function Layout() {
   ];
   return (
     <>
-      <div className={styles['board-list-layout']}>
-        <div className={styles['board-list-board']}>
-          <div className={styles['divider']}></div>
+      <article className={styles['board-list-layout']}>
+        <article className={styles['board-list-board']}>
+          <section className={styles['divider']}></section>
           {boardLists.map((boardList: BoardList) => (
             <BoardListItem
               key={boardList.id}
@@ -133,8 +133,8 @@ export default function Layout() {
               setSelectedBoardId={setSelectedBoardId}
             />
           ))}
-        </div>
-      </div>
+        </article>
+      </article>
     </>
   );
 }

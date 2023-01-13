@@ -4,9 +4,9 @@ import Main from './Main';
 
 export default function Home() {
   return (
-    <div className={styles['home']}>
+    <article className={styles['home']}>
       <Account />
       <Main />
-    </div>
+    </article>
   );
 }
