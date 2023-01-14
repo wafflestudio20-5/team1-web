@@ -11,8 +11,12 @@ export default function MyPage() {
   const token = useAppSelector((state: RootState) => state.session.token);
 
   const handleLogout = async () => {
-    await dispatch(logout(token));
-    navigate('/');
+    try {
+      await dispatch(logout(token));
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <article className={styles['my-page']}>

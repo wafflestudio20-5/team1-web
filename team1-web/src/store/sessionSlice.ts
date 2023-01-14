@@ -16,10 +16,12 @@ export const kakaoLogin = createAsyncThunk(
           const { data } = await apiKakaoSignup(code);
           return data;
         } catch (e) {
-          return rejectWithValue(e);
+          const error: string = axiosErrorHandler(e, '로그인에 실패했습니다');
+          return rejectWithValue(error);
         }
       }
-      return rejectWithValue(e);
+      const error = axiosErrorHandler(e, '로그인에 실패했습니다');
+      return rejectWithValue(error);
     }
   }
 );
@@ -31,7 +33,11 @@ export const login = createAsyncThunk(
       const { data } = await apiLogin(loginData);
       return data;
     } catch (e) {
-      return rejectWithValue(e);
+      const error: string = axiosErrorHandler(
+        e,
+        '아이디 또는 비밀번호를 확인해주세요'
+      );
+      return rejectWithValue(error);
     }
   }
 );
@@ -40,10 +46,11 @@ export const logout = createAsyncThunk(
   'sessionSlice/logout',
   async (token: string | null, { rejectWithValue }) => {
     try {
-      const response = await apiLogout(token);
-      return response;
+      const { data } = await apiLogout(token);
+      return data;
     } catch (e) {
-      return rejectWithValue(e);
+      const error: string = axiosErrorHandler(e, '로그인되어있지 않습니다');
+      return rejectWithValue(error);
     }
   }
 );
@@ -63,45 +70,44 @@ const sessionSlice = createSlice({
   name: 'sessionSlice',
   initialState,
   reducers: {},
-  extraReducers: {
-    // [login.pending.type]: (state) => {
-    // state.status = 'loading';
-    // }
-    [login.fulfilled.type]: (state, { payload }) => {
-      // state.status = 'success';
-      state.token = payload.accessToken;
-      toast.success('로그인되었습니다.');
-    },
-    [login.rejected.type]: (state, { payload }) => {
-      // state.status = 'failed';
-      axiosErrorHandler('아이디와 비밀번호를 확인해주세요', payload);
-    },
-
-    // [logout.pending.type]: (state) => {
-    // state.status = 'loading';
-    // },
-    [logout.fulfilled.type]: (state) => {
-      // state.status = 'success';
-      state.token = null;
-      toast.success('로그아웃되었습니다.');
-    },
-    [logout.rejected.type]: (state, { payload }) => {
-      // state.status = 'failed';
-      axiosErrorHandler('로그인되어있지 않습니다', payload);
-    },
-
-    // [kakoLogin.pending.type]: (state) => {
-    // state.status = 'loading';
-    // },
-    [kakaoLogin.fulfilled.type]: (state, { payload }) => {
-      // state.status = 'success';
-      state.token = payload.accessToken;
-      toast.success('로그인되었습니다.');
-    },
-    [kakaoLogin.rejected.type]: (state, { payload }) => {
-      // state.status = 'failed';
-      axiosErrorHandler('로그인에 실패했습니다', payload);
-    },
+  extraReducers: (builder) => {
+    builder
+      // .addCase(login.pending, (state) => {
+      // state.status = 'loading'
+      // })
+      .addCase(login.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        state.token = payload.accessToken;
+        toast.success('로그인되었습니다.');
+      })
+      .addCase(login.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
+      // .addCase(logout.pending, (state) => {
+      // state.status = 'loading'
+      // })
+      .addCase(logout.fulfilled, (state) => {
+        // state.status = 'success';
+        state.token = null;
+        toast.success('로그아웃되었습니다.');
+      })
+      .addCase(logout.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
+      // .addCase(kakaoLogin.pending, (state) => {
+      //   state.status = 'loading';
+      // });
+      .addCase(kakaoLogin.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        state.token = payload.accessToken;
+        toast.success('로그인되었습니다.');
+      })
+      .addCase(kakaoLogin.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      });
   },
 });
 
