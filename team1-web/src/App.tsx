@@ -8,11 +8,12 @@ import Main from './components/Login/Main';
 import Login from './components/Login/Login';
 import Register from './components/Login/Register';
 import Kakao from './components/Login/Oauth/Kakao';
+import NewKakao from './components/Login/Oauth/NewKakao';
 import { LoginProvider } from './LoginContext';
 
 function InValidateURL() {
   // TODO: 추후 디자인
-   return (
+  return (
     <>
       <h1>404. That’s an error.</h1>
       <h2>
@@ -30,7 +31,7 @@ function AppRoutes() {
     <Routes>
       <Route path='/' element={<Main />} />
       <Route path='/login' element={<Login />} />
-      <Route path='/oauth/kakao/callback' element={<Kakao />} />
+      <Route path='/oauth/kakao/callback' element={<NewKakao />} />
       <Route path='/register' element={<Register />} />
       {/* TODO: home path 변경 */}
       <Route path='home' element={<Layout />}>
