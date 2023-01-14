@@ -5,7 +5,7 @@ import { Board, BoardList } from '../../../lib/types';
 import { useApiBoardLists, useApiData } from '../../../lib/api';
 import { RootState, useAppSelector } from '../../../store';
 
-// TODO: 
+// TODO: selectedBoardId redux로 빼고 useParams로 처리. (게시판 벗어나도 selectedBoardId가 해제되지 않는 상태)
 
 function BoardItem({
   board,
