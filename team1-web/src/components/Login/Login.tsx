@@ -17,8 +17,12 @@ export default function Login() {
       id: ID,
       password: PW,
     };
-    await dispatch(login(data));
-    navigate('/home');
+    try {
+      await dispatch(login(data));
+      navigate('/home');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

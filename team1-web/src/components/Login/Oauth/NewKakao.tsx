@@ -11,8 +11,12 @@ export default function Kakao() {
   const [code] = useSearchParams();
 
   const handleKakaoLogin = async () => {
-    await dispatch(kakaoLogin(code));
-    navigate('/home');
+    try {
+      await dispatch(kakaoLogin(code));
+      navigate('/home');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {

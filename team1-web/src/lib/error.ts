@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-export const axiosErrorHandler = (message: string, err: unknown) => {
+export const axiosErrorHandler = (err: unknown, message: string) => {
   if (axios.isAxiosError(err)) {
     const resMsg = err.response?.data.message;
-    toast.error(`${message}${resMsg ? ': ' + resMsg : ''}`);
+    const errorMsg = `${message}${resMsg ? ': ' + resMsg : ''}`;
+    toast.error(errorMsg);
+    return errorMsg;
   } else throw err;
 };
 
