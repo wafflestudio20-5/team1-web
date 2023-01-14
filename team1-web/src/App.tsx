@@ -31,7 +31,7 @@ function AppRoutes() {
     <Routes>
       <Route path='/' element={<Main />} />
       <Route path='/login' element={<Login />} />
-      <Route path='/oauth/kakao/callback' element={<NewKakao />} />
+      <Route path='/oauth/kakao/callback' element={<Kakao />} />
       <Route path='/register' element={<Register />} />
       {/* TODO: home path 변경 */}
       <Route path='home' element={<Layout />}>

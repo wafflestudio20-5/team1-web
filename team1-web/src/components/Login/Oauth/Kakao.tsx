@@ -21,9 +21,7 @@ export default function Kakao() {
       // credentials: "include",
     };
     axios
-      .post(
-        `http://api.staging.wafflytime.com/api/auth/social/signup/kakao?${code}`
-      )
+      .post(`http://api.wafflytime.com/api/auth/social/signup/kakao?${code}`)
       .then((response) => {
         // TODO: Set user data
         // setUser(response["data"].owner);
@@ -50,9 +48,7 @@ export default function Kakao() {
       // credentials: "include",
     };
     axios
-      .post(
-        `http://api.staging.wafflytime.com/api/auth/social/login/kakao?${code}`
-      )
+      .post(`http://api.wafflytime.com/api/auth/social/login/kakao?${code}`)
       .then((response) => {
         // TODO: Set user data
         // setUser(response["data"].owner);

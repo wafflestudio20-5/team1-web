@@ -17,13 +17,9 @@ export const apiLogout = (token: string | null) =>
 //TODO: code type 수정
 export const apiKakaoSignup = (code: any) =>
   // TODO: url 수정
-  axios.post(
-    `http://api.staging.wafflytime.com/api/auth/social/signup/kakao?${code}`
-  );
+  axios.post(`http://api.wafflytime.com/api/auth/social/signup/kakao?${code}`);
 
 //TODO: code type 수정
 export const apiKakaoLogin = (code: any) =>
   // TODO: url 수정
-  axios.post(
-    `http://api.staging.wafflytime.com/api/auth/social/login/kakao?${code}`
-  );
+  axios.post(`http://api.wafflytime.com/api/auth/social/login/kakao?${code}`);
