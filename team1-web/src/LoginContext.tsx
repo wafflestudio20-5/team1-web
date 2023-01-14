@@ -40,10 +40,7 @@ export function LoginProvider({ children }: LoginProps) {
   const [token, sToken] = useState<string | null>(null);
   const setToken = useCallback((x: string | null) => sToken(x), []);
   const [refreshToken, sRefreshToken] = useState<string | null>(null);
-  const setRefreshToken = useCallback(
-    (x: string | null) => sRefreshToken(x),
-    []
-  );
+  const setRefreshToken = useCallback((x: string | null) => sRefreshToken(x), []);
   const [user, sUser] = useState<IUser | null>(null);
   const setUser = useCallback((x: IUser | null) => sUser(x), []);
   return (
