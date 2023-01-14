@@ -9,6 +9,7 @@ import Login from './components/Login/Login';
 import Register from './components/Login/Register';
 import Kakao from './components/Login/Oauth/Kakao';
 import NewKakao from './components/Login/Oauth/NewKakao';
+import { useAppSelector, RootState } from './store';
 import { LoginProvider } from './LoginContext';
 
 function InValidateURL() {
@@ -26,21 +27,25 @@ function InValidateURL() {
 
 function AppRoutes() {
   // TODO: 로그인 여부 확인 후 redirect 작업
-  // const token = useAppSelector((state: RootState) => state.session.token);
+  const token = useAppSelector((state: RootState) => state.session.token);
   return (
     <Routes>
-      <Route path='/' element={<Main />} />
+      {!token ? (
+        <Route path='' element={<Main />} />
+      ) : (
+        <Route path='' element={<Layout />}>
+          <Route element={<BoardLayout />}>
+            <Route index element={<Home />} />
+            <Route path=':storeId' element={<BoardPage />} />
+          </Route>
+          <Route path='my' index element={<MyPage />} />
+        </Route>
+      )}
+      {/* TODO: 로그인되어있을 시 Login 페이지 redirect */}
       <Route path='/login' element={<Login />} />
       <Route path='/oauth/kakao/callback' element={<Kakao />} />
       <Route path='/register' element={<Register />} />
       {/* TODO: home path 변경 */}
-      <Route path='home' element={<Layout />}>
-        <Route element={<BoardLayout />}>
-          <Route index element={<Home />} />
-          <Route path=':storeId' element={<BoardPage />} />
-        </Route>
-        <Route path='my' index element={<MyPage />} />
-      </Route>
       <Route path='*' element={<InValidateURL />} />
     </Routes>
   );

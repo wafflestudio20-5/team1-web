@@ -19,7 +19,7 @@ export default function Login() {
     };
     try {
       await dispatch(login(data));
-      navigate('/home');
+      navigate('/');
     } catch (err) {
       console.log(err);
     }
