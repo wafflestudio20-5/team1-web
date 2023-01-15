@@ -21,8 +21,8 @@ export default function Login() {
     };
     try {
       await dispatch(login(data));
-      // navigate('/');
       if (redirect) navigate(redirect);
+      else navigate('/');
     } catch (err) {
       console.log(err);
     }
