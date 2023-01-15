@@ -1,4 +1,11 @@
-import { BrowserRouter, Route, Routes, Navigate, useParams } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  Navigate,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom';
 import Home from './components/Home';
 import Layout from './components/Layout';
 import BoardLayout from './components/Layout/BoardLayout';
@@ -23,21 +30,30 @@ function InValidateURL() {
   );
 }
 
-function LoginAndRedirectPage({ redirectPath }: { redirectPath: string }) {
-  const param = useParams();
-  const paramPath = Object.values(param).join('/');
-  return <Navigate to={`/login?redirect=${redirectPath}${param ? '/' + paramPath : ''}`} />;
+function LoginForRedirectPage({ redirectPath }: { redirectPath: string }) {
+  const params = useParams();
+  const paramPath = Object.values(params).join('/');
+  const [searchParams] = useSearchParams();
+  const searchParamsPath = searchParams.toString();
+  return (
+    <Navigate
+      to={`/login?redirect=${redirectPath}${params ? '/' + paramPath : ''}${
+        searchParamsPath ? '?' + searchParamsPath : ''
+      }`}
+    />
+  );
 }
 
 function AppRoutes() {
   // TODO: 로그인 여부 확인 후 redirect 작업
   const token = useAppSelector((state: RootState) => state.session.token);
   const redirectIfNotAuthed = (page: JSX.Element, redirectPath: string) =>
-    token ? page : <LoginAndRedirectPage redirectPath={redirectPath} />;
+    token ? page : <LoginForRedirectPage redirectPath={redirectPath} />;
 
   const checkIfLoginned = (page: JSX.Element) => {
     if (token) {
-      toast.error('로그아웃 후 이용 가능합니다.');
+      // TODO: login 후 navigate 전에 toast 뜨는 문제 해결
+      // toast.error('로그아웃 후 이용 가능합니다.');
       return <Navigate to='' />;
     } else return page;
   };
