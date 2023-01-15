@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate, useParams } from 'react-router-dom';
 import Home from './components/Home';
 import Layout from './components/Layout';
 import BoardLayout from './components/Layout/BoardLayout';
@@ -11,38 +11,51 @@ import Kakao from './components/Login/Oauth/Kakao';
 import NewKakao from './components/Login/Oauth/NewKakao';
 import { useAppSelector, RootState } from './store';
 import { LoginProvider } from './LoginContext';
+import { toast } from 'react-toastify';
 
 function InValidateURL() {
-  // TODO: 추후 디자인
   return (
+    // TODO: 추후 디자인
     <>
       <h1>404. That’s an error.</h1>
-      <h2>
-        The requested URL /dwdwdw was not found on this server. That’s all we
-        know.
-      </h2>
+      <h2>The requested URL /dwdwdw was not found on this server. That’s all we know.</h2>
     </>
   );
+}
+
+function LoginAndRedirectPage({ redirectPath }: { redirectPath: string }) {
+  const param = useParams();
+  const paramPath = Object.values(param).join('/');
+  return <Navigate to={`/login?redirect=${redirectPath}${param ? '/' + paramPath : ''}`} />;
 }
 
 function AppRoutes() {
   // TODO: 로그인 여부 확인 후 redirect 작업
   const token = useAppSelector((state: RootState) => state.session.token);
+  const redirectIfNotAuthed = (page: JSX.Element, redirectPath: string) =>
+    token ? page : <LoginAndRedirectPage redirectPath={redirectPath} />;
+
+  const checkIfLoginned = (page: JSX.Element) => {
+    if (token) {
+      toast.error('로그아웃 후 이용 가능합니다.');
+      return <Navigate to='' />;
+    } else return page;
+  };
+
   return (
     <Routes>
       {token || <Route path='' element={<Main />} />}
       <Route element={<Layout />}>
         <Route element={<BoardLayout />}>
-          {token && <Route index element={<Home />} />}
-          <Route path=':storeId' element={<BoardPage />} />
+          <Route path='' element={<Home />} />
+          <Route path=':storeId' element={redirectIfNotAuthed(<BoardPage />, '')} />
         </Route>
-        <Route path='my' index element={<MyPage />} />
+        <Route path='my' element={redirectIfNotAuthed(<MyPage />, 'my')} />
       </Route>
-      {/* TODO: 로그인되어있을 시 Login 페이지 redirect */}
-      <Route path='/login' element={<Login />} />
-      <Route path='/oauth/kakao/callback' element={<Kakao />} />
-      <Route path='/register' element={<Register />} />
-      {/* TODO: home path 변경 */}
+
+      <Route path='/login' element={checkIfLoginned(<Login />)} />
+      <Route path='/oauth/kakao/callback' element={checkIfLoginned(<Kakao />)} />
+      <Route path='/register' element={checkIfLoginned(<Register />)} />
       <Route path='*' element={<InValidateURL />} />
     </Routes>
   );
