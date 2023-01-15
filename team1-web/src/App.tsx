@@ -30,17 +30,14 @@ function AppRoutes() {
   const token = useAppSelector((state: RootState) => state.session.token);
   return (
     <Routes>
-      {!token ? (
-        <Route path='' element={<Main />} />
-      ) : (
-        <Route path='' element={<Layout />}>
-          <Route element={<BoardLayout />}>
-            <Route index element={<Home />} />
-            <Route path=':storeId' element={<BoardPage />} />
-          </Route>
-          <Route path='my' index element={<MyPage />} />
+      {token || <Route path='' element={<Main />} />}
+      <Route element={<Layout />}>
+        <Route element={<BoardLayout />}>
+          {token && <Route index element={<Home />} />}
+          <Route path=':storeId' element={<BoardPage />} />
         </Route>
-      )}
+        <Route path='my' index element={<MyPage />} />
+      </Route>
       {/* TODO: 로그인되어있을 시 Login 페이지 redirect */}
       <Route path='/login' element={<Login />} />
       <Route path='/oauth/kakao/callback' element={<Kakao />} />
