@@ -4,11 +4,14 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { RootState, useAppDispatch, useAppSelector } from '../../store';
 import { logout } from '../../store/sessionSlice';
+import { useApiData, useApiGetImg, useApiGetMyInfo } from '../../lib/api';
 
 export default function MyPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const token = useAppSelector((state: RootState) => state.session.token);
+  const userInfo = useApiData(useApiGetMyInfo(token));
+  const userProfileImg = useApiGetImg(userInfo?.profilePreSignedUrl || null) || profileImg;
 
   const handleLogout = async () => {
     try {
@@ -33,12 +36,13 @@ export default function MyPage() {
             </button>
           </div>
           <div className={styles['profile']}>
-            <img src={profileImg} alt='프로필 이미지' />
+            <img src={userProfileImg} alt='프로필 이미지' />
             {/* TODO: 세션 정보로 업데이트 */}
             <div>
-              <p>아이디</p>
-              <p>이름 / 닉네임</p>
-              <p>서울대 OO학번</p>
+              <p>{userInfo?.loginId || '(아이디)'}</p>
+              {/* TODO: 이름 정보 백엔드와 협의 */}
+              <p>{`(이름) / ${userInfo?.nickname || '(닉네임)'}`}</p>
+              <p>서울대 OO학번</p> {/* TODO: 학번 정보 백엔드와 협의 */}
             </div>
           </div>
         </section>

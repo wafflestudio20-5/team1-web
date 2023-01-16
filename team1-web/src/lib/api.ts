@@ -39,3 +39,16 @@ export const useApiGetBoardLists = (token: string | null) =>
 
 export const useApiGetMyInfo = (token: string | null) =>
   useCallback(() => axios.get<UserInfo>(url('/api/user/me'), { headers: auth(token) }), [token]);
+
+export function useApiGetImg(imgUrl: string | null) {
+  const [img, setImg] = useState(null);
+  useLayoutEffect(() => {
+    axios
+      .get(imgUrl || 'garbageUrl')
+      .then((res) => {
+        setImg(res.data);
+      })
+      .catch(() => {});
+  }, [imgUrl]);
+  return img;
+}
