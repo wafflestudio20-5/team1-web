@@ -1,15 +1,12 @@
 import axios from 'axios';
 import { AxiosResponse } from 'axios';
 import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
-import { BoardList } from './types';
+import { BoardList, UserInfo } from './types';
 
 const url = (path: string, param?: Record<string, string>): string =>
-  'http://api.wafflytime.com' +
-  path +
-  (param ? '?' + new URLSearchParams(param).toString() : '');
+  'http://api.wafflytime.com' + path + (param ? '?' + new URLSearchParams(param).toString() : '');
 
-const auth = (token: string | null) =>
-  token ? { Authorization: `Bearer ${token}` } : {};
+const auth = (token: string | null) => (token ? { Authorization: `Bearer ${token}` } : {});
 
 export const apiLogin = (loginData: { id: string; password: string }) =>
   axios.post(url('/api/auth/local/login'), loginData, {});
@@ -37,8 +34,8 @@ export function useApiData<T>(fetch: () => Promise<AxiosResponse<T>>) {
   return data;
 }
 
-export const useApiBoardLists = (token: string | null) =>
-  useCallback(
-    () => axios.get<BoardList[]>(url('/api/boards'), { headers: auth(token) }),
-    [token]
-  );
+export const useApiGetBoardLists = (token: string | null) =>
+  useCallback(() => axios.get<BoardList[]>(url('/api/boards'), { headers: auth(token) }), [token]);
+
+export const useApiGetMyInfo = (token: string | null) =>
+  useCallback(() => axios.get<UserInfo>(url('/api/user/me'), { headers: auth(token) }), [token]);

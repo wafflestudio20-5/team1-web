@@ -3,11 +3,13 @@ import profileImg from '../../resources/profile-image.png';
 import { useNavigate, Link } from 'react-router-dom';
 import { RootState, useAppDispatch, useAppSelector } from '../../store';
 import { logout } from '../../store/sessionSlice';
+import { useApiData, useApiGetMyInfo } from '../../lib/api';
 
 export default function Account() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const token = useAppSelector((state: RootState) => state.session.token);
+  const userInfo = useApiData(useApiGetMyInfo(token));
 
   const handleLogout = async () => {
     try {
@@ -23,9 +25,9 @@ export default function Account() {
       <article className={styles['my-info']}>
         <img src={profileImg} alt='프로필 이미지' />
         {/* TODO: 세션 정보로 고치기 */}
-        <p>닉네임</p>
-        <p>이름</p>
-        <p>아이디</p>
+        <p>{userInfo?.nickname || '닉네임'}</p>
+        <p>이름</p> {/* TODO: 이름 정보 백엔드와 협의 */}
+        <p>{userInfo?.loginId || '아이디'}</p>
         <ul>
           <li>
             <Link to='my' className={styles['button']}>

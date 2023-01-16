@@ -13,6 +13,15 @@ export type User = {
   myScrappedArticles: Article[];
 };
 
+// TODO: 백엔드와 협의 후 타입 확정
+export type UserInfo = {
+  loginId: string;
+  socialEmail: string | null;
+  univEmail: string | null;
+  nickname: string;
+  profilePreSignedUrl: string | null;
+};
+
 export type AdditionalComment = {
   id: number;
   motherComment: Comment[];
