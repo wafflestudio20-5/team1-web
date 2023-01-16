@@ -1,83 +1,51 @@
 import styles from './Account.module.scss';
 import profileImg from '../../resources/profile-image.png';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { useLoginProvider } from '../../LoginContext';
-import { useLayoutEffect } from 'react';
+import { RootState, useAppDispatch, useAppSelector } from '../../store';
+import { logout } from '../../store/sessionSlice';
 
 export default function Account() {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { token, setToken } = useLoginProvider();
-  const logout = () => {
-    // TODO: 로그인 유지 추가
+  const token = useAppSelector((state: RootState) => state.session.token);
 
-    const header = {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    };
-    axios
-      .delete('http://api.wafflytime.com/api/auth/logout', header)
-      .then((response) => {
-        // TODO: Set user data
-        // setUser(response["data"].owner);
-        navigate('/');
-        setToken(null);
-        toast.success('로그아웃되었습니다.');
-      })
-      .catch((error) => {
-        console.log(token);
-        if (error.response.data.status === 401) {
-          toast.error('로그인되어있지 않습니다.');
-        } else {
-          toast.error(error.response.data.error);
-        }
-      });
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout(token));
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  useLayoutEffect(() => {
-    axios.defaults.headers['Content-Type'] = 'application/json';
-  }, []);
-
   return (
-    <div className={styles['account']}>
-      <div className={styles['my-info']}>
+    <article className={styles['account']}>
+      <article className={styles['my-info']}>
         <img src={profileImg} alt='프로필 이미지' />
         {/* TODO: 세션 정보로 고치기 */}
-        <div>닉네임</div>
-        <div>이름</div>
-        <div>아이디</div>
+        <p>닉네임</p>
+        <p>이름</p>
+        <p>아이디</p>
         <ul>
           <li>
-            {/* TODO: 링크 변경 */}
-            <button
-              onClick={() => {
-                navigate('my');
-              }}
-            >
+            <Link to='my' className={styles['button']}>
               내 정보
-            </button>
+            </Link>
           </li>
           <li>
-            {/* TODO: navigate 말고 로그아웃 작업으로 */}
-            <button
-              onClick={() => {
-                logout();
-              }}
-            >
+            <button className={styles['button']} onClick={handleLogout}>
               로그아웃
             </button>
           </li>
         </ul>
-      </div>
-      <div className={styles['my-articles']}>
+      </article>
+      <article className={styles['my-articles']}>
         {/* TODO: 링크 변경 */}
         <Link to=''>내가 쓴 글</Link>
         <Link to=''>댓글 단 글</Link>
         <Link to=''>내 스크랩</Link>
-      </div>
-      <div className={styles['banners']}>배너</div>
-    </div>
+      </article>
+      <article className={styles['banners']}>배너</article>
+    </article>
   );
 }

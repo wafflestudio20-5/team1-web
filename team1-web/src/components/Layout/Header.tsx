@@ -43,14 +43,14 @@ export default function Header() {
     <header className={styles.header}>
       <nav>
         {/* 기존 ui와 다르게 구현; 로고 전체를 링크로 감쌈 */}
-        <div className={styles.logo}>
+        <div className={styles.title}>
           <Link to=''>
-            <div className={styles['logo-wrapper']}>
-              <div>
+            <div className={styles['title-wrapper']}>
+              <div className={styles['logo-container']}>
                 <img src={everytimeLogo} alt='logo.png' />
               </div>
-              <div>와플리타임</div>
-              <div>서울대</div>
+              <p>와플리타임</p>
+              <p>서울대</p>
             </div>
           </Link>
         </div>

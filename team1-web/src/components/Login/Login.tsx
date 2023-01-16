@@ -1,95 +1,76 @@
-import styles from "./Login.module.scss";
-import { Link, useNavigate } from "react-router-dom";
-import { useLayoutEffect, useState } from "react";
-import axios from "axios";
-import { useLoginProvider } from "../../LoginContext";
-import { toast } from "react-toastify";
+import styles from './Login.module.scss';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useAppDispatch } from '../../store';
+import { login } from '../../store/sessionSlice';
 
 export default function Login() {
-  const [ID, setID] = useState("");
-  const [PW, setPW] = useState("");
-
-  const { setToken, setRefreshToken, setUser } = useLoginProvider();
-
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const login = () => {
-    // TODO: 로그인 유지 추가
+  const [ID, setID] = useState('');
+  const [PW, setPW] = useState('');
+
+  // TODO: 로그인 유지 추가
+  const handleLogin = async () => {
     const data = {
       id: ID,
       password: PW,
     };
-    const header = {
-      // TODO: 추후 아래 내용 삭제
-      // withCredentials: true,
-      // credentials: "include",
-    };
-    axios
-      .post("http://api.wafflytime.com/api/auth/local/login", data, header)
-      .then((response) => {
-        // TODO: Set user data
-        // setUser(response["data"].owner);
-        setToken(response.data.accessToken);
-        navigate("/home");
-        toast.success("로그인되었습니다.");
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          toast.error("잘못된 로그인 정보입니다!");
-        } else {
-          toast.error("ID와 비밀번호를 입력해주세요.");
-        }
-      });
+    try {
+      await dispatch(login(data));
+      navigate('/home');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  useLayoutEffect(() => {
-    axios.defaults.headers["Content-Type"] = "application/json";
-  }, []);
-
   return (
-    <div id="container" className={styles["login"]}>
-      <h1 className={styles["logo"]}>
-        <Link to="/">와플리타임</Link>
+    <div id='container' className={styles['login']}>
+      <h1 className={styles['logo']}>
+        <Link to='/'>와플리타임</Link>
       </h1>
-      <p className={styles["input"]}>
+      <p className={styles['input']}>
         <input
-          type="text"
-          name="userid"
-          className={styles["text"]}
-          placeholder="아이디"
+          type='text'
+          name='userid'
+          className={styles['text']}
+          placeholder='아이디'
           value={ID}
           onChange={(e) => setID(e.target.value)}
         />
       </p>
-      <p className={styles["input"]}>
+      <p className={styles['input']}>
         <input
-          type="password"
-          name="password"
-          className={styles["text"]}
-          placeholder="비밀번호"
+          type='password'
+          name='password'
+          className={styles['text']}
+          placeholder='비밀번호'
           value={PW}
           onChange={(e) => setPW(e.target.value)}
         />
       </p>
-      <input type="hidden" name="redirect" value="/" />
-      <p className={styles["submit"]}>
+      <input type='hidden' name='redirect' value='/' />
+      <p className={styles['submit']}>
         <input
-          type="submit"
-          value="로그인"
-          className={styles["text"]}
-          onClick={login}
+          type='submit'
+          value='로그인'
+          className={styles['text']}
+          onClick={handleLogin}
         />
       </p>
-      <label className={styles["autologin"]}>
-        <input type="checkbox" name="autologin" value="1" />
+      <label className={styles['autologin']}>
+        <input type='checkbox' name='autologin' value='1' />
         로그인 유지
       </label>
-      <p className={styles["find"]}>
-        <Link to="/forgot">아이디/비밀번호 찾기</Link>
+      {/* TODO: 구현 여부 결정 후 구현 */}
+      <p className={styles['find']}>
+        <Link to=''>아이디/비밀번호 찾기</Link>
       </p>
-      <p className={styles["register"]}>
+      {/* TODO: 회원가입 구현 */}
+      <p className={styles['register']}>
         <span>와플리타임에 처음이신가요?</span>
-        <Link to="/register">회원가입</Link>
+        <Link to='/register'>회원가입</Link>
       </p>
     </div>
   );

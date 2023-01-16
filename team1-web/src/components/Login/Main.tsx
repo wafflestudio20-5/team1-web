@@ -17,15 +17,15 @@ export default function Main() {
   const navigate = useNavigate();
 
   return (
-    <div className={styles["login"]}>
-      <Link to="/" className={styles["logo"]}>
+    <div className={styles['login']}>
+      <Link to='/' className={styles['logo']}>
         <img
-          className={styles["img-logo"]}
+          className={styles['img-logo']}
           src={everytimeIcon}
-          alt="와플리타임 로고"
+          alt='와플리타임 로고'
         />
       </Link>
-      <Link to="/login" className={styles["button-login"]}>
+      <Link to='/login' className={styles['button-login']}>
         로그인
       </Link>
       <a href={GOOGLE_AUTH_URL} className={styles["button-login-google"]}>
@@ -34,11 +34,12 @@ export default function Main() {
       <a href={KAKAO_AUTH_URL} className={styles["button-login-kakao"]}>
         카카오톡으로 로그인
       </a>
-      <Link to="/register" className={styles["button-register"]}>
+      <Link to='/register' className={styles['button-register']}>
         와플리타임 회원가입
       </Link>
-      <p className={styles["find"]}>
-        <Link to="/forgot" className={styles["link-find"]}>
+      {/* TODO: 구현 여부 논의 후  구현*/}
+      <p className={styles['find']}>
+        <Link to='/forgot' className={styles['link-find']}>
           아이디/비밀번호 찾기
         </Link>
       </p>
