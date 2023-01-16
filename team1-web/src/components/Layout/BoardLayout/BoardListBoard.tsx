@@ -41,8 +41,7 @@ function BoardListItem({
   setSelectedBoardId(boardId: number): void;
 }) {
   const [isMoreClicked, setIsMoreClicked] = useState<boolean>(false);
-  const isOverflowed: boolean =
-    boardList.size > 8 * boardList.defaultDisplayColumnSize;
+  const isOverflowed: boolean = boardList.size > 8 * boardList.defaultDisplayColumnSize;
   const lastDefaultDisplayIndex: number = isOverflowed
     ? boardList.defaultDisplayColumnSize * 8 - 2
     : boardList.size - 1;
@@ -50,7 +49,8 @@ function BoardListItem({
     <>
       <section className={styles.group}>
         <ul>
-          {boardList.boards.map(
+          {/* TODO: 추후 optional chaining 변경. 일반 chaining으로 */}
+          {boardList.boards?.map(
             (board: Board, index: number) =>
               (isMoreClicked || index <= lastDefaultDisplayIndex) && (
                 <BoardItem
