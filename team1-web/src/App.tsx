@@ -15,6 +15,7 @@ import Main from './components/Login/Main';
 import Login from './components/Login/Login';
 import Register from './components/Login/Register';
 import Kakao from './components/Login/Oauth/Kakao';
+import Google from './components/Login/Oauth/Google';
 import NewKakao from './components/Login/Oauth/NewKakao';
 import { useAppSelector, RootState } from './store';
 import { LoginProvider } from './LoginContext';
