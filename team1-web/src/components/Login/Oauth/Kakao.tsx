@@ -7,7 +7,7 @@ import { useLoginProvider } from '../../../LoginContext';
 import kakaoImg from '../../../resources/kakaotalk-seeklogo.com.svg';
 
 export default function Kakao() {
-  const [code, setCode] = useSearchParams();
+  const [params, setParams] = useSearchParams();
 
   const { setToken, setRefreshToken, setUser } = useLoginProvider();
 
@@ -21,7 +21,11 @@ export default function Kakao() {
       // credentials: "include",
     };
     axios
-      .post(`http://api.wafflytime.com/api/auth/social/signup/kakao?${code}`)
+      .post(
+        `http://api.staging.wafflytime.com/api/auth/social/signup/kakao?code=${params.get(
+          "code"
+        )}`
+      )
       .then((response) => {
         // TODO: Set user data
         // setUser(response["data"].owner);
@@ -48,7 +52,11 @@ export default function Kakao() {
       // credentials: "include",
     };
     axios
-      .post(`http://api.wafflytime.com/api/auth/social/login/kakao?${code}`)
+      .post(
+        `http://api.staging.wafflytime.com/api/auth/social/login/kakao?code=${params.get(
+          "code"
+        )}`
+      )
       .then((response) => {
         // TODO: Set user data
         // setUser(response["data"].owner);
