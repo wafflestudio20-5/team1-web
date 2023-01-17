@@ -71,6 +71,7 @@ function AppRoutes() {
 
       <Route path='/login' element={checkIfLoginned(<Login />)} />
       <Route path='/oauth/kakao/callback' element={checkIfLoginned(<Kakao />)} />
+      <Route path='/oauth/google/callback' element={checkIfLoginned(<Google />)} />
       <Route path='/register' element={checkIfLoginned(<Register />)} />
       <Route path='*' element={<InValidateURL />} />
     </Routes>
