@@ -1,5 +1,6 @@
 import styles from './Login.module.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+
 import { useState } from 'react';
 import { useAppDispatch } from '../../store';
 import { login } from '../../store/sessionSlice';
@@ -7,6 +8,8 @@ import { login } from '../../store/sessionSlice';
 export default function Login() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get('redirect');
 
   const [ID, setID] = useState('');
   const [PW, setPW] = useState('');
@@ -19,7 +22,8 @@ export default function Login() {
     };
     try {
       await dispatch(login(data));
-      navigate('/home');
+      if (redirect) navigate(redirect);
+      else navigate('/');
     } catch (err) {
       console.log(err);
     }
@@ -52,12 +56,7 @@ export default function Login() {
       </p>
       <input type='hidden' name='redirect' value='/' />
       <p className={styles['submit']}>
-        <input
-          type='submit'
-          value='로그인'
-          className={styles['text']}
-          onClick={handleLogin}
-        />
+        <input type='submit' value='로그인' className={styles['text']} onClick={handleLogin} />
       </p>
       <label className={styles['autologin']}>
         <input type='checkbox' name='autologin' value='1' />
