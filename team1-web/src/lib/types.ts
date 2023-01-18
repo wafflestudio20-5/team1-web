@@ -41,7 +41,7 @@ export type Article = {
 };
 
 export type Board = {
-  id: number;
+  boardId: number;
   name: string;
   // TODO: 데이터 수정 후 물음표 떼기
   articles?: Article[];
