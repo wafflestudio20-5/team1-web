@@ -1,17 +1,14 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./components/Home";
-import Layout from "./components/Layout";
-import BoardLayout from "./components/Layout/BoardLayout";
-import BoardPage from "./components/BoardPage";
-import MyPage from "./components/MyPage";
-import Main from "./components/Login/Main";
-import Login from "./components/Login/Login";
-import Register from "./components/Login/Register";
-import { LoginProvider } from "./LoginContext";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Kakao from "./components/Login/Oauth/Kakao";
-import Google from "./components/Login/Oauth/Google";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import Layout from './components/Layout';
+import BoardLayout from './components/Layout/BoardLayout';
+import BoardPage from './components/BoardPage';
+import MyPage from './components/MyPage';
+import Main from './components/Login/Main';
+import Login from './components/Login/Login';
+import Register from './components/Login/Register';
+import Kakao from './components/Login/Oauth/Kakao';
+import Google from './components/Login/Oauth/Google';
 import NewKakao from './components/Login/Oauth/NewKakao';
 import { LoginProvider } from './LoginContext';
 

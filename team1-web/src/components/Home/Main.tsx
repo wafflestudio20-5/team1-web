@@ -22,15 +22,15 @@ export default function Main() {
       size: 9,
       defaultDisplayColumnSize: 2,
       boards: [
-        { id: 0, name: '자유게시판' },
-        { id: 1, name: '비밀게시판' },
-        { id: 2, name: '졸업생게시판' },
-        { id: 3, name: '새내기게시판' },
-        { id: 4, name: '시사·이슈' },
-        { id: 5, name: '장터게시판' },
-        { id: 6, name: '정보게시판' },
-        { id: 7, name: '홍보게시판' },
-        { id: 8, name: '동아리·학회' },
+        { boardId: 0, name: '자유게시판' },
+        { boardId: 1, name: '비밀게시판' },
+        { boardId: 2, name: '졸업생게시판' },
+        { boardId: 3, name: '새내기게시판' },
+        { boardId: 4, name: '시사·이슈' },
+        { boardId: 5, name: '장터게시판' },
+        { boardId: 6, name: '정보게시판' },
+        { boardId: 7, name: '홍보게시판' },
+        { boardId: 8, name: '동아리·학회' },
       ],
     },
   ];
@@ -40,7 +40,7 @@ export default function Main() {
       <article className={styles['boards']}>
         {/* TODO: 추후 업데이트 */}
         {boardLists[0].boards.map((board) => (
-          <BoardItem key={board.id} board={board} />
+          <BoardItem key={board.boardId} board={board} />
         ))}
       </article>
       <article className={styles['bookstore']}></article>
