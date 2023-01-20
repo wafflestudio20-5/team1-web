@@ -51,7 +51,7 @@ export default function MyPage() {
           <div className={styles['content']}>
             {/* TODO: 링크 업데이트 */}
             <Link to=''>학교 인증</Link>
-            <Link to=''>비밀번호 변경</Link>
+            <Link to='password'>비밀번호 변경</Link>
             <Link to=''>이메일 변경</Link>
           </div>
         </section>

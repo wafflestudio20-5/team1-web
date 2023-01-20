@@ -24,6 +24,11 @@ export const apiKakaoLogin = (code: any) =>
   // TODO: url 수정
   axios.post(`http://api.wafflytime.com/api/auth/social/login/kakao?${code}`);
 
+export const apiChangeUserInfo = (
+  token: string | null,
+  newUserInfo: { password: string; nickname: string }
+) => axios.put(url('/api/user/me'), newUserInfo, { headers: auth(token) });
+
 export function useApiData<T>(fetch: () => Promise<AxiosResponse<T>>) {
   const [data, setData] = useState<T>();
   useLayoutEffect(() => {

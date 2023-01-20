@@ -17,6 +17,7 @@ import Register from './components/Login/Register';
 import Kakao from './components/Login/Oauth/Kakao';
 import Google from './components/Login/Oauth/Google';
 import NewKakao from './components/Login/Oauth/NewKakao';
+import ChangePasswordPage from './components/MyPage/ChangePasswordPage';
 import { useAppSelector, RootState } from './store';
 import { LoginProvider } from './LoginContext';
 import { toast } from 'react-toastify';
@@ -38,7 +39,7 @@ function LoginForRedirectPage({ redirectPath }: { redirectPath: string }) {
   const searchParamsPath = searchParams.toString();
   return (
     <Navigate
-      to={`/login?redirect=${redirectPath}${params ? '/' + paramPath : ''}${
+      to={`/login?redirect=${redirectPath}${!params ? '' + paramPath : ''}${
         searchParamsPath ? '?' + searchParamsPath : ''
       }`}
     />
@@ -48,7 +49,7 @@ function LoginForRedirectPage({ redirectPath }: { redirectPath: string }) {
 function AppRoutes() {
   // TODO: 로그인 여부 확인 후 redirect 작업
   const token = useAppSelector((state: RootState) => state.session.token);
-  const redirectIfNotAuthed = (page: JSX.Element, redirectPath: string) =>
+  const redirectLoginPageIfNotLoginned = (page: JSX.Element, redirectPath: string) =>
     token ? page : <LoginForRedirectPage redirectPath={redirectPath} />;
 
   const checkIfLoginned = (page: JSX.Element) => {
@@ -65,9 +66,15 @@ function AppRoutes() {
       <Route element={<Layout />}>
         <Route element={<BoardLayout />}>
           <Route path='' element={<Home />} />
-          <Route path=':storeId' element={redirectIfNotAuthed(<BoardPage />, '')} />
+          <Route path=':storeId' element={redirectLoginPageIfNotLoginned(<BoardPage />, '')} />
         </Route>
-        <Route path='my' element={redirectIfNotAuthed(<MyPage />, 'my')} />
+        <Route path='my'>
+          <Route index element={redirectLoginPageIfNotLoginned(<MyPage />, '/my')} />
+          <Route
+            path='password'
+            element={redirectLoginPageIfNotLoginned(<ChangePasswordPage />, '/my/password')}
+          ></Route>
+        </Route>
       </Route>
 
       <Route path='/login' element={checkIfLoginned(<Login />)} />
