@@ -34,6 +34,7 @@ export type Article = {
   id: number;
   title: string;
   author: User;
+  content: string;
   time: string;
   like: number;
   comments: Comment[];
