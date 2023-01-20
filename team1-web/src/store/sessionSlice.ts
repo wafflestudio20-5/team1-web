@@ -54,7 +54,7 @@ export const logout = createAsyncThunk(
 export const changeUserInfo = createAsyncThunk(
   'sessionSlice/changeUserInfo',
   async (
-    params: { token: string | null; newUserInfo: { password: string; nickname: string } },
+    params: { token: string | null; newUserInfo: { password?: string; nickname?: string } },
     { rejectWithValue }
   ) => {
     try {

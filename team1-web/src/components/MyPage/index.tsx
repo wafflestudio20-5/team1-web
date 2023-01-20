@@ -59,7 +59,7 @@ export default function MyPage() {
           <p className={styles['title']}>커뮤니티</p>
           <div className={styles['content']}>
             {/* TODO: 링크 업데이트 */}
-            <Link to=''>닉네임 설정</Link>
+            <Link to='nickname'>닉네임 설정</Link>
             <Link to=''>이용 제한 내역</Link>
             <Link to=''>게시판 관리</Link>
             <Link to=''>커뮤니티 이용규칙</Link>

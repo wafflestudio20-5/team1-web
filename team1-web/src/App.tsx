@@ -18,6 +18,7 @@ import Kakao from './components/Login/Oauth/Kakao';
 import Google from './components/Login/Oauth/Google';
 import NewKakao from './components/Login/Oauth/NewKakao';
 import ChangePasswordPage from './components/MyPage/ChangePasswordPage';
+import ChangeNicknamePage from './components/MyPage/ChangeNicknamePage';
 import { useAppSelector, RootState } from './store';
 import { LoginProvider } from './LoginContext';
 import { toast } from 'react-toastify';
@@ -73,7 +74,11 @@ function AppRoutes() {
           <Route
             path='password'
             element={redirectLoginPageIfNotLoginned(<ChangePasswordPage />, '/my/password')}
-          ></Route>
+          />
+          <Route
+            path='nickname'
+            element={redirectLoginPageIfNotLoginned(<ChangeNicknamePage />, '/my/nickname')}
+          />
         </Route>
       </Route>
 

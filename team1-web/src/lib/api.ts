@@ -26,7 +26,7 @@ export const apiKakaoLogin = (code: any) =>
 
 export const apiChangeUserInfo = (
   token: string | null,
-  newUserInfo: { password: string; nickname: string }
+  newUserInfo: { password?: string; nickname?: string }
 ) => axios.put(url('/api/user/me'), newUserInfo, { headers: auth(token) });
 
 export function useApiData<T>(fetch: () => Promise<AxiosResponse<T>>) {

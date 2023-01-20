@@ -2,13 +2,10 @@ import styles from './ChangePasswordPage.module.scss';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { RootState, useAppDispatch, useAppSelector } from '../../store';
-import { useApiData, useApiGetMyInfo } from '../../lib/api';
 import { changeUserInfo } from '../../store/sessionSlice';
 
 export default function ChangePassword() {
   const token = useAppSelector((state: RootState) => state.session.token);
-  const userInfo = useApiData(useApiGetMyInfo(token));
-
   const dispatch = useAppDispatch();
 
   const [newPW, setNewPW] = useState<string>('');
@@ -16,25 +13,24 @@ export default function ChangePassword() {
   const [currentPW, setCurrentPW] = useState<string>('');
 
   async function handleChangePassword() {
-    const isValidnewPW = newPW && newPW?.length >= 8; // TODO: 유효PW 조건 추가
+    const isValidNewPW = newPW && newPW?.length >= 8; // TODO: 유효PW 조건 추가
     const isNewPWEqualNewPWCheck = newPW && newPW === newPWCheck;
     const isCurrectCurrentPW = true; // TODO: api 추가 요청
 
-    if (!isValidnewPW) {
+    if (!isValidNewPW) {
       toast.error('새 비밀번호가 조건에 부합하지 않습니다');
     } else if (!isNewPWEqualNewPWCheck) {
       toast.error('새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다');
     } else if (!isCurrectCurrentPW) {
       toast.error('기존 비밀번호를 확인해주세요');
     } else {
-      const newUserInfo = { password: newPW, nickname: userInfo!.nickname };
+      const newUserInfo = { password: newPW };
       const data = { token, newUserInfo };
       const response = window.confirm(
         '비밀번호를 변경하면 모든 디바이스에서 즉시 로그아웃 처리됩니다. 변경하시겠습니까?'
       );
       if (response) {
         try {
-          // TODO: 로그인시 모든 브라우저에서 로그아웃 처리되는 듯?
           await dispatch(changeUserInfo(data));
         } catch (err) {
           console.log(err);
