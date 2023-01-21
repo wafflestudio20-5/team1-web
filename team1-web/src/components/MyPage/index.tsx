@@ -50,9 +50,9 @@ export default function MyPage() {
           <p className={styles['title']}>계정</p>
           <div className={styles['content']}>
             {/* TODO: 링크 업데이트 */}
-            <Link to=''>학교 인증</Link>
+            <Link to='/auth'>학교 인증</Link>
             <Link to='password'>비밀번호 변경</Link>
-            <Link to=''>이메일 변경</Link>
+            <Link to='email'>이메일 변경</Link>
           </div>
         </section>
         <section className={styles['card']}>
@@ -60,28 +60,28 @@ export default function MyPage() {
           <div className={styles['content']}>
             {/* TODO: 링크 업데이트 */}
             <Link to='nickname'>닉네임 설정</Link>
-            <Link to=''>이용 제한 내역</Link>
-            <Link to=''>게시판 관리</Link>
-            <Link to=''>커뮤니티 이용규칙</Link>
+            <Link to='banlist'>이용 제한 내역</Link>
+            <Link to='boardlist'>게시판 관리</Link>
+            <Link to='/page/rules'>커뮤니티 이용규칙</Link>
           </div>
         </section>
         <section className={styles['card']}>
           <p className={styles['title']}>이용 안내</p>
           <div className={styles['content']}>
             {/* TODO: 링크 업데이트 */}
-            <Link to=''>문의하기</Link>
-            <Link to=''>공지사항</Link>
-            <Link to=''>서비스 이용약관</Link>
-            <Link to=''>개인정보 처리방침</Link>
-            <Link to=''>청소년 보호 정책</Link>
+            <Link to='/page/faq'>문의하기</Link>
+            <Link to='/notice'>공지사항</Link>
+            <Link to='/page/serviceagreement'>서비스 이용약관</Link>
+            <Link to='/page/privacy'>개인정보 처리방침</Link>
+            <Link to='/page/youthpolicy'>청소년 보호 정책</Link>
           </div>
         </section>
         <section className={styles['card']}>
           <p className={styles['title']}>기타</p>
           <div className={styles['content']}>
             {/* TODO: 링크 업데이트 */}
-            <Link to=''>정보 동의 설정</Link>
-            <Link to=''>회원 탈퇴</Link>
+            <Link to='adagreement'>정보 동의 설정</Link>
+            <Link to='withdrawal'>회원 탈퇴</Link>
           </div>
         </section>
       </div>
