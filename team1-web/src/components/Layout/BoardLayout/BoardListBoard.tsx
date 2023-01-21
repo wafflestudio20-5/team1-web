@@ -22,11 +22,11 @@ function BoardItem({
       className={styles[`${isSelected ? 'selected' : ''}`]}
       onClick={() => {
         setSelectedBoardId(board.boardId);
-        navigate('/home/1');
+        navigate(`${board.boardId}`);
       }}
     >
       {/* TODO: 링크 주소 board.id로 변경 */}
-      <Link to=''>{board.name}</Link>
+      <Link to={`${board.boardId}`}>{board.name}</Link>
     </li>
   );
 }
