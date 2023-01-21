@@ -13,6 +13,14 @@ export type User = {
   myScrappedArticles: Article[];
 };
 
+export type UserInfo = {
+  loginId: string | null;
+  socialEmail: string | null;
+  univEmail: string | null;
+  nickname: string;
+  profilePreSignedUrl: string | null;
+};
+
 export type AdditionalComment = {
   id: number;
   motherComment: Comment[];

@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { apiKakaoSignup, apiKakaoLogin, apiLogin, apiLogout } from '../lib/api';
+import { apiKakaoSignup, apiKakaoLogin, apiLogin, apiLogout, apiChangeUserInfo } from '../lib/api';
 import { axiosErrorHandler, axiosErrorStatus } from '../lib/error';
 import { toast } from 'react-toastify';
-import { User } from '../lib/types';
 
 export const kakaoLogin = createAsyncThunk(
   'sessionSlice/kakaoLogin',
@@ -33,10 +32,7 @@ export const login = createAsyncThunk(
       const { data } = await apiLogin(loginData);
       return data;
     } catch (e) {
-      const error: string = axiosErrorHandler(
-        e,
-        '아이디 또는 비밀번호를 확인해주세요'
-      );
+      const error: string = axiosErrorHandler(e, '아이디 또는 비밀번호를 확인해주세요');
       return rejectWithValue(error);
     }
   }
@@ -55,10 +51,25 @@ export const logout = createAsyncThunk(
   }
 );
 
+export const changeUserInfo = createAsyncThunk(
+  'sessionSlice/changeUserInfo',
+  async (
+    params: { token: string | null; newUserInfo: { password?: string; nickname?: string } },
+    { rejectWithValue }
+  ) => {
+    try {
+      const { data } = await apiChangeUserInfo(params.token, params.newUserInfo);
+      return data;
+    } catch (e) {
+      const error: string = axiosErrorHandler(e, '변경에 실패했습니다.');
+      return rejectWithValue(error);
+    }
+  }
+);
+
 type TSessionSlice = {
   authed: boolean;
   token: string | null;
-  // user: User;
 };
 
 const initialState: TSessionSlice = {
@@ -105,6 +116,17 @@ const sessionSlice = createSlice({
         toast.success('로그인되었습니다.');
       })
       .addCase(kakaoLogin.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
+      // .addCase(changeUserInfo.pending, (state) => {
+      //   state.status = 'loading';
+      // });
+      .addCase(changeUserInfo.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        toast.success('변경하였습니다.');
+      })
+      .addCase(changeUserInfo.rejected, (state, { payload }) => {
         // state.status = 'failed';
         throw payload;
       });

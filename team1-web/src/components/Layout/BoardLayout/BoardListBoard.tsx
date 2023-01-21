@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './BoardListBoard.module.scss';
 import { Board, BoardList } from '../../../lib/types';
-import { useApiBoardLists, useApiData } from '../../../lib/api';
+import { useApiGetBoardLists, useApiData } from '../../../lib/api';
 import { RootState, useAppSelector } from '../../../store';
 
 // TODO: selectedBoardId redux로 빼고 useParams로 처리. (게시판 벗어나도 selectedBoardId가 해제되지 않는 상태)
@@ -85,7 +85,7 @@ export default function BoardListBoard() {
   const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
   // TODO: boardLists.boards.articles 속성 추가
   const token = useAppSelector((state: RootState) => state.session.token);
-  const boardLists = useApiData(useApiBoardLists(token));
+  const boardLists = useApiData(useApiGetBoardLists(token));
   return (
     <>
       <article className={styles['board-list-layout']}>
