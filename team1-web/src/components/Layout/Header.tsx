@@ -14,14 +14,16 @@ function MenuItem({
   isSelected: boolean;
 }) {
   return (
-    <li
-      className={styles[`${isSelected ? 'selected' : ''}`]}
-      onClick={() => {
-        handleSelect(menu.id);
-      }}
-    >
+    <li className={styles[`${isSelected ? 'selected' : ''}`]}>
       {/* TODO: Link 주소 변경 */}
-      <Link to=''>{menu.name}</Link>
+      <Link
+        to={menu.urlpath}
+        onClick={() => {
+          handleSelect(menu.id);
+        }}
+      >
+        {menu.name}
+      </Link>
     </li>
   );
 }
@@ -32,12 +34,11 @@ export default function Header() {
   const [selectedMenuId, setSelectedMenuId] = useState<number>(0);
   // TODO: 이것도 백엔드에서 데이터 받을지 논의
   const menus: Menu[] = [
-    { id: 0, name: '게시판' },
-    { id: 1, name: '시간표' },
-    { id: 2, name: '강의실' },
-    { id: 3, name: '학점계산기' },
-    { id: 4, name: '친구' },
-    { id: 5, name: '책방' },
+    { id: 0, name: '게시판', urlpath: '' },
+    { id: 1, name: '시간표', urlpath: 'timetable' },
+    { id: 2, name: '강의실', urlpath: 'lecture' },
+    { id: 3, name: '학점계산기', urlpath: 'calculator' },
+    { id: 4, name: '친구', urlpath: 'friend' },
   ];
 
   return (
@@ -67,12 +68,15 @@ export default function Header() {
             />
           ))}
           <li>
+            <a href='https://bookstore.everytime.kr/'>책방</a>
+          </li>
+          <li>
             <a href='https://www.campuspick.com/'>캠퍼스픽</a>
           </li>
         </ul>
         <div className={styles['account-menu']}>
           {/* TODO: Link 주소 변경 */}
-          <Link to='' title='쪽지함'></Link>
+          <Link to='message' title='쪽지함'></Link>
           <Link to='my' title='내 정보'></Link>
         </div>
       </nav>

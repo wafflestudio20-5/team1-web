@@ -1,6 +1,7 @@
 export type Menu = {
   id: number;
   name: string;
+  urlpath: string;
 };
 
 export type User = {
