@@ -6,7 +6,7 @@ function BoardItem({ board }: { board: Board }) {
   return (
     <section className={styles['board']}>
       <div className={styles['board-title']}>
-        <Link to='1'>{board.name}</Link>
+        <Link to={`${board.boardId}`}>{board.name}</Link>
       </div>
       {/* TODO: 업데이트 */}
       <div></div>
@@ -19,7 +19,7 @@ export default function Main() {
     {
       id: 0,
       category: 'basic',
-      size: 9,
+      size: 16,
       defaultDisplayColumnSize: 2,
       boards: [
         { boardId: 0, name: '자유게시판' },
@@ -29,8 +29,15 @@ export default function Main() {
         { boardId: 4, name: '시사·이슈' },
         { boardId: 5, name: '장터게시판' },
         { boardId: 6, name: '정보게시판' },
-        { boardId: 7, name: '홍보게시판' },
-        { boardId: 8, name: '동아리·학회' },
+        { boardId: 7, name: '취업·진로' },
+        { boardId: 8, name: '로스쿨게시판' },
+        { boardId: 9, name: 'cpa 게시판👨‍💼👩‍💼' },
+        { boardId: 10, name: '행시/외교원 게시판' },
+        { boardId: 11, name: '🎓대학원 게시판😨' },
+        { boardId: 12, name: '피트 게시판' },
+        { boardId: 13, name: '변리사 게시판' },
+        { boardId: 14, name: '홍보게시판' },
+        { boardId: 15, name: '동아리·학회' },
       ],
     },
   ];
