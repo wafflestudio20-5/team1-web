@@ -44,9 +44,9 @@ export default function Account() {
       </article>
       <article className={styles['my-articles']}>
         {/* TODO: 링크 변경 */}
-        <Link to=''>내가 쓴 글</Link>
-        <Link to=''>댓글 단 글</Link>
-        <Link to=''>내 스크랩</Link>
+        <Link to='myarticle'>내가 쓴 글</Link>
+        <Link to='mycommentarticle'>댓글 단 글</Link>
+        <Link to='myscrap'>내 스크랩</Link>
       </article>
       <article className={styles['banners']}>배너</article>
     </article>
