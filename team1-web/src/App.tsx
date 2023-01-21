@@ -40,7 +40,7 @@ function LoginForRedirectPage({ redirectPath }: { redirectPath: string }) {
   const searchParamsPath = searchParams.toString();
   return (
     <Navigate
-      to={`/login?redirect=${redirectPath}${!params ? '' + paramPath : ''}${
+      to={`/login?redirect=${redirectPath}${params ? '/' + paramPath : ''}${
         searchParamsPath ? '?' + searchParamsPath : ''
       }`}
     />
