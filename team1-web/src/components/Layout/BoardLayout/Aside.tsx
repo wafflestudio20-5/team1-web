@@ -1,7 +1,7 @@
-import styles from './Topic.module.scss';
+import styles from './Aside.module.scss';
 import { Link } from 'react-router-dom';
 
-export default function Main() {
+export default function Aside() {
   return (
     <aside className={styles['topic']}>
       <form className={styles['search-bar']}>
