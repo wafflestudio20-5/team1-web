@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import styles from './index.module.scss';
 import BoardListBoard from './BoardListBoard';
-import Topic from './Aside';
+import Aside from './Aside';
 
 export default function BoardLayout() {
   return (
@@ -10,7 +10,7 @@ export default function BoardLayout() {
       <article className={styles['content']}>
         <article className={styles['container']}>
           <Outlet />
-          <Topic />
+          <Aside />
         </article>
       </article>
     </>
