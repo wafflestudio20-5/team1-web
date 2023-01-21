@@ -6,25 +6,25 @@ export default function Footer() {
     <footer className={styles['footer']}>
       <ul>
         <li>
-          <Link to=''>이용약관</Link>
+          <Link to='page/serviceagreement'>이용약관</Link>
         </li>
         <li>
-          <Link to=''>개인정보처리방침</Link>
+          <Link to='page/privacy'>개인정보처리방침</Link>
         </li>
         <li>
-          <Link to=''>청소년보호정책</Link>
+          <Link to='page/youthpolicy'>청소년보호정책</Link>
         </li>
         <li>
-          <Link to=''>커뮤니티이용규칙</Link>
+          <Link to='page/rules'>커뮤니티이용규칙</Link>
         </li>
         <li>
-          <Link to=''>공지사항</Link>
+          <Link to='notice'>공지사항</Link>
         </li>
         <li>
-          <Link to=''>문의하기</Link>
+          <Link to='page/faq'>문의하기</Link>
         </li>
         <li>
-          <Link to=''>© 와플리타임</Link>
+          <Link to='/'>© 와플리타임</Link>
         </li>
       </ul>
     </footer>
