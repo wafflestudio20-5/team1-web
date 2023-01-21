@@ -25,7 +25,6 @@ export default function Account() {
     <article className={styles['account']}>
       <article className={styles['my-info']}>
         <img src={userProfileImg} alt='프로필 이미지' />
-        {/* TODO: 세션 정보로 고치기 */}
         <p>{userInfo?.nickname || '(닉네임)'}</p>
         <p>(이름)</p> {/* TODO: 이름 정보 백엔드와 협의 */}
         <p>{userInfo?.loginId || '(아이디)'}</p>
@@ -43,7 +42,6 @@ export default function Account() {
         </ul>
       </article>
       <article className={styles['my-articles']}>
-        {/* TODO: 링크 변경 */}
         <Link to='myarticle'>내가 쓴 글</Link>
         <Link to='mycommentarticle'>댓글 단 글</Link>
         <Link to='myscrap'>내 스크랩</Link>

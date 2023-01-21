@@ -37,7 +37,6 @@ export default function MyPage() {
           </div>
           <div className={styles['profile']}>
             <img src={userProfileImg} alt='프로필 이미지' />
-            {/* TODO: 세션 정보로 업데이트 */}
             <div>
               <p>{userInfo?.loginId || '(아이디)'}</p>
               {/* TODO: 이름 정보 백엔드와 협의 */}
@@ -49,7 +48,6 @@ export default function MyPage() {
         <section className={styles['card']}>
           <p className={styles['title']}>계정</p>
           <div className={styles['content']}>
-            {/* TODO: 링크 업데이트 */}
             <Link to='/auth'>학교 인증</Link>
             <Link to='password'>비밀번호 변경</Link>
             <Link to='email'>이메일 변경</Link>
@@ -58,7 +56,6 @@ export default function MyPage() {
         <section className={styles['card']}>
           <p className={styles['title']}>커뮤니티</p>
           <div className={styles['content']}>
-            {/* TODO: 링크 업데이트 */}
             <Link to='nickname'>닉네임 설정</Link>
             <Link to='banlist'>이용 제한 내역</Link>
             <Link to='boardlist'>게시판 관리</Link>
@@ -68,7 +65,6 @@ export default function MyPage() {
         <section className={styles['card']}>
           <p className={styles['title']}>이용 안내</p>
           <div className={styles['content']}>
-            {/* TODO: 링크 업데이트 */}
             <Link to='/page/faq'>문의하기</Link>
             <Link to='/notice'>공지사항</Link>
             <Link to='/page/serviceagreement'>서비스 이용약관</Link>
@@ -79,7 +75,6 @@ export default function MyPage() {
         <section className={styles['card']}>
           <p className={styles['title']}>기타</p>
           <div className={styles['content']}>
-            {/* TODO: 링크 업데이트 */}
             <Link to='adagreement'>정보 동의 설정</Link>
             <Link to='withdrawal'>회원 탈퇴</Link>
           </div>

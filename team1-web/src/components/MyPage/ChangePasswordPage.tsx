@@ -15,7 +15,7 @@ export default function ChangePassword() {
   async function handleChangePassword() {
     const isValidNewPW = newPW && newPW?.length >= 8; // TODO: 유효PW 조건 추가
     const isNewPWEqualNewPWCheck = newPW && newPW === newPWCheck;
-    const isCurrectCurrentPW = true; // TODO: api 추가 요청
+    const isCurrectCurrentPW = true; // TODO: api 추가
 
     if (!isValidNewPW) {
       toast.error('새 비밀번호가 조건에 부합하지 않습니다');

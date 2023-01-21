@@ -25,7 +25,6 @@ function BoardItem({
         navigate(`${board.boardId}`);
       }}
     >
-      {/* TODO: 링크 주소 board.id로 변경 */}
       <Link to={`${board.boardId}`}>{board.name}</Link>
     </li>
   );
@@ -49,7 +48,6 @@ function BoardListItem({
     <>
       <section className={styles.group}>
         <ul>
-          {/* TODO: 추후 optional chaining 변경. 일반 chaining으로 */}
           {boardList.boards?.map(
             (board: Board, index: number) =>
               (isMoreClicked || index <= lastDefaultDisplayIndex) && (
@@ -81,9 +79,8 @@ function BoardListItem({
 }
 
 export default function BoardListBoard() {
-  // TODO: 게시판 오른쪽에 동그라미 기준 알아야 함
+  // TODO: 게시판 오른쪽에 동그라미 추가
   const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
-  // TODO: boardLists.boards.articles 속성 추가
   const token = useAppSelector((state: RootState) => state.session.token);
   const boardLists = useApiData(useApiGetBoardLists(token));
   return (

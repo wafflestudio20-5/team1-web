@@ -15,7 +15,6 @@ function MenuItem({
 }) {
   return (
     <li className={styles[`${isSelected ? 'selected' : ''}`]}>
-      {/* TODO: Link 주소 변경 */}
       <Link
         to={menu.urlpath}
         onClick={() => {
@@ -32,7 +31,6 @@ export default function Header() {
   // TODO: selectedMenu mypage 등으로 이동 시에도 선택해제되지 않음
   // TODO: REDUX로 옮기고 MenuItem props에서 handleSelect, isSelected 제거
   const [selectedMenuId, setSelectedMenuId] = useState<number>(0);
-  // TODO: 이것도 백엔드에서 데이터 받을지 논의
   const menus: Menu[] = [
     { id: 0, name: '게시판', urlpath: '' },
     { id: 1, name: '시간표', urlpath: 'timetable' },
@@ -75,7 +73,6 @@ export default function Header() {
           </li>
         </ul>
         <div className={styles['account-menu']}>
-          {/* TODO: Link 주소 변경 */}
           <Link to='message' title='쪽지함'></Link>
           <Link to='my' title='내 정보'></Link>
         </div>

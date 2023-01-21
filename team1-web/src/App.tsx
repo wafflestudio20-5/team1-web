@@ -48,7 +48,6 @@ function LoginForRedirectPage({ redirectPath }: { redirectPath: string }) {
 }
 
 function AppRoutes() {
-  // TODO: 로그인 여부 확인 후 redirect 작업
   const token = useAppSelector((state: RootState) => state.session.token);
   const redirectLoginPageIfNotLoginned = (page: JSX.Element, redirectPath: string) =>
     token ? page : <LoginForRedirectPage redirectPath={redirectPath} />;
