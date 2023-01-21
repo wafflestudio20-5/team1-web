@@ -24,6 +24,21 @@ export const apiKakaoLogin = (code: any) =>
   // TODO: url 수정
   axios.post(`http://api.wafflytime.com/api/auth/social/login/kakao?${code}`);
 
+export const useApiCheckNickname = (nickname: string) => {
+  const [data, setData] = useState<string | null>();
+  useLayoutEffect(() => {
+    axios
+      .get<string>(url(`/api/user/check/nickname/${nickname}`))
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((e) => {
+        setData(null);
+      });
+  }, [nickname]);
+  return data;
+};
+
 export const apiChangeUserInfo = (
   token: string | null,
   newUserInfo: { password?: string; nickname?: string }

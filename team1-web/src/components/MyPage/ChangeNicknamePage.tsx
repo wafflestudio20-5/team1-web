@@ -4,6 +4,7 @@ import { RootState, useAppDispatch, useAppSelector } from '../../store';
 import { toast } from 'react-toastify';
 import { changeUserInfo } from '../../store/sessionSlice';
 import { useNavigate } from 'react-router-dom';
+import { useApiCheckNickname } from '../../lib/api';
 
 export default function ChangeNicknamePage() {
   const token = useAppSelector((state: RootState) => state.session.token);
@@ -11,12 +12,15 @@ export default function ChangeNicknamePage() {
   const navigate = useNavigate();
 
   const [newNickname, setNewNickname] = useState<string>('');
+  const isAvailableNickname = useApiCheckNickname(newNickname);
 
   async function handleChangeNickname() {
     const isValidNewNickname = newNickname && newNickname?.length >= 2;
 
     if (!isValidNewNickname) {
       toast.error('2~10자까지 가능합니다.');
+    } else if (!isAvailableNickname) {
+      toast.error('이미 사용중인 닉네임입니다.');
     } else {
       const newUserInfo = { nickname: newNickname };
       const data = { token, newUserInfo };
@@ -52,6 +56,9 @@ export default function ChangeNicknamePage() {
         />
         {newNickname && newNickname?.length < 2 && (
           <p className={styles['caution']}>2자 이상 입력하세요</p>
+        )}
+        {newNickname && newNickname?.length >= 2 && !isAvailableNickname && (
+          <p className={styles['caution']}>이미 사용중인 닉네임입니다.</p>
         )}
         <p className={styles['notice']}>
           ※ 닉네임을 설정하면
