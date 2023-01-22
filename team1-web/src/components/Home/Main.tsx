@@ -3,18 +3,13 @@ import { BoardList, Board } from '../../lib/types';
 import { Link } from 'react-router-dom';
 import { useApiData, useApiGetBoardPosts } from '../../lib/api';
 import { RootState, useAppSelector } from '../../store';
-import { DateTime } from 'luxon';
+import { formattedTime } from '../../lib/format';
 
 function BoardItem({ board }: { board: Board }) {
   const token = useAppSelector((state: RootState) => state.session.token);
   const boardPostsData = useApiData(useApiGetBoardPosts(token, board.boardId, 0, 4));
   const doesPostHasTitle = boardPostsData?.content[0]?.title; // TODO: api response 수정되면 이것도 수정
   const nDisplayPost = doesPostHasTitle ? 4 : 2;
-
-  function timeCreatedfromNow() {
-    const createdTime = DateTime.fromISO();
-    return createdTime.toRelative();
-  }
 
   return (
     <section className={styles['board']}>
@@ -24,26 +19,32 @@ function BoardItem({ board }: { board: Board }) {
       <ul className={styles['posts']}>
         {boardPostsData?.content.map(
           (post, index) =>
-            index < nDisplayPost &&
-            (doesPostHasTitle ? (
-              <li key={index} className={`${styles['post']} ${styles['has-title']}`}>
-                <Link to=''>
-                  <time>시간</time>
-                  <p>{post.title}</p>
+            index < nDisplayPost && (
+              <li
+                key={index}
+                className={`${styles['post']} ${
+                  styles[doesPostHasTitle ? 'has-title' : 'no-title']
+                }`}
+              >
+                <Link to={`${board.boardId}/v/${post.postId}`}>
+                  {doesPostHasTitle ? (
+                    <>
+                      <time>{formattedTime(post.createdAt)}</time>
+                      <p>{post.title}</p>
+                    </>
+                  ) : (
+                    <>
+                      <p>{post.contents}</p>
+                      <time>{formattedTime(post.createdAt)}</time>
+                      <ul className={styles['status']}>
+                        <li className={styles['likes']}>{post.nlikes}</li>
+                        <li className={styles['replies']}>{post.nreplies}</li>
+                      </ul>
+                    </>
+                  )}
                 </Link>
               </li>
-            ) : (
-              <li key={index} className={`${styles['post']} ${styles['no-title']}`}>
-                <Link to=''>
-                  <p>{post.contents}</p>
-                  <time>시간</time>
-                  <ul className={styles['status']}>
-                    <li className={styles['likes']}>{post.nlikes}</li>
-                    <li className={styles['replies']}>{post.nreplies}</li>
-                  </ul>
-                </Link>
-              </li>
-            ))
+            )
         )}
       </ul>
     </section>

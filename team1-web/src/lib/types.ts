@@ -63,35 +63,37 @@ export type BoardList = {
   boards: Board[];
 };
 
+export type TimeObject = {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+};
+
+export type Post = {
+  boardId: number;
+  boardTitle: string;
+  postId: number;
+  createdAt: TimeObject;
+  writerId: number;
+  nickname?: string; // 게시물 작성자가 익명인 경우 null
+  isWriterAnonymous: Boolean;
+  isQuestion: Boolean;
+  title?: string;
+  contents: string;
+  images?: {
+    imageId: number;
+    preSignedUrl: string;
+    description?: string;
+  }[];
+  nlikes: number;
+  nscraps: number;
+  nreplies: number;
+};
+
 export type BoardPosts = {
-  content: [
-    {
-      boardId: number;
-      boardTitle: string;
-      postId: number;
-      createdAt: {
-        year: number;
-        month: number;
-        day: number;
-        hour: number;
-        minute: number;
-      };
-      writerId: number;
-      nickname?: string; // 게시물 작성자가 익명인 경우 null
-      isWriterAnonymous: Boolean;
-      isQuestion: Boolean;
-      title?: string;
-      contents: string;
-      images?: {
-        imageId: number;
-        preSignedUrl: string;
-        description?: string;
-      }[];
-      nlikes: number;
-      nscraps: number;
-      nreplies: number;
-    }
-  ];
+  content: Post[];
   pageable: {
     sort: {
       empty: Boolean;
