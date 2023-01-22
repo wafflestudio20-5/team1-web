@@ -21,7 +21,6 @@ import ChangePasswordPage from './components/MyPage/ChangePasswordPage';
 import ChangeNicknamePage from './components/MyPage/ChangeNicknamePage';
 import { useAppSelector, RootState } from './store';
 import { LoginProvider } from './LoginContext';
-import { toast } from 'react-toastify';
 
 function InValidateURL() {
   return (
@@ -66,7 +65,7 @@ function AppRoutes() {
       <Route element={<Layout />}>
         <Route element={<BoardLayout />}>
           <Route path='' element={<Home />} />
-          <Route path=':storeId' element={redirectLoginPageIfNotLoginned(<BoardPage />, '')} />
+          <Route path=':boardId' element={redirectLoginPageIfNotLoginned(<BoardPage />, '')} />
         </Route>
         <Route path='my'>
           <Route index element={redirectLoginPageIfNotLoginned(<MyPage />, '/my')} />

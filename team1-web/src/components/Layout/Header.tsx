@@ -24,7 +24,6 @@ function MenuItem({ menu }: { menu: Menu }) {
 
 export default function Header() {
   const menuList = useAppSelector((state: RootState) => state.menu.menuList);
-  // TODO: selectedMenu mypage 등으로 이동 시에도 선택해제되지 않음
   return (
     <header className={styles.header}>
       <nav>
