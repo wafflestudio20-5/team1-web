@@ -1,24 +1,19 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 import everytimeLogo from '../../resources/everytime-icon.png';
 import { Menu } from '../../lib/types';
+import { RootState, useAppDispatch, useAppSelector } from '../../store';
+import { setSelectedMenu } from '../../store/menuSlice';
 
-function MenuItem({
-  menu,
-  handleSelect,
-  isSelected,
-}: {
-  menu: Menu;
-  handleSelect(menuId: number): void;
-  isSelected: boolean;
-}) {
+function MenuItem({ menu }: { menu: Menu }) {
+  const selectedMenu = useAppSelector((state: RootState) => state.menu.selectedMenu);
+  const dispatch = useAppDispatch();
   return (
-    <li className={styles[`${isSelected ? 'selected' : ''}`]}>
+    <li className={styles[`${selectedMenu?.id === menu.id ? 'selected' : ''}`]}>
       <Link
         to={menu.urlpath}
         onClick={() => {
-          handleSelect(menu.id);
+          dispatch(setSelectedMenu(menu.name));
         }}
       >
         {menu.name}
@@ -28,17 +23,8 @@ function MenuItem({
 }
 
 export default function Header() {
+  const menuList = useAppSelector((state: RootState) => state.menu.menuList);
   // TODO: selectedMenu mypage 등으로 이동 시에도 선택해제되지 않음
-  // TODO: REDUX로 옮기고 MenuItem props에서 handleSelect, isSelected 제거
-  const [selectedMenuId, setSelectedMenuId] = useState<number>(0);
-  const menus: Menu[] = [
-    { id: 0, name: '게시판', urlpath: '' },
-    { id: 1, name: '시간표', urlpath: 'timetable' },
-    { id: 2, name: '강의실', urlpath: 'lecture' },
-    { id: 3, name: '학점계산기', urlpath: 'calculator' },
-    { id: 4, name: '친구', urlpath: 'friend' },
-  ];
-
   return (
     <header className={styles.header}>
       <nav>
@@ -55,15 +41,8 @@ export default function Header() {
           </Link>
         </div>
         <ul className={styles['menu-list']}>
-          {menus.map((menu) => (
-            <MenuItem
-              key={menu.id}
-              menu={menu}
-              handleSelect={() => {
-                setSelectedMenuId(menu.id);
-              }}
-              isSelected={selectedMenuId === menu.id}
-            />
+          {menuList.map((menu) => (
+            <MenuItem key={menu.id} menu={menu} />
           ))}
           <li>
             <a href='https://bookstore.everytime.kr/'>책방</a>

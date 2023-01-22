@@ -3,6 +3,7 @@ export type Menu = {
   name: string;
   urlpath: string;
 };
+export type MenuList = Record<string, Menu>;
 
 export type User = {
   id: number;
