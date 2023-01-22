@@ -46,9 +46,14 @@
               letter-spacing: 0;
             }
           }
+          > a:hover {
+            background-color: #f9f9f9;
+          }
         }
         > .has-title {
+          height: 37.8px;
           > a {
+            height: 16.8px;
             > p {
               height: 17px;
               white-space: nowrap;
@@ -68,6 +73,7 @@
         > .no-title {
           height: 75.8px;
           > a {
+            height: 54.8px;
             > p {
               height: 36px;
               margin-bottom: 5px;
