@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AxiosResponse } from 'axios';
 import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
-import { BoardList, UserInfo } from './types';
+import { BoardList, BoardPosts, UserInfo } from './types';
 
 const url = (path: string, param?: Record<string, string>): string =>
   'http://api.wafflytime.com' + path + (param ? '?' + new URLSearchParams(param).toString() : '');
@@ -59,6 +59,21 @@ export const useApiGetBoardLists = (token: string | null) =>
 
 export const useApiGetMyInfo = (token: string | null) =>
   useCallback(() => axios.get<UserInfo>(url('/api/user/me'), { headers: auth(token) }), [token]);
+
+export const useApiGetBoardPosts = (
+  token: string | null,
+  boardId: number,
+  page?: number,
+  size?: number
+) =>
+  useCallback(
+    () =>
+      axios.get<BoardPosts>(
+        url(`/api/board/${boardId}/posts`, { page: `${page}`, size: `${size}` }),
+        { headers: auth(token) }
+      ),
+    [token, boardId, page, size]
+  );
 
 export function useApiGetImg(imgUrl: string | null) {
   const [img, setImg] = useState(null);
