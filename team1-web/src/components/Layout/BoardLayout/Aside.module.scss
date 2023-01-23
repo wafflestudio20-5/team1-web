@@ -29,6 +29,8 @@
     > .card-title {
       display: block;
       padding: 10px;
+    }
+    .card-title-text {
       color: #3744a5;
       line-height: 20px;
       font-size: 14px;
@@ -143,13 +145,7 @@
   > .best-board {
   }
   > .news {
-    > div:last-child {
-      height: 152px;
-    }
   }
   > .recent-lecture-review {
-    > div:last-child {
-      height: 392px;
-    }
   }
 }

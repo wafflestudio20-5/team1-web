@@ -8,7 +8,7 @@ import { formattedTime } from '../../../lib/format';
 function RealTimePopularPostCard({ postPair }: { postPair: Post[] | null }) {
   return (
     <section className={styles['card']}>
-      <h1 className={styles['card-title']}>실시간 인기 글</h1>
+      <h1 className={`${styles['card-title']} ${styles['card-title-text']}`}>실시간 인기 글</h1>
       <ul className={`${styles['posts']} ${styles['popular-posts']}`}>
         {postPair?.map((post, index) => (
           <li key={index} className={styles['post']}>
@@ -31,9 +31,11 @@ function RealTimePopularPostCard({ postPair }: { postPair: Post[] | null }) {
 function HotPostCard({ hotPostList }: { hotPostList: Post[] | null }) {
   return (
     <section className={styles['card']}>
-      <Link to='hotarticle' className={styles['card-title']}>
-        HOT 게시물
-      </Link>
+      <h1 className={styles['card-title']}>
+        <Link to='hotarticle' className={styles['card-title-text']}>
+          HOT 게시물
+        </Link>
+      </h1>
       <ul className={`${styles['posts']} ${styles['hot-posts']}`}>
         {hotPostList?.map(
           (post, index) =>
@@ -67,23 +69,27 @@ export default function Aside() {
       <HotPostCard hotPostList={hotPostList} />
 
       <section className={`${styles['card']} ${styles['best-board']}`}>
-        <Link to='bestarticle' className={styles['card-title']}>
-          BEST 게시판
-        </Link>
+        <h1 className={styles['card-title']}>
+          <Link to='bestarticle' className={styles['card-title-text']}>
+            BEST 게시판
+          </Link>
+        </h1>
         {/* TODO: 업데이트 */}
         <div></div>
       </section>
 
       <section className={`${styles['card']} ${styles['news']}`}>
-        <h1 className={styles['card-title']}>학교 소식</h1>
+        <h1 className={`${styles['card-title']} ${styles['card-title-text']}`}>학교 소식</h1>
         {/* TODO: 업데이트 */}
         <div></div>
       </section>
 
       <section className={`${styles['card']} ${styles['recent-lecture-review']}`}>
-        <Link to='lecture' className={styles['card-title']}>
-          최근 강의평
-        </Link>
+        <h1 className={styles['card-title']}>
+          <Link to='lecture' className={styles['card-title-text']}>
+            최근 강의평
+          </Link>
+        </h1>
         {/* TODO: 업데이트 */}
         <div></div>
       </section>
