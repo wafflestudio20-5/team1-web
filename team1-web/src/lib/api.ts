@@ -3,8 +3,20 @@ import { AxiosResponse } from 'axios';
 import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
 import { BoardList, BoardPosts, UserInfo } from './types';
 
-const url = (path: string, param?: Record<string, string>): string =>
-  'http://api.wafflytime.com' + path + (param ? '?' + new URLSearchParams(param).toString() : '');
+const url = (path: string, param?: Record<string, any>): string => {
+  const validParamData =
+    param &&
+    Object.fromEntries(
+      Object.entries(param)
+        .filter(([key, value]) => value)
+        .map(([key, value]) => [key, String(value)])
+    );
+  return (
+    'http://api.wafflytime.com' +
+    path +
+    (param ? '?' + new URLSearchParams(validParamData).toString() : '')
+  );
+};
 
 const auth = (token: string | null) => (token ? { Authorization: `Bearer ${token}` } : {});
 
@@ -68,13 +80,28 @@ export const useApiGetBoardPosts = (
 ) =>
   useCallback(
     () =>
-      axios.get<BoardPosts>(
-        url(`/api/board/${boardId}/posts`, { page: `${page}`, size: `${size}` }),
-        { headers: auth(token) }
-      ),
+      axios.get<BoardPosts>(url(`/api/board/${boardId}/posts`, { page, size }), {
+        headers: auth(token),
+      }),
     [token, boardId, page, size]
   );
 
+export const useApiGetBestPosts = (token: string | null, page?: number, size?: number) =>
+  useCallback(
+    () =>
+      axios.get<BoardPosts>(url(`/api/bestpost`, { page, size }), {
+        headers: auth(token),
+      }),
+    [token, page, size]
+  );
+export const useApiGetHotPosts = (token: string | null, page?: number, size?: number) =>
+  useCallback(
+    () =>
+      axios.get<BoardPosts>(url(`/api/hotpost`, { page, size }), {
+        headers: auth(token),
+      }),
+    [token, page, size]
+  );
 export function useApiGetImg(imgUrl: string | null) {
   const [img, setImg] = useState(null);
   useLayoutEffect(() => {
