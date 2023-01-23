@@ -4,6 +4,7 @@ import { useApiData, useApiGetHotPosts } from '../../../lib/api';
 import { RootState, useAppSelector } from '../../../store';
 import { Post } from '../../../lib/types';
 import { formattedTime } from '../../../lib/format';
+import { DateTime } from 'luxon';
 
 function RealTimePopularPostCard({ postPair }: { postPair: Post[] | null }) {
   return (
@@ -57,7 +58,13 @@ export default function Aside() {
   const token = useAppSelector((state: RootState) => state.session.token);
   const { content: hotPostList } = useApiData(useApiGetHotPosts(token)) || { content: null };
   const realTimePopularPostPair =
-    hotPostList?.sort((a, b) => b.nlikes - a.nlikes).slice(0, 2) || null;
+    hotPostList
+      ?.sort(
+        (a, b) =>
+          b.nlikes - a.nlikes ||
+          DateTime.fromObject(a.createdAt).diff(DateTime.fromObject(b.createdAt)).toMillis()
+      )
+      .slice(0, 2) || null;
 
   return (
     <aside className={styles['topic']}>
