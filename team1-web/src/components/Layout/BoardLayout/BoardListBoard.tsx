@@ -5,23 +5,14 @@ import { Board, BoardList } from '../../../lib/types';
 import { useApiGetBoardLists, useApiData } from '../../../lib/api';
 import { RootState, useAppSelector } from '../../../store';
 
-// TODO: selectedBoardId redux로 빼고 useParams로 처리. (게시판 벗어나도 selectedBoardId가 해제되지 않는 상태)
-
-function BoardItem({
-  board,
-  isSelected,
-  setSelectedBoardId,
-}: {
-  board: Board;
-  isSelected: boolean;
-  setSelectedBoardId(boardId: number): void;
-}) {
+function BoardItem({ board }: { board: Board }) {
   const navigate = useNavigate();
+  const selectedBoardId = useAppSelector((state: RootState) => state.board.selectedBoardId);
+
   return (
     <li
-      className={styles[`${isSelected ? 'selected' : ''}`]}
+      className={styles[`${selectedBoardId === board.boardId ? 'selected' : ''}`]}
       onClick={() => {
-        setSelectedBoardId(board.boardId);
         navigate(`${board.boardId}`);
       }}
     >
@@ -30,15 +21,7 @@ function BoardItem({
   );
 }
 
-function BoardListItem({
-  boardList,
-  selectedBoardId,
-  setSelectedBoardId,
-}: {
-  boardList: BoardList;
-  selectedBoardId: number | null;
-  setSelectedBoardId(boardId: number): void;
-}) {
+function BoardListItem({ boardList }: { boardList: BoardList }) {
   const [isMoreClicked, setIsMoreClicked] = useState<boolean>(false);
   const isOverflowed: boolean = boardList.size > 8 * boardList.defaultDisplayColumnSize;
   const lastDefaultDisplayIndex: number = isOverflowed
@@ -51,12 +34,7 @@ function BoardListItem({
           {boardList.boards?.map(
             (board: Board, index: number) =>
               (isMoreClicked || index <= lastDefaultDisplayIndex) && (
-                <BoardItem
-                  key={board.boardId}
-                  board={board}
-                  isSelected={selectedBoardId === board.boardId}
-                  setSelectedBoardId={setSelectedBoardId}
-                />
+                <BoardItem key={board.boardId} board={board} />
               )
           )}
           {!isMoreClicked && isOverflowed && (
@@ -80,7 +58,6 @@ function BoardListItem({
 
 export default function BoardListBoard() {
   // TODO: 게시판 오른쪽에 동그라미 추가
-  const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
   const token = useAppSelector((state: RootState) => state.session.token);
   const boardLists = useApiData(useApiGetBoardLists(token));
   return (
@@ -89,12 +66,7 @@ export default function BoardListBoard() {
         <article className={styles['board-list-board']}>
           <section className={styles['divider']}></section>
           {boardLists?.map((boardList: BoardList) => (
-            <BoardListItem
-              key={boardList.id}
-              boardList={boardList}
-              selectedBoardId={selectedBoardId}
-              setSelectedBoardId={setSelectedBoardId}
-            />
+            <BoardListItem key={boardList.id} boardList={boardList} />
           ))}
         </article>
       </article>
