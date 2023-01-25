@@ -11,8 +11,10 @@ export default function BoardLayout() {
   const dispatch = useAppDispatch();
   const { boardId } = useParams(); // TODO: 게시물 페이지 작업 후 추가
   useLayoutEffect(() => {
-    if (!Number.isNaN(Number(boardId))) dispatch(setSelectedBoardId(Number(boardId)));
-    dispatch(setSelectedMenu('게시판'));
+    if (!Number.isNaN(Number(boardId))) {
+      dispatch(setSelectedBoardId(Number(boardId)));
+      dispatch(setSelectedMenu('게시판'));
+    }
     return () => {
       dispatch(setSelectedMenu(null));
       dispatch(setSelectedBoardId(null));

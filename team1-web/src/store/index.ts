@@ -10,6 +10,7 @@ const store = configureStore({
     menu: menuSlice.reducer,
     board: boardSlice.reducer,
   },
+  devTools: true,
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type Appdispatch = typeof store.dispatch;

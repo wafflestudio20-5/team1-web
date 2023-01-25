@@ -1,20 +1,19 @@
 import styles from './Account.module.scss';
 import profileImg from '../../resources/profile-image.png';
 import { useNavigate, Link } from 'react-router-dom';
-import { RootState, useAppDispatch, useAppSelector } from '../../store';
+import { useAppDispatch } from '../../store';
 import { logout } from '../../store/sessionSlice';
 import { useApiData, useApiGetImg, useApiGetMyInfo } from '../../lib/api';
 
 export default function Account() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const token = useAppSelector((state: RootState) => state.session.token);
-  const userInfo = useApiData(useApiGetMyInfo(token));
+  const userInfo = useApiData(useApiGetMyInfo());
   const userProfileImg = useApiGetImg(userInfo?.profilePreSignedUrl || null) || profileImg;
 
   const handleLogout = async () => {
     try {
-      await dispatch(logout(token));
+      await dispatch(logout());
       navigate('/');
     } catch (err) {
       console.log(err);

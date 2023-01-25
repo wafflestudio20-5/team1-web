@@ -1,11 +1,10 @@
 import styles from './ChangePasswordPage.module.scss';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { RootState, useAppDispatch, useAppSelector } from '../../store';
+import { useAppDispatch } from '../../store';
 import { changeUserInfo } from '../../store/sessionSlice';
 
 export default function ChangePassword() {
-  const token = useAppSelector((state: RootState) => state.session.token);
   const dispatch = useAppDispatch();
 
   const [newPW, setNewPW] = useState<string>('');
@@ -25,7 +24,7 @@ export default function ChangePassword() {
       toast.error('기존 비밀번호를 확인해주세요');
     } else {
       const newUserInfo = { password: newPW };
-      const data = { token, newUserInfo };
+      const data = { newUserInfo };
       const response = window.confirm(
         '비밀번호를 변경하면 모든 디바이스에서 즉시 로그아웃 처리됩니다. 변경하시겠습니까?'
       );

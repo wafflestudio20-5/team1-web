@@ -38,27 +38,24 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk(
-  'sessionSlice/logout',
-  async (token: string | null, { rejectWithValue }) => {
-    try {
-      const { data } = await apiLogout(token);
-      return data;
-    } catch (e) {
-      const error: string = axiosErrorHandler(e, '로그인되어있지 않습니다');
-      return rejectWithValue(error);
-    }
+export const logout = createAsyncThunk('sessionSlice/logout', async () => {
+  try {
+    const { data } = await apiLogout();
+    return data;
+  } catch (e) {
+    const error: string = axiosErrorHandler(e, '로그인되어있지 않습니다');
+    return error;
   }
-);
+});
 
 export const changeUserInfo = createAsyncThunk(
   'sessionSlice/changeUserInfo',
   async (
-    params: { token: string | null; newUserInfo: { password?: string; nickname?: string } },
+    params: { newUserInfo: { password?: string; nickname?: string } },
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await apiChangeUserInfo(params.token, params.newUserInfo);
+      const { data } = await apiChangeUserInfo(params.newUserInfo);
       return data;
     } catch (e) {
       const error: string = axiosErrorHandler(e, '변경에 실패했습니다.');
@@ -80,7 +77,11 @@ const initialState: TSessionSlice = {
 const sessionSlice = createSlice({
   name: 'sessionSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    setToken: (state, { payload }) => {
+      state.token = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // .addCase(login.pending, (state) => {
@@ -89,6 +90,7 @@ const sessionSlice = createSlice({
       .addCase(login.fulfilled, (state, { payload }) => {
         // state.status = 'success';
         state.token = payload.accessToken;
+        localStorage.setItem('refreshToken', payload.refreshToken);
         toast.success('로그인되었습니다.');
       })
       .addCase(login.rejected, (state, { payload }) => {
@@ -101,6 +103,7 @@ const sessionSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         // state.status = 'success';
         state.token = null;
+        localStorage.removeItem('refreshToken');
         toast.success('로그아웃되었습니다.');
       })
       .addCase(logout.rejected, (state, { payload }) => {
@@ -134,3 +137,4 @@ const sessionSlice = createSlice({
 });
 
 export default sessionSlice;
+export const { setToken } = sessionSlice.actions;

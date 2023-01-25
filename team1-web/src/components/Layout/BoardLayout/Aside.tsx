@@ -1,7 +1,6 @@
 import styles from './Aside.module.scss';
 import { Link } from 'react-router-dom';
 import { useApiData, useApiGetHotPosts } from '../../../lib/api';
-import { RootState, useAppSelector } from '../../../store';
 import { Post } from '../../../lib/types';
 import { formattedTime } from '../../../lib/format';
 import { DateTime } from 'luxon';
@@ -55,8 +54,7 @@ function HotPostCard({ hotPostList }: { hotPostList: Post[] | null }) {
 }
 
 export default function Aside() {
-  const token = useAppSelector((state: RootState) => state.session.token);
-  const { content: hotPostList } = useApiData(useApiGetHotPosts(token)) || { content: null };
+  const { content: hotPostList } = useApiData(useApiGetHotPosts()) || { content: null };
   const realTimePopularPostPair =
     hotPostList
       ?.sort(
