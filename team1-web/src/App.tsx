@@ -17,6 +17,8 @@ import Register from "./components/Login/Register";
 import Kakao from "./components/Login/Oauth/Kakao";
 import Google from "./components/Login/Oauth/Google";
 import NewKakao from "./components/Login/Oauth/NewKakao";
+import ChangePasswordPage from "./components/MyPage/ChangePasswordPage";
+import ChangeNicknamePage from "./components/MyPage/ChangeNicknamePage";
 import { useAppSelector, RootState } from "./store";
 import { LoginProvider } from "./LoginContext";
 import { toast } from "react-toastify";
@@ -50,10 +52,11 @@ function LoginForRedirectPage({ redirectPath }: { redirectPath: string }) {
 }
 
 function AppRoutes() {
-  // TODO: 로그인 여부 확인 후 redirect 작업
   const token = useAppSelector((state: RootState) => state.session.token);
-  const redirectIfNotAuthed = (page: JSX.Element, redirectPath: string) =>
-    token ? page : <LoginForRedirectPage redirectPath={redirectPath} />;
+  const redirectLoginPageIfNotLoginned = (
+    page: JSX.Element,
+    redirectPath: string
+  ) => (token ? page : <LoginForRedirectPage redirectPath={redirectPath} />);
 
   const checkIfLoginned = (page: JSX.Element) => {
     if (token) {
@@ -71,15 +74,24 @@ function AppRoutes() {
           <Route path="" element={<Home />} />
           <Route
             path=":boardID/p/:index"
-            element={redirectIfNotAuthed(<BoardPage />, "")}
+            element={redirectLoginPageIfNotLoginned(<BoardPage />, "")}
           />
           <Route
             path=":boardID"
-            element={redirectIfNotAuthed(<BoardPage />, "")}
+            element={redirectLoginPageIfNotLoginned(<BoardPage />, "")}
           />
           <Route path=":boardID/v/:articleID" element={<ArticlePage />} />
         </Route>
-        <Route path="my" element={redirectIfNotAuthed(<MyPage />, "my")} />
+        <Route path='my'>
+          <Route index element={redirectLoginPageIfNotLoginned(<MyPage />, '/my')} />
+          <Route
+            path='password'
+            element={redirectLoginPageIfNotLoginned(<ChangePasswordPage />, '/my/password')}
+          />
+          <Route
+            path='nickname'
+            element={redirectLoginPageIfNotLoginned(<ChangeNicknamePage />, '/my/nickname')}
+          />
       </Route>
 
       <Route path="/login" element={checkIfLoginned(<Login />)} />
