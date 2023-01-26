@@ -20,6 +20,7 @@ import NewKakao from "./components/Login/Oauth/NewKakao";
 import { useAppSelector, RootState } from "./store";
 import { LoginProvider } from "./LoginContext";
 import { toast } from "react-toastify";
+import ArticlePage from "./components/ArticlePage";
 
 function InValidateURL() {
   return (
@@ -69,9 +70,14 @@ function AppRoutes() {
         <Route element={<BoardLayout />}>
           <Route path="" element={<Home />} />
           <Route
-            path=":storeId"
+            path=":boardID/p/:index"
             element={redirectIfNotAuthed(<BoardPage />, "")}
           />
+          <Route
+            path=":boardID"
+            element={redirectIfNotAuthed(<BoardPage />, "")}
+          />
+          <Route path=":boardID/v/:articleID" element={<ArticlePage />} />
         </Route>
         <Route path="my" element={redirectIfNotAuthed(<MyPage />, "my")} />
       </Route>

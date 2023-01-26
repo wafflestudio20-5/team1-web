@@ -5,14 +5,20 @@ import ArticleItem from "./ArticleItem";
 
 export default function ArticleItems({
   writingList,
+  index,
+  boardID,
 }: {
   writingList: Article[];
+  index: number;
+  boardID: string;
 }) {
   return (
     <>
-      {writingList.map((article: Article, index: number) => (
-        <ArticleItem article={article} />
-      ))}
+      {writingList
+        .slice((index - 1) * 20, index * 20)
+        .map((article: Article, index: number) => (
+          <ArticleItem article={article} boardID={boardID} />
+        ))}
     </>
   );
 }

@@ -1,10 +1,17 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Article } from "../../lib/types";
 import styles from "./ArticleItem.module.scss";
 
-export default function ArticleItem({ article }: { article: Article }) {
+export default function ArticleItem({
+  article,
+  boardID,
+}: {
+  article: Article;
+  boardID: string;
+}) {
   return (
-    <a href="1" className={styles["article"]}>
+    <Link to={`/${boardID}/v/${article.id}`} className={styles["article"]}>
       <h2 className={styles["medium"]}>{article.title}</h2>
       <p className={styles["small"]}>{article.content}</p>
       <time className={styles["small"]}>{article.time}</time>
@@ -13,6 +20,6 @@ export default function ArticleItem({ article }: { article: Article }) {
         <li className={styles["vote"]}>{article.like}</li>
         <li className={styles["comment"]}>{article.comments.length}</li>
       </ul>
-    </a>
+    </Link>
   );
 }
