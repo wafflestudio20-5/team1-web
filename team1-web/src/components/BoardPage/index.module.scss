@@ -22,7 +22,7 @@
     font-size: 18px;
     text-align: center;
   }
-  > .add-new-article {
+  > .add-new-Post {
     display: block;
     margin-bottom: 5px;
     padding: 0 10px;
@@ -46,7 +46,7 @@
       border: 1px solid #a6a6a6;
       border-radius: 3px;
       background: transparent
-        url(../../resources/container.articles.pagination.search.png) no-repeat
+        url(../../resources/container.posts.pagination.search.png) no-repeat
         right 10px center;
       background-size: 16px 16px;
       > select {
@@ -74,7 +74,7 @@
       margin-left: 0;
       margin-right: 5px;
       padding: 0 25px 0 10px;
-      background-image: url(../../resources/container.articles.pagination.next.png);
+      background-image: url(../../resources/container.posts.pagination.next.png);
       background-position: right 10px center;
       display: block;
       margin-top: 5px;
@@ -90,6 +90,10 @@
       background-position: 10px center;
       background-size: 10px 10px;
       cursor: pointer;
+    }
+    > a.prev {
+      float: left;
+      background-image: url(../../resources/container.posts.pagination.next.png);
     }
   }
 }

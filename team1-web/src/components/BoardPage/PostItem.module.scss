@@ -1,4 +1,4 @@
-.article {
+.Post {
   display: block;
   margin-bottom: -1px;
   box-sizing: border-box;
@@ -71,12 +71,12 @@
     > li.vote {
       padding-left: 15px;
       color: #c62917;
-      background-image: url(../../resources/container.articles.vote.png);
+      background-image: url(../../resources/container.posts.vote.png);
     }
     > li.comment {
       padding-left: 15px;
       color: #0ca5af;
-      background-image: url(../../resources/container.articles.comment.png);
+      background-image: url(../../resources/container.posts.comment.png);
     }
   }
 }

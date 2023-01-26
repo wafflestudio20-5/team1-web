@@ -27,7 +27,7 @@
     box-sizing: border-box;
     border: 1px solid #e3e3e3;
     background-color: #fff;
-    > .article {
+    > .post {
       display: block;
       padding: 15px;
       color: #666;
@@ -133,17 +133,17 @@
         > .vote {
           padding-left: 15px;
           color: #c62917;
-          background-image: url(../../resources/container.articles.vote.png);
+          background-image: url(../../resources/container.posts.vote.png);
         }
         > .comment {
           padding-left: 15px;
           color: #0ca5af;
-          background-image: url(../../resources/container.articles.comment.png);
+          background-image: url(../../resources/container.posts.comment.png);
         }
         > .scrap {
           padding-left: 15px;
           color: #ffcc1c;
-          background-image: url(../../resources/container.articles.scrap.png);
+          background-image: url(../../resources/container.posts.scrap.png);
         }
       }
       > .buttons {
@@ -164,10 +164,10 @@
           background-size: 11px 11px;
         }
         > .posvote {
-          background-image: url(../../resources/container.articles.buttons.posvote.png);
+          background-image: url(../../resources/container.posts.buttons.posvote.png);
         }
         > .scrap {
-          background-image: url(../../resources/container.articles.buttons.scrap.png);
+          background-image: url(../../resources/container.posts.buttons.scrap.png);
         }
       }
     }
@@ -208,11 +208,11 @@
           }
           > .annoym {
             margin-right: 5px;
-            background-image: url(../../resources/container.articles.write.anonym.png);
+            background-image: url(../../resources/container.posts.write.anonym.png);
           }
           > .submit {
             background-color: #c62917;
-            background-image: url(../../resources/container.articles.write.submit.png);
+            background-image: url(../../resources/container.posts.write.submit.png);
           }
         }
       }
@@ -236,7 +236,7 @@
       background-size: 10px 10px;
       cursor: pointer;
       float: left;
-      background-image: url(../../resources/container.articles.pagination.list.png);
+      background-image: url(../../resources/container.posts.pagination.list.png);
     }
   }
 }

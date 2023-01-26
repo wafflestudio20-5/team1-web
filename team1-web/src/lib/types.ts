@@ -10,9 +10,9 @@ export type User = {
   nickname: string;
   name: string;
   ID: string;
-  myArticles: Article[];
-  myCommentedArticles: Article[];
-  myScrappedArticles: Article[];
+  myArticles: Post[];
+  myCommentedArticles: Post[];
+  myScrappedArticles: Post[];
 };
 
 export type UserInfo = {
@@ -38,17 +38,6 @@ export type Comment = {
   time: string;
   like: number;
   additionalComments: AdditionalComment[];
-};
-
-export type Article = {
-  id: number;
-  title: string;
-  author: User;
-  content: string;
-  time: string;
-  like: number;
-  comments: Comment[];
-  scrap: number;
 };
 
 export type Board = {

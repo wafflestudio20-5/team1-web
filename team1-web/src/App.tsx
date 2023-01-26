@@ -22,7 +22,7 @@ import ChangeNicknamePage from "./components/MyPage/ChangeNicknamePage";
 import { useAppSelector, RootState } from "./store";
 import { LoginProvider } from "./LoginContext";
 import { toast } from "react-toastify";
-import ArticlePage from "./components/ArticlePage";
+import PostPage from "./components/PostPage";
 
 function InValidateURL() {
   return (
@@ -73,25 +73,35 @@ function AppRoutes() {
         <Route element={<BoardLayout />}>
           <Route path="" element={<Home />} />
           <Route
-            path=":boardID/p/:index"
+            path=":boardId/p/:index"
             element={redirectLoginPageIfNotLoginned(<BoardPage />, "")}
           />
           <Route
-            path=":boardID"
+            path=":boardId"
             element={redirectLoginPageIfNotLoginned(<BoardPage />, "")}
           />
-          <Route path=":boardID/v/:articleID" element={<ArticlePage />} />
+          <Route path=":boardId/v/:postId" element={<PostPage />} />
         </Route>
-        <Route path='my'>
-          <Route index element={redirectLoginPageIfNotLoginned(<MyPage />, '/my')} />
+        <Route path="my">
           <Route
-            path='password'
-            element={redirectLoginPageIfNotLoginned(<ChangePasswordPage />, '/my/password')}
+            index
+            element={redirectLoginPageIfNotLoginned(<MyPage />, "/my")}
           />
           <Route
-            path='nickname'
-            element={redirectLoginPageIfNotLoginned(<ChangeNicknamePage />, '/my/nickname')}
+            path="password"
+            element={redirectLoginPageIfNotLoginned(
+              <ChangePasswordPage />,
+              "/my/password"
+            )}
           />
+          <Route
+            path="nickname"
+            element={redirectLoginPageIfNotLoginned(
+              <ChangeNicknamePage />,
+              "/my/nickname"
+            )}
+          />
+        </Route>
       </Route>
 
       <Route path="/login" element={checkIfLoginned(<Login />)} />

@@ -1,29 +1,31 @@
-import styles from './Main.module.scss';
-import { BoardList, Board } from '../../lib/types';
-import { Link } from 'react-router-dom';
-import { useApiData, useApiGetBoardPosts } from '../../lib/api';
-import { RootState, useAppSelector } from '../../store';
-import { formattedTime } from '../../lib/format';
+import styles from "./Main.module.scss";
+import { BoardList, Board } from "../../lib/types";
+import { Link } from "react-router-dom";
+import { useApiData, useApiGetBoardPosts } from "../../lib/api";
+import { RootState, useAppSelector } from "../../store";
+import { formattedTime } from "../../lib/format";
 
 function BoardItem({ board }: { board: Board }) {
   const token = useAppSelector((state: RootState) => state.session.token);
-  const boardPostsData = useApiData(useApiGetBoardPosts(token, board.boardId, 0, 4));
+  const boardPostsData = useApiData(
+    useApiGetBoardPosts(token, board.boardId, 0, 4)
+  );
   const doesPostHasTitle = boardPostsData?.content[0]?.title; // TODO: api response 수정되면 이것도 수정
   const nDisplayPost = doesPostHasTitle ? 4 : 2;
 
   return (
-    <section className={styles['board']}>
-      <h1 className={styles['board-title']}>
+    <section className={styles["board"]}>
+      <h1 className={styles["board-title"]}>
         <Link to={`${board.boardId}`}>{board.name}</Link>
       </h1>
-      <ul className={styles['posts']}>
+      <ul className={styles["posts"]}>
         {boardPostsData?.content.map(
           (post, index) =>
             index < nDisplayPost && (
               <li
                 key={index}
-                className={`${styles['post']} ${
-                  styles[doesPostHasTitle ? 'has-title' : 'no-title']
+                className={`${styles["post"]} ${
+                  styles[doesPostHasTitle ? "has-title" : "no-title"]
                 }`}
               >
                 <Link to={`${board.boardId}/v/${post.postId}`}>
@@ -36,9 +38,9 @@ function BoardItem({ board }: { board: Board }) {
                     <>
                       <p>{post.contents}</p>
                       <time>{formattedTime(post.createdAt)}</time>
-                      <ul className={styles['status']}>
-                        <li className={styles['likes']}>{post.nlikes}</li>
-                        <li className={styles['replies']}>{post.nreplies}</li>
+                      <ul className={styles["status"]}>
+                        <li className={styles["likes"]}>{post.nlikes}</li>
+                        <li className={styles["replies"]}>{post.nreplies}</li>
                       </ul>
                     </>
                   )}
@@ -55,12 +57,12 @@ export default function Main() {
   const boardLists: BoardList[] = [
     {
       id: 0,
-      category: 'basic',
+      category: "basic",
       size: 16,
       defaultDisplayColumnSize: 2,
       boards: [
-        { boardId: 1, name: '자유게시판' },
-        { boardId: 4, name: '비밀게시판' },
+        { boardId: 1, name: "자유게시판" },
+        { boardId: 4, name: "비밀게시판" },
       ],
       // boards: [
       //   { boardId: 0, name: '자유게시판' },
@@ -83,15 +85,15 @@ export default function Main() {
     },
   ];
   return (
-    <article className={styles['main']}>
-      <article className={styles['banner']}>배너</article>
-      <article className={styles['boards']}>
+    <article className={styles["main"]}>
+      <article className={styles["banner"]}>배너</article>
+      <article className={styles["boards"]}>
         {/* TODO: 추후 업데이트 */}
         {boardLists[0].boards.map((board) => (
           <BoardItem key={board.boardId} board={board} />
         ))}
       </article>
-      <article className={styles['bookstore']}></article>
+      <article className={styles["bookstore"]}></article>
     </article>
   );
 }

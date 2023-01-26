@@ -1,17 +1,21 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import styles from './BoardListBoard.module.scss';
-import { Board, BoardList } from '../../../lib/types';
-import { useApiGetBoardLists, useApiData } from '../../../lib/api';
-import { RootState, useAppSelector } from '../../../store';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import styles from "./BoardListBoard.module.scss";
+import { Board, BoardList } from "../../../lib/types";
+import { useApiGetBoardLists, useApiData } from "../../../lib/api";
+import { RootState, useAppSelector } from "../../../store";
 
 function BoardItem({ board }: { board: Board }) {
   const navigate = useNavigate();
-  const selectedBoardId = useAppSelector((state: RootState) => state.board.selectedBoardId);
+  const selectedBoardId = useAppSelector(
+    (state: RootState) => state.board.selectedBoardId
+  );
 
   return (
     <li
-      className={styles[`${selectedBoardId === board.boardId ? 'selected' : ''}`]}
+      className={
+        styles[`${selectedBoardId === board.boardId ? "selected" : ""}`]
+      }
       onClick={() => {
         navigate(`${board.boardId}`);
       }}
@@ -23,7 +27,8 @@ function BoardItem({ board }: { board: Board }) {
 
 function BoardListItem({ boardList }: { boardList: BoardList }) {
   const [isMoreClicked, setIsMoreClicked] = useState<boolean>(false);
-  const isOverflowed: boolean = boardList.size > 8 * boardList.defaultDisplayColumnSize;
+  const isOverflowed: boolean =
+    boardList.size > 8 * boardList.defaultDisplayColumnSize;
   const lastDefaultDisplayIndex: number = isOverflowed
     ? boardList.defaultDisplayColumnSize * 8 - 2
     : boardList.size - 1;
@@ -40,7 +45,7 @@ function BoardListItem({ boardList }: { boardList: BoardList }) {
           {!isMoreClicked && isOverflowed && (
             <li>
               <p
-                className={styles['more']}
+                className={styles["more"]}
                 onClick={() => {
                   setIsMoreClicked(true);
                 }}
@@ -62,9 +67,9 @@ export default function BoardListBoard() {
   const boardLists = useApiData(useApiGetBoardLists(token));
   return (
     <>
-      <article className={styles['board-list-layout']}>
-        <article className={styles['board-list-board']}>
-          <section className={styles['divider']}></section>
+      <article className={styles["board-list-layout"]}>
+        <article className={styles["board-list-board"]}>
+          <section className={styles["divider"]}></section>
           {boardLists?.map((boardList: BoardList) => (
             <BoardListItem key={boardList.id} boardList={boardList} />
           ))}

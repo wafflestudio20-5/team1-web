@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AxiosResponse } from 'axios';
 import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
-import { BoardList, BoardPosts, UserInfo } from './types';
+import { BoardList, BoardPosts, Post, UserInfo } from './types';
 
 const url = (path: string, param?: Record<string, any>): string => {
   const validParamData =
@@ -101,6 +101,14 @@ export const useApiGetHotPosts = (token: string | null, page?: number, size?: nu
         headers: auth(token),
       }),
     [token, page, size]
+  );
+export const useApiGetPost = (token: string | null, boardId: number, postId: number) =>
+  useCallback(
+    () =>
+      axios.get<Post>(url(`/api/board/${boardId}/post/${postId}`), {
+        headers: auth(token),
+      }),
+    [token, boardId, postId]
   );
 export function useApiGetImg(imgUrl: string | null) {
   const [img, setImg] = useState(null);

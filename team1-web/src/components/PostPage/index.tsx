@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useApiData, useApiGetPost } from "../../lib/api";
+import { formattedTime } from "../../lib/format";
+import { RootState, useAppSelector } from "../../store";
 import styles from "./index.module.scss";
 
-export default function ArticlePage() {
-  const { boardID, articleID } = useParams();
+export default function PostPage() {
+  const { boardId, postId } = useParams();
+
   const boardName = "자유게시판";
+  const token = useAppSelector((state: RootState) => state.session.token);
+  const currentPost =
+    useApiData(useApiGetPost(token, Number(boardId), Number(postId))) || null;
 
   const [loading, useLoading] = useState(false);
 
@@ -12,21 +19,29 @@ export default function ArticlePage() {
     <article className={styles["board"]}>
       <div className={styles["board-title"]}>
         <h1>
-          <Link to={boardID === undefined ? "1" : boardID}>{boardName}</Link>
+          <Link to={boardId === undefined ? "1" : boardId}>{boardName}</Link>
         </h1>
       </div>
       {loading ? (
         <div className={styles["loading"]}>불러오는 중입니다...</div>
       ) : (
         <article>
-          <div className={styles["article"]}>
+          <div className={styles["post"]}>
             <img
               src="https://cf-fpi.everytime.kr/0.png"
               className={styles["profile-picture"]}
             />
             <div className={styles["profile"]}>
-              <h3 className={styles["large"]}>익명</h3>
-              <time className={styles["large"]}>방금</time>
+              <h3 className={styles["large"]}>
+                {currentPost?.isWriterAnonymous
+                  ? "익명"
+                  : currentPost?.nickname}
+              </h3>
+              <time className={styles["large"]}>
+                {currentPost?.createdAt === undefined
+                  ? ""
+                  : formattedTime(currentPost?.createdAt)}
+              </time>
             </div>
             <ul className={styles["status"]}>
               <li
@@ -40,19 +55,17 @@ export default function ArticlePage() {
               <li className={styles["abuse"]}>신고</li>
             </ul>
             <hr />
-            <h2 className={styles["large"]}>계절 정규 재수강</h2>
-            <p className={styles["large"]}>
-              겨울 계절에 들은 과목 바로 다음 정규 학기에 재수강 못하나요?
-            </p>
+            <h2 className={styles["large"]}>{currentPost?.title}</h2>
+            <p className={styles["large"]}>{currentPost?.contents}</p>
             <ul className={styles["status-left"]}>
               <li title="공감" className={styles["vote"]}>
-                0
+                {currentPost?.nlikes}
               </li>
               <li title="댓글" className={styles["comment"]}>
-                0
+                {currentPost?.nreplies}
               </li>
               <li title="스크랩" className={styles["scrap"]}>
-                0
+                {currentPost?.nscraps}
               </li>
             </ul>
             <hr />
@@ -82,7 +95,7 @@ export default function ArticlePage() {
         </article>
       )}
       <div className={styles["pagination"]}>
-        <Link to={boardID === undefined ? "1" : boardID}>글 목록</Link>
+        <Link to={boardId === undefined ? "1" : boardId}>글 목록</Link>
       </div>
     </article>
   );

@@ -18,7 +18,7 @@
       background-position: right center;
       background-size: 40px 40px;
       outline-color: rgb(133, 133, 133);
-      font-family: '맑은 고딕';
+      font-family: "맑은 고딕";
       vertical-align: center;
     }
   }
@@ -130,11 +130,11 @@
             }
             > .likes {
               color: #c62917;
-              background-image: url('../../../resources/likes-icon.png');
+              background-image: url("../../../resources/likes-icon.png");
             }
             > .replies {
               color: #0ca5af;
-              background-image: url('../../../resources/replies-icon.png');
+              background-image: url("../../../resources/replies-icon.png");
             }
           }
         }
