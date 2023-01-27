@@ -2,12 +2,10 @@ import styles from './Main.module.scss';
 import { BoardList, Board } from '../../lib/types';
 import { Link } from 'react-router-dom';
 import { useApiData, useApiGetBoardPosts } from '../../lib/api';
-import { RootState, useAppSelector } from '../../store';
 import { formattedTime } from '../../lib/format';
 
 function BoardItem({ board }: { board: Board }) {
-  const token = useAppSelector((state: RootState) => state.session.token);
-  const boardPostsData = useApiData(useApiGetBoardPosts(token, board.boardId, 0, 4));
+  const boardPostsData = useApiData(useApiGetBoardPosts(board.boardId, 0, 4));
   const doesPostHasTitle = boardPostsData?.content[0]?.title; // TODO: api response 수정되면 이것도 수정
   const nDisplayPost = doesPostHasTitle ? 4 : 2;
 

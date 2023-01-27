@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Menu } from '../lib/types';
 
 type TBoardSlice = {
   selectedBoardId: number | null;

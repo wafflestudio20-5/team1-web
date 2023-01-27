@@ -58,8 +58,7 @@ function BoardListItem({ boardList }: { boardList: BoardList }) {
 
 export default function BoardListBoard() {
   // TODO: 게시판 오른쪽에 동그라미 추가
-  const token = useAppSelector((state: RootState) => state.session.token);
-  const boardLists = useApiData(useApiGetBoardLists(token));
+  const boardLists = useApiData(useApiGetBoardLists());
   return (
     <>
       <article className={styles['board-list-layout']}>

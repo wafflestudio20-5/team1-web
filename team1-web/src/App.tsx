@@ -19,8 +19,11 @@ import Google from './components/Login/Oauth/Google';
 import NewKakao from './components/Login/Oauth/NewKakao';
 import ChangePasswordPage from './components/MyPage/ChangePasswordPage';
 import ChangeNicknamePage from './components/MyPage/ChangeNicknamePage';
-import { useAppSelector, RootState } from './store';
+import { useAppSelector, RootState, useAppDispatch } from './store';
 import { LoginProvider } from './LoginContext';
+import { useLayoutEffect } from 'react';
+import { apiRefresh } from './lib/api';
+import { setToken } from './store/sessionSlice';
 
 function InValidateURL() {
   return (
@@ -47,6 +50,8 @@ function LoginForRedirectPage({ redirectPath }: { redirectPath: string }) {
 }
 
 function AppRoutes() {
+  const refreshToken = localStorage.getItem('refreshToken');
+  const dispatch = useAppDispatch();
   const token = useAppSelector((state: RootState) => state.session.token);
   const redirectLoginPageIfNotLoginned = (page: JSX.Element, redirectPath: string) =>
     token ? page : <LoginForRedirectPage redirectPath={redirectPath} />;
@@ -55,13 +60,20 @@ function AppRoutes() {
     if (token) {
       // TODO: login 후 navigate 전에 toast 뜨는 문제 해결
       // toast.error('로그아웃 후 이용 가능합니다.');
-      return <Navigate to='' />;
+      return <Navigate to='/' />;
     } else return page;
   };
 
+  useLayoutEffect(() => {
+    apiRefresh().then((res) => {
+      const { accessToken: newAccessToken, refreshToken: newRefreshToken } = res.data;
+      dispatch(setToken(newAccessToken));
+      localStorage.setItem('refreshToken', newRefreshToken);
+    });
+  }, [dispatch]);
   return (
     <Routes>
-      {token || <Route path='' element={<Main />} />}
+      {refreshToken || token || <Route path='' element={<Main />} />}
       <Route element={<Layout />}>
         <Route element={<BoardLayout />}>
           <Route path='' element={<Home />} />
