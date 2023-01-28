@@ -1,7 +1,7 @@
 import styles from './index.module.scss';
 import BoardListBoard from '../Layout/BoardLayout/BoardListBoard';
 
-export default function page() {
+export default function SearchBoardPage() {
   return (
     <>
       <BoardListBoard />
@@ -10,7 +10,7 @@ export default function page() {
           <form>
             <input type='text' placeholder='게시판 검색' />
           </form>
-          <div></div>
+          <div className={styles['search-result']}></div>
         </article>
       </article>
     </>
