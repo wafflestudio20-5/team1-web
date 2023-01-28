@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AxiosResponse } from 'axios';
 import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
-import { BoardList, BoardPosts, HomeBoardPosts, Post, UserInfo } from './types';
+import { Board, BoardList, BoardPosts, HomeBoardPosts, Post, UserInfo } from './types';
 
 const url = (path: string, param?: Record<string, any>): string => {
   const validParamData =
@@ -113,6 +113,7 @@ export const useApiGetLatestPosts = (token: string | null, category: string, siz
     () => axios.get<Post[]>(url('/api/latestposts', { category, size }), { headers: auth(token) }),
     [token, category, size]
   );
+
 export function useApiGetImg(imgUrl: string | null) {
   const [img, setImg] = useState(null);
   useLayoutEffect(() => {
@@ -125,3 +126,12 @@ export function useApiGetImg(imgUrl: string | null) {
   }, [imgUrl]);
   return img;
 }
+
+export const useApiGetBoardSearchResult = (token: string | null, keyword: string) =>
+  useCallback(
+    () =>
+      keyword
+        ? axios.get<Board[]>(url('/api/boards/search', { keyword }), { headers: auth(token) })
+        : Promise.reject(),
+    [token, keyword]
+  );

@@ -52,8 +52,11 @@ export type Article = {
 
 export type Board = {
   boardId: number;
-  name: string;
-  // TODO: 데이터 수정 후 물음표 떼기
+  name?: string;
+  boardType?: string;
+  title?: string;
+  description?: string;
+  allowAnonymous?: boolean;
 };
 
 export type BoardList = {

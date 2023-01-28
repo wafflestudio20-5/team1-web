@@ -20,6 +20,7 @@
         background: transparent url('../../resources/search-icon.png') no-repeat right center;
         background-size: 40px 40px;
         outline-color: rgb(133, 133, 133);
+        font-family: '맑은 고딕';
       }
     }
     > .search-result {
@@ -27,7 +28,40 @@
       border: 1px solid #e3e3e3;
       background-color: #fff;
       box-sizing: border-box;
-      height: 300px;
+      > .not-searched {
+        padding: 80px 0;
+        color: #737373;
+        font-size: 15px;
+        text-align: center;
+        font-family: '맑은 고딕';
+      }
+      > h1 {
+        border-bottom: 1px solid #e3e3e3;
+        box-sizing: border-box;
+        padding: 15px;
+        color: #c62917;
+        font-size: 18px;
+        font-weight: normal;
+        font-family: '맑은 고딕';
+      }
+      > .board-item {
+        display: block;
+        padding: 15px;
+        border-bottom: 1px solid #e3e3e3;
+        > h2 {
+          margin-bottom: 5px;
+          color: #292929;
+          font-size: 14px;
+        }
+        > p {
+          margin-bottom: 5px;
+          color: #737373;
+          font-size: 12px;
+        }
+      }
+      > .board-item:last-child {
+        border-bottom: none;
+      }
     }
   }
 }
