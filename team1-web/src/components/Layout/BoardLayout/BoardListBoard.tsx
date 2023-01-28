@@ -65,9 +65,10 @@ export default function BoardListBoard() {
       <article className={styles['board-list-layout']}>
         <article className={styles['board-list-board']}>
           <section className={styles['divider']}></section>
-          {boardLists?.map((boardList: BoardList) => (
-            <BoardListItem key={boardList.id} boardList={boardList} />
-          ))}
+          {boardLists?.map(
+            (boardList: BoardList) =>
+              boardList.boards && <BoardListItem key={boardList.id} boardList={boardList} />
+          )}
         </article>
       </article>
     </>
