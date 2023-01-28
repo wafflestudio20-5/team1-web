@@ -37,6 +37,13 @@ function BoardListItem({ boardList }: { boardList: BoardList }) {
                 <BoardItem key={board.boardId} board={board} />
               )
           )}
+          {boardList.category === 'OTHER' && (
+            <li>
+              <Link to='/community/search' className={styles['more']}>
+                게시판 찾기
+              </Link>
+            </li>
+          )}
           {!isMoreClicked && isOverflowed && (
             <li>
               <p
