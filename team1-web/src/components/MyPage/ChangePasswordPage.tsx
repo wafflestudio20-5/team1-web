@@ -27,12 +27,12 @@ export default function ChangePassword() {
         '비밀번호를 변경하면 모든 디바이스에서 즉시 로그아웃 처리됩니다. 변경하시겠습니까?'
       );
       if (response) {
-      try {
-        await dispatch(changeUserInfo(data));
-      } catch (err) {
-        console.log(err);
+        try {
+          await dispatch(changeUserInfo(data));
+        } catch (err) {
+          console.log(err);
+        }
       }
-      // }
     }
   }
   return (
