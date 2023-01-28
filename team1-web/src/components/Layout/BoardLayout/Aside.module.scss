@@ -140,6 +140,57 @@
         }
       }
     }
+    > .school-news-posts {
+      height: 151.6px;
+      > .post {
+        height: 75.8px;
+        > a {
+          height: 75.8px;
+          > .post-contents {
+            margin-bottom: 5px;
+            height: 36px;
+            line-height: 18px;
+            white-space: normal;
+            overflow: hidden;
+            color: #444444;
+            font-size: 13px;
+          }
+          > .post-board-title {
+            display: inline;
+            margin-right: 10px;
+            height: 14px;
+            line-height: 14px;
+            color: #a6a6a6;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0;
+          }
+          > .status {
+            display: inline;
+            > li {
+              display: inline;
+              margin-right: 5px;
+              padding-left: 15px;
+              height: 14px;
+              line-height: 14px;
+              font-size: 11px;
+              letter-spacing: 0;
+              background-repeat: no-repeat;
+              background-size: 11px 11px;
+              background-position: left center;
+            }
+            > .likes {
+              color: #c62917;
+              background-image: url('../../../resources/likes-icon.png');
+            }
+            > .replies {
+              color: #0ca5af;
+              background-image: url('../../../resources/replies-icon.png');
+            }
+          }
+        }
+      }
+    }
   }
 
   > .best-board {
