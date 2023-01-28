@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 export const axiosErrorHandler = (err: unknown, message: string) => {
   if (axios.isAxiosError(err)) {
-    const resMsg = err.response?.data.message;
+    const resMsg = err.response?.data['default-message'];
     const errorMsg = `${message}${resMsg ? ': ' + resMsg : ''}`;
     toast.error(errorMsg);
     return errorMsg;

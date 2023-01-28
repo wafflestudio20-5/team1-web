@@ -2,11 +2,13 @@ import styles from './ChangePasswordPage.module.scss';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { RootState, useAppDispatch, useAppSelector } from '../../store';
-import { changeUserInfo } from '../../store/sessionSlice';
+import { changeUserInfo, logout } from '../../store/sessionSlice';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function ChangePassword() {
   const token = useAppSelector((state: RootState) => state.session.token);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [newPW, setNewPW] = useState<string>('');
   const [newPWCheck, setNewPWCheck] = useState<string>('');
@@ -29,6 +31,8 @@ export default function ChangePassword() {
       if (response) {
         try {
           await dispatch(changeUserInfo(data));
+          navigate('/');
+          await dispatch(logout(token));
         } catch (err) {
           console.log(err);
         }
@@ -37,7 +41,12 @@ export default function ChangePassword() {
   }
   return (
     <article className={styles['change-password-page']}>
-      <form className={styles['card']}>
+      <form
+        className={styles['card']}
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <h1 className={styles['title']}>비밀번호 변경</h1>
         <section className={styles['password-form']}>
           <label className={styles['new-password']}>새 비밀번호</label>

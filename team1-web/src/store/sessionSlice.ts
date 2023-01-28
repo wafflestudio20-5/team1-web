@@ -64,7 +64,7 @@ export const changeUserInfo = createAsyncThunk(
       const { data } = await apiChangeUserInfo(params.token, params.newUserInfo);
       return data;
     } catch (e) {
-      const error: string = axiosErrorHandler(e, '변경에 실패했습니다.');
+      const error: string = axiosErrorHandler(e, '변경에 실패했습니다');
       return rejectWithValue(error);
     }
   }
