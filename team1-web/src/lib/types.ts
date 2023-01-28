@@ -121,3 +121,26 @@ export type BoardPosts = {
   first: Boolean;
   empty: Boolean;
 };
+
+export type HomePost = {
+  boardId: number;
+  boardTitle: string;
+  postId: number;
+  createdAt: TimeObject;
+  title?: string;
+  contents: string;
+  images?: {
+    imageId: number;
+    preSignedUrl: string;
+    description?: string;
+  }[];
+  nreplies: number;
+  nlikes: number;
+};
+
+export type HomeBoardPosts = {
+  boardId: number;
+  boardTitle: string;
+  hasPostTitle: boolean;
+  posts: HomePost[];
+};
