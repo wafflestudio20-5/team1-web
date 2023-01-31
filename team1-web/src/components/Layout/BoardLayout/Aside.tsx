@@ -1,10 +1,11 @@
 import styles from './Aside.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useApiData, useApiGetHotPosts, useApiGetLatestPosts } from '../../../lib/api';
 import { RootState, useAppSelector } from '../../../store';
 import { Post } from '../../../lib/types';
 import { formattedTime } from '../../../lib/format';
 import { DateTime } from 'luxon';
+import { useState } from 'react';
 
 function RealTimePopularPostCard({ postPair }: { postPair: Post[] | null }) {
   return (
@@ -92,10 +93,31 @@ export default function Aside() {
       .slice(0, 2) || null;
   const latestStudentBoardsPostPair = useApiData(useApiGetLatestPosts(token, 'STUDENT'));
 
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const navigate = useNavigate();
+
   return (
     <aside className={styles['topic']}>
-      <form className={styles['search-bar']}>
-        <input type='text' name='keyword' placeholder='전체 게시판의 글을 검색하세요!' />
+      <form
+        className={styles['search-bar']}
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <input
+          type='text'
+          name='keyword'
+          placeholder='전체 게시판의 글을 검색하세요!'
+          value={searchKeyword}
+          onChange={(e) => {
+            setSearchKeyword(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              navigate(`search/all/${searchKeyword}`);
+            }
+          }}
+        />
       </form>
 
       <RealTimePopularPostCard postPair={realTimePopularPostPair} />

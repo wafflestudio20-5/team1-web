@@ -56,7 +56,7 @@ function AppRoutes() {
     if (token) {
       // TODO: login 후 navigate 전에 toast 뜨는 문제 해결
       // toast.error('로그아웃 후 이용 가능합니다.');
-      return <Navigate to='' />;
+      return <Navigate to='/' />;
     } else return page;
   };
 
