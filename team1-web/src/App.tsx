@@ -66,7 +66,10 @@ function AppRoutes() {
       <Route element={<Layout />}>
         <Route element={<BoardLayout />}>
           <Route path='' element={<Home />} />
-          <Route path=':boardId' element={redirectLoginPageIfNotLoginned(<BoardPage />, '')} />
+          <Route
+            path=':boardId(\\d+)'
+            element={redirectLoginPageIfNotLoginned(<BoardPage />, '')}
+          />
         </Route>
         <Route path='my'>
           <Route index element={redirectLoginPageIfNotLoginned(<MyPage />, '/my')} />
