@@ -7,6 +7,8 @@
   border-bottom: 1px solid #d6d6d6;
   box-sizing: border-box;
   background-color: #f2f2f2;
+  overflow-y: hidden;
+  overflow-x: auto;
 
   > .board-list-board {
     height: 200px;
@@ -34,6 +36,9 @@
             font-size: 13px;
             color: #444444;
             line-height: 25px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
           }
           > .more {
             display: block;
@@ -60,4 +65,8 @@
       }
     }
   }
+}
+
+.board-list-layout::-webkit-scrollbar {
+  display: none; /* 크롬, 사파리, 오페라, 엣지 */
 }
