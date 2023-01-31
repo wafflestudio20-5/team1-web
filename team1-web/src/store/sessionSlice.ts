@@ -54,14 +54,17 @@ export const logout = createAsyncThunk(
 export const changeUserInfo = createAsyncThunk(
   'sessionSlice/changeUserInfo',
   async (
-    params: { token: string | null; newUserInfo: { password?: string; nickname?: string } },
+    params: {
+      token: string | null;
+      newUserInfo: { oldPassword?: string; newPassword?: string; nickname?: string };
+    },
     { rejectWithValue }
   ) => {
     try {
       const { data } = await apiChangeUserInfo(params.token, params.newUserInfo);
       return data;
     } catch (e) {
-      const error: string = axiosErrorHandler(e, '변경에 실패했습니다.');
+      const error: string = axiosErrorHandler(e, '변경에 실패했습니다');
       return rejectWithValue(error);
     }
   }
