@@ -20,6 +20,7 @@ import NewKakao from './components/Login/Oauth/NewKakao';
 import ChangePasswordPage from './components/MyPage/ChangePasswordPage';
 import ChangeNicknamePage from './components/MyPage/ChangeNicknamePage';
 import SearchBoardPage from './components/SearchBoardPage';
+import EmailVerifyPage from './components/EmailVerifyPage';
 import { useAppSelector, RootState } from './store';
 import { LoginProvider } from './LoginContext';
 
@@ -86,8 +87,11 @@ function AppRoutes() {
           path='community/search'
           element={redirectLoginPageIfNotLoginned(<SearchBoardPage />, '/community/search')}
         />
+        <Route
+          path='/auth'
+          element={redirectLoginPageIfNotLoginned(<EmailVerifyPage />, '/auth')}
+        />
       </Route>
-
       <Route path='/login' element={checkIfLoginned(<Login />)} />
       <Route path='/oauth/kakao/callback' element={checkIfLoginned(<Kakao />)} />
       <Route path='/oauth/google/callback' element={checkIfLoginned(<Google />)} />
