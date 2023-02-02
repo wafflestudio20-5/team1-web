@@ -8,16 +8,102 @@
     padding: 24px;
     border: 1px solid #ededed;
     border-radius: 12px;
+    display: flex;
+    flex-direction: column;
     .title {
       font-weight: bold;
       font-size: 18px;
       line-height: 26px;
       color: #292929;
+      margin-bottom: 8px;
+    }
+    > h1.title {
+      font-size: 22px;
+      margin-bottom: 20px;
     }
     .text {
+      color: #444444;
+      font-size: 12px;
+      line-height: 20px;
     }
-    > input::placeholder {
-      color: #a6a6a6;
+    > .email {
+      margin-top: 40px;
+      > div {
+        padding: 0 8px;
+        > label {
+          font-weight: bold;
+        }
+        > p {
+          float: right;
+          color: #a6a6a6;
+        }
+      }
+      > input {
+        display: block;
+        box-sizing: border-box;
+        margin-bottom: 8px;
+        margin-top: 4px;
+        padding: 8px;
+        border: 1px solid #ededed;
+        border-radius: 12px;
+        width: 100%;
+        height: 40px;
+        line-height: 24px;
+        color: #292929;
+        font-size: 16px;
+        background-color: #f9f9f9;
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+        background-size: 24px 24px;
+        caret-color: #c62917;
+        outline: none;
+        font-family: '맑은 고딕';
+      }
+      > input::placeholder {
+        color: #a6a6a6;
+      }
+      > input.caution {
+        background-image: url('../../resources/input-caution.png');
+      }
+      > input.pass {
+        background-image: url('../../resources/input-pass.png');
+      }
+      > p.caution {
+        margin: 4px 0 0 8px;
+        line-height: 20px;
+        color: #c62917;
+        font-size: 12px;
+      }
+    }
+    > .agreements {
+      margin-top: 40px;
+      > .agreement {
+        margin-top: 8px;
+        > label {
+          margin-left: 4px;
+          color: #000;
+          font-size: 14px;
+          margin-bottom: 8px;
+          line-height: 20px;
+        }
+        > ul.contents {
+          margin-top: 8px;
+          padding: 12px 12px 12px 28px;
+          border-radius: 12px;
+          background-color: #f2f2f2;
+          list-style-type: disc;
+          > li.content {
+            list-style-type: disc;
+            color: #737373;
+            font-size: 12px;
+            line-height: 20px;
+          }
+          // li::marker {
+
+          //   font-size: 1.2em;
+          // }
+        }
+      }
     }
     .submit {
       margin-top: 24px;
