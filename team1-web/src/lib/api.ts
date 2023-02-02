@@ -101,6 +101,20 @@ export const apiDeletePost = (params: {
 }) => axios.delete(`http://api.wafflytime.com/api/board/${params.boardId}/post/${params.postId}`,
   { headers: auth(params.token) })
 
+export const apiLikePost = (params: {
+  token: string | null,
+  boardId: number,
+  postId: number
+}) => axios.post(`http://api.wafflytime.com/api/board/${params.boardId}/post/${params.postId}/like`, {},
+  { headers: auth(params.token) })
+
+export const apiScrapPost = (params: {
+  token: string | null,
+  boardId: number,
+  postId: number
+}) => axios.post(`http://api.wafflytime.com/api/board/${params.boardId}/post/${params.postId}/scrap`, {},
+  { headers: auth(params.token) })
+
 export function useApiData<T>(fetch: () => Promise<AxiosResponse<T>>) {
   const [data, setData] = useState<T>();
   useLayoutEffect(() => {

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { apiCreatePost, apiCreateReply, apiDeletePost, apiDeleteReply } from '../lib/api';
+import { apiCreatePost, apiCreateReply, apiDeletePost, apiDeleteReply, apiLikePost, apiScrapPost } from '../lib/api';
 import { axiosErrorHandler } from '../lib/error';
 import { Menu, Reply } from '../lib/types';
 
@@ -69,6 +69,40 @@ export const deletePost = createAsyncThunk(
   }
 );
 
+export const likePost = createAsyncThunk(
+  'boardSlice/post/like',
+  async (params: {
+    token: string | null,
+    boardId: number,
+    postId: number
+  }, { rejectWithValue }) => {
+    try {
+      const { data } = await apiLikePost(params)
+      return data;
+    } catch (e) {
+      const error: string = axiosErrorHandler(e, '잘못된 요청입니다');
+      return rejectWithValue(error)
+    }
+  }
+);
+
+export const scrapPost = createAsyncThunk(
+  'boardSlice/post/scrap',
+  async (params: {
+    token: string | null,
+    boardId: number,
+    postId: number
+  }, { rejectWithValue }) => {
+    try {
+      const { data } = await apiScrapPost(params)
+      return data;
+    } catch (e) {
+      const error: string = axiosErrorHandler(e, '잘못된 요청입니다');
+      return rejectWithValue(error)
+    }
+  }
+);
+
 export const deleteReply = createAsyncThunk(
   'boardSlice/reply/delete',
   async (params: {
@@ -128,7 +162,23 @@ const boardSlice = createSlice({
       .addCase(deleteReply.rejected, (state, { payload }) => {
         // state.status = 'failed';
         throw payload;
-      });
+      })
+      .addCase(likePost.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        toast.success('게시물에 공감했습니다!');
+      })
+      .addCase(likePost.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
+      .addCase(scrapPost.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        toast.success('게시물을 스크랩 했습니다!');
+      })
+      .addCase(scrapPost.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
   }
 });
 
