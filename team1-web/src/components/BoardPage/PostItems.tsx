@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Post } from "../../lib/types";
-import styles from "./index.module.scss";
-import PostItem from "./PostItem";
+import { useState } from 'react';
+import { Post } from '../../lib/types';
+import styles from './index.module.scss';
+import PostItem from './PostItem';
 
 export default function PostItems({
   Posts,

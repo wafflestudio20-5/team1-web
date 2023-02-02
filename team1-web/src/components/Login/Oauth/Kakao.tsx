@@ -23,7 +23,7 @@ export default function Kakao() {
     axios
       .post(
         `http://api.staging.wafflytime.com/api/auth/social/signup/kakao?code=${params.get(
-          "code"
+          'code'
         )}`
       )
       .then((response) => {
@@ -54,7 +54,7 @@ export default function Kakao() {
     axios
       .post(
         `http://api.staging.wafflytime.com/api/auth/social/login/kakao?code=${params.get(
-          "code"
+          'code'
         )}`
       )
       .then((response) => {

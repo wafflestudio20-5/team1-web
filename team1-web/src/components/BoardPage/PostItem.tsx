@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useApiData, useApiGetPost } from "../../lib/api";
-import { formattedTime } from "../../lib/format";
-import { Post } from "../../lib/types";
-import { RootState, useAppSelector } from "../../store";
-import styles from "./PostItem.module.scss";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useApiData, useApiGetPost } from '../../lib/api';
+import { formattedTime } from '../../lib/format';
+import { Post } from '../../lib/types';
+import { RootState, useAppSelector } from '../../store';
+import styles from './PostItem.module.scss';
 
 export default function PostItem({
   Post,
@@ -14,20 +14,20 @@ export default function PostItem({
   boardId: number;
 }) {
   return (
-    <Link to={`/${boardId}/v/${Post.postId}`} className={styles["Post"]}>
-      <h2 className={styles["medium"]}>
-        {Post.title ? Post.title : "(제목없음)"}
+    <Link to={`/${boardId}/v/${Post.postId}`} className={styles['Post']}>
+      <h2 className={styles['medium']}>
+        {Post.title ? Post.title : '(제목없음)'}
       </h2>
-      <p className={styles["small"]}>{Post.contents}</p>
-      <time className={styles["small"]}>
-        {Post?.createdAt === undefined ? "" : formattedTime(Post?.createdAt)}
+      <p className={styles['small']}>{Post.contents}</p>
+      <time className={styles['small']}>
+        {Post?.createdAt === undefined ? '' : formattedTime(Post?.createdAt)}
       </time>
-      <h3 className={styles["small"]}>
-        {Post?.isWriterAnonymous ? "익명" : Post?.nickname}
+      <h3 className={styles['small']}>
+        {Post?.isWriterAnonymous ? '익명' : Post?.nickname}
       </h3>
-      <ul className={styles["status"]}>
-        <li className={styles["vote"]}>{Post.nlikes}</li>
-        <li className={styles["comment"]}>{Post.nreplies}</li>
+      <ul className={styles['status']}>
+        <li className={styles['vote']}>{Post.nlikes}</li>
+        <li className={styles['comment']}>{Post.nreplies}</li>
       </ul>
     </Link>
   );

@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Board } from "../../lib/types";
-import PostItems from "./PostItems";
-import styles from "./index.module.scss";
-import { RootState, useAppDispatch, useAppSelector } from "../../store";
-import { useApiData, useApiGetBoard, useApiGetBoardPosts } from "../../lib/api";
-import { createPost } from "../../store/boardSlice";
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { Board } from '../../lib/types';
+import PostItems from './PostItems';
+import styles from './index.module.scss';
+import { RootState, useAppDispatch, useAppSelector } from '../../store';
+import { useApiData, useApiGetBoard, useApiGetBoardPosts } from '../../lib/api';
+import { createPost } from '../../store/boardSlice';
 
 export default function BoardPage() {
-  const boardName = "자유게시판";
+  const boardName = '자유게시판';
   const dispatch = useAppDispatch();
 
   const { boardId, index } = useParams();
@@ -45,8 +45,8 @@ export default function BoardPage() {
   const [newPostBool, setNewPostBool] = useState(false);
   const [anonymBool, setAnonymBool] = useState(false);
   const [questionBool, setQuestionBool] = useState(false);
-  const [newPostTitle, setNewPostTitle] = useState("");
-  const [newPostContent, setNewPostContent] = useState("");
+  const [newPostTitle, setNewPostTitle] = useState('');
+  const [newPostContent, setNewPostContent] = useState('');
 
   const token = useAppSelector((state: RootState) => state.session.token);
   const currentPosts =
@@ -76,8 +76,8 @@ export default function BoardPage() {
     };
     try {
       await dispatch(createPost(data));
-      setNewPostContent("");
-      setNewPostTitle("");
+      setNewPostContent('');
+      setNewPostTitle('');
       setNewPostBool(false);
       setLoading(false);
     } catch (e) {
@@ -87,38 +87,38 @@ export default function BoardPage() {
 
   const getBoardName = () => {
     switch (boardId) {
-      case "myPost":
-        return "내가 쓴 글";
-      case "myCommentPost":
-        return "댓글 단 글";
-      case "myScrap":
-        return "내 스크랩";
+      case 'myPost':
+        return '내가 쓴 글';
+      case 'myCommentPost':
+        return '댓글 단 글';
+      case 'myScrap':
+        return '내 스크랩';
       default:
-        return currentBoard?.title ? currentBoard?.title : "(알 수 없음)";
+        return currentBoard?.title ? currentBoard?.title : '(알 수 없음)';
     }
   };
 
   return (
-    <article className={styles["board"]}>
-      <div className={styles["board-title"]}>
+    <article className={styles['board']}>
+      <div className={styles['board-title']}>
         <h1>
-          <Link to={boardId === undefined ? "/1" : `/${boardId}`}>
+          <Link to={boardId === undefined ? '/1' : `/${boardId}`}>
             {getBoardName()}
           </Link>
         </h1>
       </div>
       {loading ? (
-        <div className={styles["loading"]}>불러오는 중입니다...</div>
+        <div className={styles['loading']}>불러오는 중입니다...</div>
       ) : (
         <>
           {newPostBool && (
-            <div className={styles["write"]}>
+            <div className={styles['write']}>
               <p>
                 <input
-                  name="title"
-                  autoComplete="off"
-                  placeholder="글 제목"
-                  className={styles["title"]}
+                  name='title'
+                  autoComplete='off'
+                  placeholder='글 제목'
+                  className={styles['title']}
                   onChange={(e) => {
                     setNewPostTitle(e.target.value);
                   }}
@@ -126,25 +126,25 @@ export default function BoardPage() {
               </p>
               <p>
                 <textarea
-                  name="text"
+                  name='text'
                   placeholder={newPostDescription}
-                  className={styles["smallplaceholder"]}
+                  className={styles['smallplaceholder']}
                   onChange={(e) => setNewPostContent(e.target.value)}
                 />
               </p>
               <input
-                className={styles["file"]}
-                type="file"
-                name="file"
+                className={styles['file']}
+                type='file'
+                name='file'
                 multiple={true}
               />
-              <ol className={styles["thumbnails"]}>
-                <li className={styles["new"]} />
+              <ol className={styles['thumbnails']}>
+                <li className={styles['new']} />
               </ol>
-              <div className={styles["clearBothOnly"]} />
+              <div className={styles['clearBothOnly']} />
               <p
                 className={
-                  questionBool ? styles["question-on"] : styles["question-off"]
+                  questionBool ? styles['question-on'] : styles['question-off']
                 }
               >
                 <div>
@@ -155,43 +155,43 @@ export default function BoardPage() {
                   달린 이후에는 <b>글을 수정 및 삭제할 수 없습니다.</b>
                 </div>
               </p>
-              <ul className={styles["option"]}>
-                <li title="해시태그" className={styles["hashtag"]}></li>
-                <li title="첨부" className={styles["attach"]}></li>
+              <ul className={styles['option']}>
+                <li title='해시태그' className={styles['hashtag']}></li>
+                <li title='첨부' className={styles['attach']}></li>
                 <li
-                  title="완료"
-                  className={styles["submit"]}
+                  title='완료'
+                  className={styles['submit']}
                   onClick={handleCreatePost}
                 ></li>
                 <li
-                  title="익명"
+                  title='익명'
                   className={
-                    anonymBool ? styles["anonym-on"] : styles["anonym-off"]
+                    anonymBool ? styles['anonym-on'] : styles['anonym-off']
                   }
                   onClick={() => {
                     setAnonymBool((e) => !e);
                   }}
                 ></li>
                 <li
-                  title="질문"
+                  title='질문'
                   className={
                     questionBool
-                      ? styles["question-on"]
-                      : styles["question-off"]
+                      ? styles['question-on']
+                      : styles['question-off']
                   }
                   onClick={() => {
                     setQuestionBool((e) => !e);
                   }}
                 ></li>
               </ul>
-              <div className={styles["clearBothOnly"]}></div>
+              <div className={styles['clearBothOnly']}></div>
             </div>
           )}
           <div
             onClick={() => {
               setNewPostBool(true);
             }}
-            className={styles["add-new-Post"]}
+            className={styles['add-new-Post']}
           >
             새 글을 작성해주세요!
           </div>
@@ -203,19 +203,19 @@ export default function BoardPage() {
           )}
         </>
       )}
-      <div className={styles["pagination"]}>
-        {index === undefined || index === "1" ? (
-          <div className={styles["search"]}>
-            <select name="search_type">
-              <option value="4">전체</option>
-              <option value="3">해시태그</option>
-              <option value="2">글 제목</option>
-              <option value="1">글 내용</option>
+      <div className={styles['pagination']}>
+        {index === undefined || index === '1' ? (
+          <div className={styles['search']}>
+            <select name='search_type'>
+              <option value='4'>전체</option>
+              <option value='3'>해시태그</option>
+              <option value='2'>글 제목</option>
+              <option value='1'>글 내용</option>
             </select>
             <input
-              name="keyword"
-              placeholder="검색어를 입력하세요."
-              className={styles["text"]}
+              name='keyword'
+              placeholder='검색어를 입력하세요.'
+              className={styles['text']}
             />
           </div>
         ) : (
@@ -223,7 +223,7 @@ export default function BoardPage() {
             to={`/${boardId}/p/${(
               (index === undefined ? 1 : Number(index)) - 1
             ).toString()}`}
-            className={styles["prev"]}
+            className={styles['prev']}
           >
             이전
           </Link>
@@ -234,7 +234,7 @@ export default function BoardPage() {
             to={`/${boardId}/p/${(
               (index === undefined ? 1 : Number(index)) + 1
             ).toString()}`}
-            className={styles["next"]}
+            className={styles['next']}
           >
             다음
           </Link>

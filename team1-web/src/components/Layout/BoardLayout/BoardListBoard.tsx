@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import styles from "./BoardListBoard.module.scss";
-import { Board, BoardList } from "../../../lib/types";
-import { useApiGetBoardLists, useApiData } from "../../../lib/api";
-import { RootState, useAppSelector } from "../../../store";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import styles from './BoardListBoard.module.scss';
+import { Board, BoardList } from '../../../lib/types';
+import { useApiGetBoardLists, useApiData } from '../../../lib/api';
+import { RootState, useAppSelector } from '../../../store';
 
 function BoardItem({ board }: { board: Board }) {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function BoardItem({ board }: { board: Board }) {
   return (
     <li
       className={
-        styles[`${selectedBoardId === board.boardId ? "selected" : ""}`]
+        styles[`${selectedBoardId === board.boardId ? 'selected' : ''}`]
       }
       onClick={() => {
         navigate(`${board.boardId}`);
@@ -43,9 +43,9 @@ function BoardListItem({ boardList }: { boardList: BoardList }) {
                 <BoardItem key={board.boardId} board={board} />
               )
           )}
-          {boardList.category === "OTHER" && (
+          {boardList.category === 'OTHER' && (
             <li>
-              <Link to="/community/search" className={styles["more"]}>
+              <Link to='/community/search' className={styles['more']}>
                 게시판 찾기
               </Link>
             </li>
@@ -53,7 +53,7 @@ function BoardListItem({ boardList }: { boardList: BoardList }) {
           {!isMoreClicked && isOverflowed && (
             <li>
               <p
-                className={styles["more"]}
+                className={styles['more']}
                 onClick={() => {
                   setIsMoreClicked(true);
                 }}
@@ -75,9 +75,9 @@ export default function BoardListBoard() {
   const boardLists = useApiData(useApiGetBoardLists(token));
   return (
     <>
-      <article className={styles["board-list-layout"]}>
-        <article className={styles["board-list-board"]}>
-          <section className={styles["divider"]}></section>
+      <article className={styles['board-list-layout']}>
+        <article className={styles['board-list-board']}>
+          <section className={styles['divider']}></section>
           {boardLists?.map(
             (boardList: BoardList) =>
               boardList.boards && (

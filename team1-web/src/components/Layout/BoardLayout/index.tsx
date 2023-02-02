@@ -1,11 +1,11 @@
-import { Outlet, useParams } from "react-router-dom";
-import styles from "./index.module.scss";
-import BoardListBoard from "./BoardListBoard";
-import Aside from "./Aside";
-import { useAppDispatch } from "../../../store";
-import { useLayoutEffect } from "react";
-import { setSelectedMenu } from "../../../store/menuSlice";
-import { setSelectedBoardId } from "../../../store/boardSlice";
+import { Outlet, useParams } from 'react-router-dom';
+import styles from './index.module.scss';
+import BoardListBoard from './BoardListBoard';
+import Aside from './Aside';
+import { useAppDispatch } from '../../../store';
+import { useLayoutEffect } from 'react';
+import { setSelectedMenu } from '../../../store/menuSlice';
+import { setSelectedBoardId } from '../../../store/boardSlice';
 
 export default function BoardLayout() {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ export default function BoardLayout() {
   const isBoardPage = boardId && !Number.isNaN(Number(boardId));
   useLayoutEffect(() => {
     if (isBoardPage) dispatch(setSelectedBoardId(Number(boardId)));
-    dispatch(setSelectedMenu("게시판"));
+    dispatch(setSelectedMenu('게시판'));
     return () => {
       dispatch(setSelectedMenu(null));
       dispatch(setSelectedBoardId(null));
@@ -22,8 +22,8 @@ export default function BoardLayout() {
   return (
     <>
       <BoardListBoard />
-      <article className={styles["content"]}>
-        <article className={styles["container"]}>
+      <article className={styles['content']}>
+        <article className={styles['container']}>
           <Outlet />
           <Aside />
         </article>
