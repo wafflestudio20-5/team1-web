@@ -10,16 +10,17 @@ function BoardItem({ board }: { board: Board }) {
   const boardPostsData = useApiData(
     useApiGetBoardPosts(token, board.boardId, 0, 4)
   );
-  const doesPostHasTitle = boardPostsData?.content[0]?.title; // TODO: api response 수정되면 이것도 수정
+  console.log(boardPostsData);
+  const doesPostHasTitle = boardPostsData?.contents[0]?.title; // TODO: api response 수정되면 이것도 수정
   const nDisplayPost = doesPostHasTitle ? 4 : 2;
 
   return (
     <section className={styles["board"]}>
       <h1 className={styles["board-title"]}>
-        <Link to={`${board.boardId}`}>{board.name}</Link>
+        <Link to={`${board.boardId}`}>{board.title}</Link>
       </h1>
       <ul className={styles["posts"]}>
-        {boardPostsData?.content.map(
+        {boardPostsData?.contents.map(
           (post, index) =>
             index < nDisplayPost && (
               <li
@@ -61,8 +62,20 @@ export default function Main() {
       size: 16,
       defaultDisplayColumnSize: 2,
       boards: [
-        { boardId: 1, name: "자유게시판" },
-        { boardId: 4, name: "비밀게시판" },
+        {
+          boardId: 1,
+          allowAnonymous: true,
+          description: "",
+          title: "자유게시판",
+          boardType: "",
+        },
+        {
+          boardId: 18,
+          allowAnonymous: true,
+          description: "",
+          title: "비밀게시판",
+          boardType: "",
+        },
       ],
       // boards: [
       //   { boardId: 0, name: '자유게시판' },

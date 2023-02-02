@@ -15,7 +15,9 @@ export default function PostItem({
 }) {
   return (
     <Link to={`/${boardId}/v/${Post.postId}`} className={styles["Post"]}>
-      <h2 className={styles["medium"]}>{Post.title}</h2>
+      <h2 className={styles["medium"]}>
+        {Post.title ? Post.title : "(제목없음)"}
+      </h2>
       <p className={styles["small"]}>{Post.contents}</p>
       <time className={styles["small"]}>
         {Post?.createdAt === undefined ? "" : formattedTime(Post?.createdAt)}

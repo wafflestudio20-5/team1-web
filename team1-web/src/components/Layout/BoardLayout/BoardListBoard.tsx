@@ -20,7 +20,7 @@ function BoardItem({ board }: { board: Board }) {
         navigate(`${board.boardId}`);
       }}
     >
-      <Link to={`${board.boardId}`}>{board.name}</Link>
+      <Link to={`${board.boardId}`}>{board.title}</Link>
     </li>
   );
 }

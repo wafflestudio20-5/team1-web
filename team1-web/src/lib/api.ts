@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { AxiosResponse } from 'axios';
+import { title } from 'process';
 import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
-import { BoardList, BoardPosts, Post, UserInfo } from './types';
+import { BoardList, BoardPosts, Replies, Post, UserInfo, Board } from './types';
 
 const url = (path: string, param?: Record<string, any>): string => {
   const validParamData =
@@ -56,6 +57,50 @@ export const apiChangeUserInfo = (
   newUserInfo: { password?: string; nickname?: string }
 ) => axios.put(url('/api/user/me'), newUserInfo, { headers: auth(token) });
 
+export const apiCreateReply = (params: {
+  token: string | null,
+  boardId: number,
+  postId: number,
+  contents: string,
+  parent: number | null,
+  isWriterAnonymous: boolean
+}) => axios.post(`http://api.wafflytime.com/api/board/${params.boardId}/post/${params.postId}/reply`,
+  {
+    contents: params.contents,
+    parent: params.parent,
+    isWriterAnonymous: params.isWriterAnonymous
+  }, { headers: auth(params.token) })
+
+export const apiDeleteReply = (params: {
+  token: string | null,
+  boardId: number,
+  postId: number,
+  replyId: number
+}) => axios.delete(`http://api.wafflytime.com/api/board/${params.boardId}/post/${params.postId}/reply/${params.replyId}`,
+  { headers: auth(params.token) })
+
+export const apiCreatePost = (params: {
+  token: string | null,
+  boardId: number,
+  title: string | null,
+  contents: string,
+  isQuestion: boolean,
+  isWriterAnonymous: boolean
+}) => axios.post(`http://api.wafflytime.com/api/board/${params.boardId}/post`,
+  {
+    title: params.title,
+    contents: params.contents,
+    isQuestion: params.isQuestion,
+    isWriterAnonymous: params.isWriterAnonymous
+  }, { headers: auth(params.token) })
+
+export const apiDeletePost = (params: {
+  token: string | null,
+  boardId: number,
+  postId: number
+}) => axios.delete(`http://api.wafflytime.com/api/board/${params.boardId}/post/${params.postId}`,
+  { headers: auth(params.token) })
+
 export function useApiData<T>(fetch: () => Promise<AxiosResponse<T>>) {
   const [data, setData] = useState<T>();
   useLayoutEffect(() => {
@@ -76,16 +121,24 @@ export const useApiGetBoardPosts = (
   token: string | null,
   boardId: number,
   page?: number,
-  size?: number
+  size?: number,
+  loading?: boolean
 ) =>
   useCallback(
     () =>
       axios.get<BoardPosts>(url(`/api/board/${boardId}/posts`, { page, size }), {
         headers: auth(token),
       }),
-    [token, boardId, page, size]
+    [token, boardId, page, size, loading]
   );
-
+export const useApiGetBoard = (token: string | null, boardId: number, loading: boolean) =>
+  useCallback(
+    () =>
+      axios.get<Board>(url(`/api/board/${boardId}`), {
+        headers: auth(token),
+      }),
+    [token, boardId, loading]
+  );
 export const useApiGetBestPosts = (token: string | null, page?: number, size?: number) =>
   useCallback(
     () =>
@@ -102,13 +155,21 @@ export const useApiGetHotPosts = (token: string | null, page?: number, size?: nu
       }),
     [token, page, size]
   );
-export const useApiGetPost = (token: string | null, boardId: number, postId: number) =>
+export const useApiGetPost = (token: string | null, boardId: number, postId: number, loading: boolean) =>
   useCallback(
     () =>
       axios.get<Post>(url(`/api/board/${boardId}/post/${postId}`), {
         headers: auth(token),
       }),
-    [token, boardId, postId]
+    [token, boardId, postId, loading]
+  );
+export const useApiGetComments = (token: string | null, boardId: number, postId: number, loading: boolean) =>
+  useCallback(
+    () =>
+      axios.get<Replies>(url(`/api/board/${boardId}/post/${postId}/replies`), {
+        headers: auth(token),
+      }),
+    [token, boardId, postId, loading]
   );
 export function useApiGetImg(imgUrl: string | null) {
   const [img, setImg] = useState(null);
@@ -118,7 +179,7 @@ export function useApiGetImg(imgUrl: string | null) {
       .then((res) => {
         setImg(res.data);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, [imgUrl]);
   return img;
 }

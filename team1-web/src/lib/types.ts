@@ -23,26 +23,52 @@ export type UserInfo = {
   profilePreSignedUrl: string | null;
 };
 
-export type AdditionalComment = {
-  id: number;
-  motherComment: Comment[];
-  content: string;
-  author: User;
-  time: string;
-  like: number;
-};
-export type Comment = {
-  id: number;
-  content: string;
-  author: User;
-  time: string;
-  like: number;
-  additionalComments: AdditionalComment[];
+export type Replies = {
+  contents: Reply[];
+  pageable: {
+    sort: {
+      empty: Boolean,
+      sorted: Boolean,
+      unsorted: Boolean
+    },
+    offset: number,
+    pageNumber: number,
+    pageSize: number,
+    paged: boolean,
+    unpaged: boolean
+  },
+  totalPages: boolean,
+  totalElements: boolean,
+  last: boolean,
+  size: number,
+  number: number,
+  sort: {
+    empty: boolean,
+    sorted: boolean,
+    unsorted: boolean
+  },
+  numberOfElements: number,
+  first: boolean,
+  empty: boolean
+}
+
+export type Reply = {
+  replyId: number,
+  writerId: number,
+  nickname: string,
+  isRoot: boolean,
+  contents: string,
+  isDeleted: boolean,
+  isPostWriter: boolean,
+  isMyReply: boolean,
 };
 
 export type Board = {
   boardId: number;
-  name: string;
+  boardType: string;
+  title: string;
+  description: string;
+  allowAnonymous: boolean;
   // TODO: 데이터 수정 후 물음표 떼기
 };
 
@@ -53,6 +79,12 @@ export type BoardList = {
   defaultDisplayColumnSize: number;
   boards: Board[];
 };
+
+export type Image = {
+  imageId: number;
+  preSignedUrl: string;
+  description?: string;
+}
 
 export type TimeObject = {
   year: number;
@@ -70,21 +102,18 @@ export type Post = {
   writerId: number;
   nickname?: string; // 게시물 작성자가 익명인 경우 null
   isWriterAnonymous: Boolean;
+  isMyPost: Boolean;
   isQuestion: Boolean;
   title?: string;
   contents: string;
-  images?: {
-    imageId: number;
-    preSignedUrl: string;
-    description?: string;
-  }[];
+  images?: Image[];
   nlikes: number;
   nscraps: number;
   nreplies: number;
 };
 
 export type BoardPosts = {
-  content: Post[];
+  contents: Post[];
   pageable: {
     sort: {
       empty: Boolean;

@@ -10,7 +10,7 @@
     padding: 15px;
     border: 1px solid #d6d6d6;
     box-sizing: border-box;
-    > h1 > a {
+    > a {
       color: #292929;
       font-size: 22px;
       font-weight: bold;
@@ -103,6 +103,28 @@
       }
       > p {
         word-break: break-all;
+      }
+      > .attaches-full {
+        > .attach {
+          margin-bottom: 15px;
+          position: relative;
+          display: block;
+          > img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #e3e3e3;
+          }
+          > figcaption {
+            margin-top: 2px;
+            padding: 10px;
+            border: 1px solid #f2f2f2;
+            line-height: 18px;
+            color: #444444;
+            font-size: 14px;
+            word-wrap: break-word;
+            background-color: #fff;
+          }
+        }
       }
       > .status-left {
         float: left;
@@ -206,9 +228,13 @@
             background-size: 40px 40px;
             cursor: pointer;
           }
-          > .annoym {
+          > .anonym {
             margin-right: 5px;
             background-image: url(../../resources/container.posts.write.anonym.png);
+          }
+          > .anonym-active {
+            margin-right: 5px;
+            background-image: url(../../resources/container.posts.write.anonym.active.png);
           }
           > .submit {
             background-color: #c62917;

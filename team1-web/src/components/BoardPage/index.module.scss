@@ -22,6 +22,124 @@
     font-size: 18px;
     text-align: center;
   }
+  > .write {
+    position: relative;
+    margin-bottom: 5px;
+    border: 2px solid #d6d6d6;
+    box-sizing: border-box;
+    > p {
+      padding: 15px;
+      border-bottom: 1px solid #e3e3e3;
+      background-color: #fff;
+      > .title {
+        width: 100%;
+        height: 20px;
+        line-height: 20px;
+        border: 0;
+        color: #292929;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      > .smallplaceholder {
+        width: 100%;
+        height: 350px;
+        border: 0;
+        color: #292929;
+        font-size: 12px;
+        resize: none;
+        vertical-align: middle;
+      }
+    }
+    > .file {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+    }
+    > .thumnails {
+      display: none;
+      padding: 16px 12px 12px px 16px;
+      border-bottom: 1px solid #e3e3e3;
+      > li {
+        display: inline-block;
+        margin: 0 4px 4px 0;
+        width: 85px;
+        height: 85px;
+        border: 1px solid #d6d6d6;
+        cursor: pointer;
+      }
+      > .new {
+        background: transparent
+          url(../../resources/container.articles.write.thumbnails.new.png)
+          no-repeat center center;
+        background-size: 24px 24px;
+      }
+    }
+    > .clearBothOnly {
+      clear: both !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      height: 0 !important;
+    }
+    > .question-off {
+      display: none;
+    }
+    > .question-on {
+      display: block;
+      > div {
+        padding: 8px;
+        border-radius: 8px;
+        line-height: 18px;
+        color: #0ca5af;
+        font-size: 12px;
+        background-color: #eefbfc;
+      }
+    }
+    > .option {
+      > li {
+        width: 40px;
+        height: 40px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 40px 40px;
+        cursor: pointer;
+      }
+      > .hashtag {
+        float: left;
+        background-image: url(../../resources/container.articles.write.hashtag.png);
+      }
+      > .attach {
+        float: left;
+        background-image: url(../../resources/container.articles.write.attach.png);
+      }
+      > .submit {
+        float: right;
+        background-color: #c62917;
+        background-image: url(../../resources/container.articles.write.submit.png);
+      }
+      > .anonym-off {
+        float: right;
+        margin-right: 15px;
+        background-image: url(../../resources/container.posts.write.anonym.png);
+      }
+      > .anonym-on {
+        float: right;
+        margin-right: 15px;
+        background-image: url(../../resources/container.posts.write.anonym.active.png);
+      }
+      > .question-off {
+        float: right;
+        margin-right: 15px;
+        background-image: url(../../resources/container.articles.write.question.png);
+      }
+      > .question-on {
+        float: right;
+        margin-right: 15px;
+        background-image: url(../../resources/container.articles.write.question.active.png);
+      }
+    }
+  }
   > .add-new-Post {
     display: block;
     margin-bottom: 5px;

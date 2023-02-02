@@ -14,9 +14,10 @@ export default function PostItems({
 }) {
   return (
     <>
-      {Posts.map((Post: Post, index: number) => (
-        <PostItem Post={Post} boardId={boardId} />
-      ))}
+      {Posts &&
+        Posts.map((Post: Post, index: number) => (
+          <PostItem Post={Post} boardId={boardId} />
+        ))}
     </>
   );
 }
