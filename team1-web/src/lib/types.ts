@@ -101,9 +101,9 @@ export type Post = {
   createdAt: TimeObject;
   writerId: number;
   nickname?: string; // 게시물 작성자가 익명인 경우 null
-  isWriterAnonymous: Boolean;
-  isMyPost: Boolean;
-  isQuestion: Boolean;
+  isWriterAnonymous: boolean;
+  isMyPost: boolean;
+  isQuestion: boolean;
   title?: string;
   contents: string;
   images?: Image[];
@@ -116,29 +116,30 @@ export type BoardPosts = {
   contents: Post[];
   pageable: {
     sort: {
-      empty: Boolean;
-      sorted: Boolean;
-      unsorted: Boolean;
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
     };
     offset: number;
     pageNumber: number;
     pageSize: number;
-    paged: Boolean;
-    unpaged: Boolean;
+    paged: boolean;
+    unpaged: boolean;
   };
-  totalPages: Boolean;
-  totalElements: Boolean;
-  last: Boolean;
+  totalPages: boolean;
+  totalElements: boolean;
+  last: boolean;
   size: number;
   number: number;
   sort: {
-    empty: Boolean;
-    sorted: Boolean;
-    unsorted: Boolean;
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
   };
   numberOfElements: number;
-  first: Boolean;
-  empty: Boolean;
+  first: boolean;
+  empty: boolean;
+  isLast: boolean;
 };
 
 export type HomePost = {

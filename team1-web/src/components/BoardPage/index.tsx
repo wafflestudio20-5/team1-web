@@ -194,8 +194,7 @@ export default function BoardPage() {
             이전
           </Link>
         )}
-        {Number(index === undefined ? 1 : index) + 1 <=
-          (currentPosts === null ? Infinity : currentPosts.totalPages) && (
+        {!currentPosts?.isLast && (
           <Link
             to={`/${boardId}/p/${((index === undefined ? 1 : Number(index)) + 1).toString()}`}
             className={styles['next']}
