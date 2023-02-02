@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AxiosResponse } from 'axios';
 import { title } from 'process';
 import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
-import { BoardList, BoardPosts, Replies, Post, UserInfo, Board } from './types';
+import { Board, BoardList, BoardPosts, HomeBoardPosts, Post, Replies, Post, UserInfo, Board } from './types';
 
 const url = (path: string, param?: Record<string, any>): string => {
   const validParamData =
@@ -139,6 +139,12 @@ export const useApiGetBoard = (token: string | null, boardId: number, loading: b
       }),
     [token, boardId, loading]
   );
+export const useApiGetHomePosts = (token: string | null) =>
+  useCallback(
+    () => axios.get<HomeBoardPosts[]>(url('/api/homeposts'), { headers: auth(token) }),
+    [token]
+  );
+
 export const useApiGetBestPosts = (token: string | null, page?: number, size?: number) =>
   useCallback(
     () =>
@@ -171,6 +177,12 @@ export const useApiGetComments = (token: string | null, boardId: number, postId:
       }),
     [token, boardId, postId, loading]
   );
+export const useApiGetLatestPosts = (token: string | null, category: string, size?: number) =>
+  useCallback(
+    () => axios.get<Post[]>(url('/api/latestposts', { category, size }), { headers: auth(token) }),
+    [token, category, size]
+  );
+
 export function useApiGetImg(imgUrl: string | null) {
   const [img, setImg] = useState(null);
   useLayoutEffect(() => {
@@ -183,3 +195,12 @@ export function useApiGetImg(imgUrl: string | null) {
   }, [imgUrl]);
   return img;
 }
+
+export const useApiGetBoardSearchResult = (token: string | null, keyword: string) =>
+  useCallback(
+    () =>
+      keyword
+        ? axios.get<Board[]>(url('/api/boards/search', { keyword }), { headers: auth(token) })
+        : Promise.reject(),
+    [token, keyword]
+  );

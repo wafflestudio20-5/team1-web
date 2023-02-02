@@ -10,15 +10,15 @@ import { setSelectedBoardId } from "../../../store/boardSlice";
 export default function BoardLayout() {
   const dispatch = useAppDispatch();
   const { boardId } = useParams(); // TODO: 게시물 페이지 작업 후 추가
+  const isBoardPage = boardId && !Number.isNaN(Number(boardId));
   useLayoutEffect(() => {
-    if (!Number.isNaN(Number(boardId)))
-      dispatch(setSelectedBoardId(Number(boardId)));
+    if (isBoardPage) dispatch(setSelectedBoardId(Number(boardId)));
     dispatch(setSelectedMenu("게시판"));
     return () => {
       dispatch(setSelectedMenu(null));
       dispatch(setSelectedBoardId(null));
     };
-  }, [dispatch, boardId]);
+  }, [dispatch, boardId, isBoardPage]);
   return (
     <>
       <BoardListBoard />

@@ -2,11 +2,13 @@ import styles from "./ChangePasswordPage.module.scss";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { RootState, useAppDispatch, useAppSelector } from "../../store";
-import { changeUserInfo } from "../../store/sessionSlice";
+import { changeUserInfo, logout } from "../../store/sessionSlice";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function ChangePassword() {
   const token = useAppSelector((state: RootState) => state.session.token);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [newPW, setNewPW] = useState<string>("");
   const [newPWCheck, setNewPWCheck] = useState<string>("");
@@ -15,16 +17,13 @@ export default function ChangePassword() {
   async function handleChangePassword() {
     const isValidNewPW = newPW && newPW?.length >= 8; // TODO: 유효PW 조건 추가
     const isNewPWEqualNewPWCheck = newPW && newPW === newPWCheck;
-    const isCurrectCurrentPW = true; // TODO: api 추가
 
     if (!isValidNewPW) {
       toast.error("새 비밀번호가 조건에 부합하지 않습니다");
     } else if (!isNewPWEqualNewPWCheck) {
       toast.error("새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다");
-    } else if (!isCurrectCurrentPW) {
-      toast.error("기존 비밀번호를 확인해주세요");
     } else {
-      const newUserInfo = { password: newPW };
+      const newUserInfo = { oldPassword: currentPW, newPassword: newPW };
       const data = { token, newUserInfo };
       const response = window.confirm(
         "비밀번호를 변경하면 모든 디바이스에서 즉시 로그아웃 처리됩니다. 변경하시겠습니까?"
@@ -32,6 +31,8 @@ export default function ChangePassword() {
       if (response) {
         try {
           await dispatch(changeUserInfo(data));
+          navigate("/");
+          await dispatch(logout(token));
         } catch (err) {
           console.log(err);
         }
@@ -40,7 +41,12 @@ export default function ChangePassword() {
   }
   return (
     <article className={styles["change-password-page"]}>
-      <form className={styles["card"]}>
+      <form
+        className={styles["card"]}
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <h1 className={styles["title"]}>비밀번호 변경</h1>
         <section className={styles["password-form"]}>
           <label className={styles["new-password"]}>새 비밀번호</label>

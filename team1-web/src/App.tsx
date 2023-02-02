@@ -19,6 +19,7 @@ import Google from "./components/Login/Oauth/Google";
 import NewKakao from "./components/Login/Oauth/NewKakao";
 import ChangePasswordPage from "./components/MyPage/ChangePasswordPage";
 import ChangeNicknamePage from "./components/MyPage/ChangeNicknamePage";
+import SearchBoardPage from "./components/SearchBoardPage";
 import { useAppSelector, RootState } from "./store";
 import { LoginProvider } from "./LoginContext";
 import { toast } from "react-toastify";
@@ -62,7 +63,7 @@ function AppRoutes() {
     if (token) {
       // TODO: login 후 navigate 전에 toast 뜨는 문제 해결
       // toast.error('로그아웃 후 이용 가능합니다.');
-      return <Navigate to="" />;
+      return <Navigate to="/" />;
     } else return page;
   };
 
@@ -102,6 +103,13 @@ function AppRoutes() {
             )}
           />
         </Route>
+        <Route
+          path="community/search"
+          element={redirectLoginPageIfNotLoginned(
+            <SearchBoardPage />,
+            "/community/search"
+          )}
+        />
       </Route>
 
       <Route path="/login" element={checkIfLoginned(<Login />)} />
