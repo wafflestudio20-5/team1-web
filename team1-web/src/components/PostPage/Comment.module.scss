@@ -94,13 +94,13 @@ article {
 }
 
 .parent::after {
-  content: "";
+  content: '';
   display: block;
   clear: both;
 }
 
 .child::after {
-  content: "";
+  content: '';
   display: block;
   clear: both;
 }

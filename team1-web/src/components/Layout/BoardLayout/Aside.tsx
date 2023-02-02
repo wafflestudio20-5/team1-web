@@ -1,10 +1,6 @@
 import styles from './Aside.module.scss';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import {
-  useApiData,
-  useApiGetHotPosts,
-  useApiGetLatestPosts,
-} from '../../../lib/api';
+import { useApiData, useApiGetHotPosts, useApiGetLatestPosts } from '../../../lib/api';
 import { RootState, useAppSelector } from '../../../store';
 import { Post } from '../../../lib/types';
 import { formattedTime } from '../../../lib/format';
@@ -14,9 +10,7 @@ import { useState } from 'react';
 function RealTimePopularPostCard({ postPair }: { postPair: Post[] | null }) {
   return (
     <section className={styles['card']}>
-      <h1 className={`${styles['card-title']} ${styles['card-title-text']}`}>
-        실시간 인기 글
-      </h1>
+      <h1 className={`${styles['card-title']} ${styles['card-title-text']}`}>실시간 인기 글</h1>
       <ul className={`${styles['posts']} ${styles['popular-posts']}`}>
         {postPair?.map((post, index) => (
           <li key={index} className={styles['post']}>
@@ -64,9 +58,7 @@ function HotPostCard({ hotPostList }: { hotPostList: Post[] | undefined }) {
 function SchoolNewsPostCard({ postPair }: { postPair: Post[] | undefined }) {
   return (
     <section className={styles['card']}>
-      <h1 className={`${styles['card-title']} ${styles['card-title-text']}`}>
-        학교 소식
-      </h1>
+      <h1 className={`${styles['card-title']} ${styles['card-title-text']}`}>학교 소식</h1>
       <ul className={`${styles['posts']} ${styles['school-news-posts']}`}>
         {postPair?.map((post, index) => (
           <li key={index} className={styles['post']}>
@@ -98,14 +90,10 @@ export default function Aside() {
       ?.sort(
         (a, b) =>
           b.nlikes - a.nlikes ||
-          DateTime.fromObject(a.createdAt)
-            .diff(DateTime.fromObject(b.createdAt))
-            .toMillis()
+          DateTime.fromObject(a.createdAt).diff(DateTime.fromObject(b.createdAt)).toMillis()
       )
       .slice(0, 2) || null;
-  const latestStudentBoardsPostPair = useApiData(
-    useApiGetLatestPosts(token, 'STUDENT')
-  );
+  const latestStudentBoardsPostPair = useApiData(useApiGetLatestPosts(token, 'STUDENT'));
 
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const navigate = useNavigate();
@@ -149,9 +137,7 @@ export default function Aside() {
 
       <SchoolNewsPostCard postPair={latestStudentBoardsPostPair} />
 
-      <section
-        className={`${styles['card']} ${styles['recent-lecture-review']}`}
-      >
+      <section className={`${styles['card']} ${styles['recent-lecture-review']}`}>
         <h1 className={styles['card-title']}>
           <Link to='lecture' className={styles['card-title-text']}>
             최근 강의평

@@ -1,11 +1,7 @@
 import styles from './Main.module.scss';
 import { BoardList, Board, HomeBoardPosts, HomePost } from '../../lib/types';
 import { Link } from 'react-router-dom';
-import {
-  useApiData,
-  useApiGetBoardPosts,
-  useApiGetHomePosts,
-} from '../../lib/api';
+import { useApiData, useApiGetBoardPosts, useApiGetHomePosts } from '../../lib/api';
 import { RootState, useAppSelector } from '../../store';
 import { formattedTime } from '../../lib/format';
 

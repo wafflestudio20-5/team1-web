@@ -70,8 +70,7 @@
         cursor: pointer;
       }
       > .new {
-        background: transparent
-          url(../../resources/container.articles.write.thumbnails.new.png)
+        background: transparent url(../../resources/container.articles.write.thumbnails.new.png)
           no-repeat center center;
         background-size: 24px 24px;
       }
@@ -151,8 +150,7 @@
     cursor: text;
     color: #a6a6a6;
     font-size: 14px;
-    background: #f9f9f9 url(../../resources/container.write.background.png)
-      no-repeat right center;
+    background: #f9f9f9 url(../../resources/container.write.background.png) no-repeat right center;
     background-size: 40px 40px;
   }
   > .pagination {
@@ -163,8 +161,7 @@
       padding: 8px 25px 8px 5px;
       border: 1px solid #a6a6a6;
       border-radius: 3px;
-      background: transparent
-        url(../../resources/container.posts.pagination.search.png) no-repeat
+      background: transparent url(../../resources/container.posts.pagination.search.png) no-repeat
         right 10px center;
       background-size: 16px 16px;
       > select {

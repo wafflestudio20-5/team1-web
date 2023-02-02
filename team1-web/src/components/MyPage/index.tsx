@@ -11,8 +11,7 @@ export default function MyPage() {
   const navigate = useNavigate();
   const token = useAppSelector((state: RootState) => state.session.token);
   const userInfo = useApiData(useApiGetMyInfo(token));
-  const userProfileImg =
-    useApiGetImg(userInfo?.profilePreSignedUrl || null) || profileImg;
+  const userProfileImg = useApiGetImg(userInfo?.profilePreSignedUrl || null) || profileImg;
 
   const handleLogout = async () => {
     try {

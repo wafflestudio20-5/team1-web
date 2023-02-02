@@ -19,11 +19,7 @@ export default function Main() {
   return (
     <div className={styles['login']}>
       <Link to='/' className={styles['logo']}>
-        <img
-          className={styles['img-logo']}
-          src={everytimeIcon}
-          alt='와플리타임 로고'
-        />
+        <img className={styles['img-logo']} src={everytimeIcon} alt='와플리타임 로고' />
       </Link>
       <Link to='/login' className={styles['button-login']}>
         로그인

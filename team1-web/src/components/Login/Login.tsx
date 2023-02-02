@@ -1,10 +1,5 @@
 import styles from './Login.module.scss';
-import {
-  Link,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import { useState } from 'react';
 import { useAppDispatch } from '../../store';
@@ -62,12 +57,7 @@ export default function Login() {
       </p>
       <input type='hidden' name='redirect' value='/' />
       <p className={styles['submit']}>
-        <input
-          type='submit'
-          value='로그인'
-          className={styles['text']}
-          onClick={handleLogin}
-        />
+        <input type='submit' value='로그인' className={styles['text']} onClick={handleLogin} />
       </p>
       <label className={styles['autologin']}>
         <input type='checkbox' name='autologin' value='1' />

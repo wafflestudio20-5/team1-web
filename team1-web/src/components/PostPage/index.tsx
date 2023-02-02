@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import {
-  useApiData,
-  useApiGetBoard,
-  useApiGetComments,
-  useApiGetPost,
-} from '../../lib/api';
+import { useApiData, useApiGetBoard, useApiGetComments, useApiGetPost } from '../../lib/api';
 import { formattedTime } from '../../lib/format';
 import { RootState, useAppDispatch, useAppSelector } from '../../store';
 import { createReply, deletePost } from '../../store/boardSlice';
@@ -25,15 +20,10 @@ export default function PostPage() {
   const [currentReply, setCurrentReply] = useState('');
 
   const currentPost =
-    useApiData(
-      useApiGetPost(token, Number(boardId), Number(postId), loading)
-    ) || null;
+    useApiData(useApiGetPost(token, Number(boardId), Number(postId), loading)) || null;
   const comments =
-    useApiData(
-      useApiGetComments(token, Number(boardId), Number(postId), loading)
-    ) || null;
-  const currentBoard =
-    useApiData(useApiGetBoard(token, Number(boardId), loading)) || null;
+    useApiData(useApiGetComments(token, Number(boardId), Number(postId), loading)) || null;
+  const currentBoard = useApiData(useApiGetBoard(token, Number(boardId), loading)) || null;
 
   const handleCreateReply = async () => {
     setLoading(true);
@@ -85,29 +75,20 @@ export default function PostPage() {
   return (
     <article className={styles['board']}>
       <div className={styles['board-title']}>
-        <Link to={boardId === undefined ? '/1' : `/${boardId}`}>
-          {getBoardName()}
-        </Link>
+        <Link to={boardId === undefined ? '/1' : `/${boardId}`}>{getBoardName()}</Link>
       </div>
       {loading ? (
         <div className={styles['loading']}>불러오는 중입니다...</div>
       ) : (
         <article>
           <div className={styles['post']}>
-            <img
-              src='https://cf-fpi.everytime.kr/0.png'
-              className={styles['profile-picture']}
-            />
+            <img src='https://cf-fpi.everytime.kr/0.png' className={styles['profile-picture']} />
             <div className={styles['profile']}>
               <h3 className={styles['large']}>
-                {currentPost?.isWriterAnonymous
-                  ? '익명'
-                  : currentPost?.nickname}
+                {currentPost?.isWriterAnonymous ? '익명' : currentPost?.nickname}
               </h3>
               <time className={styles['large']}>
-                {currentPost?.createdAt === undefined
-                  ? ''
-                  : formattedTime(currentPost?.createdAt)}
+                {currentPost?.createdAt === undefined ? '' : formattedTime(currentPost?.createdAt)}
               </time>
             </div>
             <ul className={styles['status']}>
@@ -138,9 +119,7 @@ export default function PostPage() {
                   <>
                     <figure className={styles['attach']}>
                       <img src={image.preSignedUrl}></img>
-                      {image.description && (
-                        <figcaption>{image.description}</figcaption>
-                      )}
+                      {image.description && <figcaption>{image.description}</figcaption>}
                     </figure>
                   </>
                 ))}
@@ -185,16 +164,10 @@ export default function PostPage() {
               <ul className={styles['option']}>
                 <li
                   title='익명'
-                  className={
-                    anonym ? styles['anonym-active'] : styles['anonym']
-                  }
+                  className={anonym ? styles['anonym-active'] : styles['anonym']}
                   onClick={() => setAnonym((e) => !e)}
                 ></li>
-                <li
-                  title='완료'
-                  className={styles['submit']}
-                  onClick={handleCreateReply}
-                ></li>
+                <li title='완료' className={styles['submit']} onClick={handleCreateReply}></li>
               </ul>
               <div className={styles['clearBothOnly']}></div>
             </div>

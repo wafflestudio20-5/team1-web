@@ -7,16 +7,12 @@ import { RootState, useAppSelector } from '../../../store';
 
 function BoardItem({ board }: { board: Board }) {
   const navigate = useNavigate();
-  const selectedBoardId = useAppSelector(
-    (state: RootState) => state.board.selectedBoardId
-  );
+  const selectedBoardId = useAppSelector((state: RootState) => state.board.selectedBoardId);
   console.log(board);
 
   return (
     <li
-      className={
-        styles[`${selectedBoardId === board.boardId ? 'selected' : ''}`]
-      }
+      className={styles[`${selectedBoardId === board.boardId ? 'selected' : ''}`]}
       onClick={() => {
         navigate(`${board.boardId}`);
       }}
@@ -28,8 +24,7 @@ function BoardItem({ board }: { board: Board }) {
 
 function BoardListItem({ boardList }: { boardList: BoardList }) {
   const [isMoreClicked, setIsMoreClicked] = useState<boolean>(false);
-  const isOverflowed: boolean =
-    boardList.size > 8 * boardList.defaultDisplayColumnSize;
+  const isOverflowed: boolean = boardList.size > 8 * boardList.defaultDisplayColumnSize;
   const lastDefaultDisplayIndex: number = isOverflowed
     ? boardList.defaultDisplayColumnSize * 8 - 2
     : boardList.size - 1;
@@ -80,9 +75,7 @@ export default function BoardListBoard() {
           <section className={styles['divider']}></section>
           {boardLists?.map(
             (boardList: BoardList) =>
-              boardList.boards && (
-                <BoardListItem key={boardList.id} boardList={boardList} />
-              )
+              boardList.boards && <BoardListItem key={boardList.id} boardList={boardList} />
           )}
         </article>
       </article>

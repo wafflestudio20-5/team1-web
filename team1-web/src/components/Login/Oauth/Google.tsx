@@ -22,9 +22,7 @@ export default function Google() {
     };
     axios
       .post(
-        `http://api.staging.wafflytime.com/api/auth/social/signup/google?code=${params.get(
-          'code'
-        )}`
+        `http://api.staging.wafflytime.com/api/auth/social/signup/google?code=${params.get('code')}`
       )
       .then((response) => {
         // TODO: Set user data
@@ -54,9 +52,7 @@ export default function Google() {
     };
     axios
       .post(
-        `http://api.staging.wafflytime.com/api/auth/social/login/google?code=${params.get(
-          'code'
-        )}`
+        `http://api.staging.wafflytime.com/api/auth/social/login/google?code=${params.get('code')}`
       )
       .then((response) => {
         // TODO: Set user data
@@ -82,14 +78,8 @@ export default function Google() {
 
   return (
     <div className={styles['google-login-waiting']}>
-      <p className={styles['google-login-message']}>
-        구글 로그인을 진행중입니다.
-      </p>
-      <img
-        className={styles['google-login-img']}
-        src={googleImg}
-        alt='google-img'
-      />
+      <p className={styles['google-login-message']}>구글 로그인을 진행중입니다.</p>
+      <img className={styles['google-login-img']} src={googleImg} alt='google-img' />
       <div className={styles['spinner']} />
     </div>
   );

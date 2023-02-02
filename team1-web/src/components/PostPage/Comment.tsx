@@ -58,36 +58,19 @@ export default function Comment({
 
   return (
     <>
-      <article
-        className={comment.isRoot ? styles['parent'] : styles['child']}
-        id='article'
-      >
-        <img
-          src='https://cf-fpi.everytime.kr/0.png'
-          className={styles['picture-medium']}
-        />
-        <h3
-          className={
-            comment.isPostWriter ? styles['writer'] : styles['nickname']
-          }
-        >
+      <article className={comment.isRoot ? styles['parent'] : styles['child']} id='article'>
+        <img src='https://cf-fpi.everytime.kr/0.png' className={styles['picture-medium']} />
+        <h3 className={comment.isPostWriter ? styles['writer'] : styles['nickname']}>
           {comment.nickname}
         </h3>
         <ul className={styles['status']}>
           {comment.isRoot && (
-            <li
-              className={styles['childcomment']}
-              onClick={() => setReplyPressed(true)}
-            >
+            <li className={styles['childcomment']} onClick={() => setReplyPressed(true)}>
               대댓글
             </li>
           )}
-          {!comment.isMyReply && (
-            <li className={styles['commentvote']}>공감</li>
-          )}
-          {!comment.isMyReply && (
-            <li className={styles['messagesend']}>쪽지</li>
-          )}
+          {!comment.isMyReply && <li className={styles['commentvote']}>공감</li>}
+          {!comment.isMyReply && <li className={styles['messagesend']}>쪽지</li>}
           {!comment.isMyReply && <li className={styles['abuse']}>신고</li>}
           {comment.isMyReply && (
             <li className={styles['delete']} onClick={handleDeleteReply}>
@@ -119,11 +102,7 @@ export default function Comment({
               className={anonym ? styles['anonym-active'] : styles['anonym']}
               onClick={() => setAnonym((e) => !e)}
             ></li>
-            <li
-              title='완료'
-              className={styles['submit']}
-              onClick={handleCreateReply}
-            ></li>
+            <li title='완료' className={styles['submit']} onClick={handleCreateReply}></li>
           </ul>
           <div className={styles['clearBothOnly']}></div>
         </div>

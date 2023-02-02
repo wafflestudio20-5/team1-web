@@ -6,9 +6,7 @@ import { RootState, useAppDispatch, useAppSelector } from '../../store';
 import { setSelectedMenu } from '../../store/menuSlice';
 
 function MenuItem({ menu }: { menu: Menu }) {
-  const selectedMenu = useAppSelector(
-    (state: RootState) => state.menu.selectedMenu
-  );
+  const selectedMenu = useAppSelector((state: RootState) => state.menu.selectedMenu);
   const dispatch = useAppDispatch();
   return (
     <li className={styles[`${selectedMenu?.id === menu.id ? 'selected' : ''}`]}>

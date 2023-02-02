@@ -22,12 +22,7 @@ export default function Comments({
     <>
       {comments.contents &&
         comments.contents.map((comment: Reply) => (
-          <Comment
-            comment={comment}
-            boardId={boardId}
-            postId={postId}
-            setLoading={setLoading}
-          />
+          <Comment comment={comment} boardId={boardId} postId={postId} setLoading={setLoading} />
         ))}
     </>
   );

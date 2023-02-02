@@ -51,16 +51,9 @@ export default function BoardPage() {
   const token = useAppSelector((state: RootState) => state.session.token);
   const currentPosts =
     useApiData(
-      useApiGetBoardPosts(
-        token,
-        boardId,
-        Number(index === undefined ? 1 : index) - 1,
-        20,
-        loading
-      )
+      useApiGetBoardPosts(token, boardId, Number(index === undefined ? 1 : index) - 1, 20, loading)
     ) || null;
-  const currentBoard =
-    useApiData(useApiGetBoard(token, Number(boardId), loading)) || null;
+  const currentBoard = useApiData(useApiGetBoard(token, Number(boardId), loading)) || null;
 
   console.log(currentBoard);
 
@@ -102,9 +95,7 @@ export default function BoardPage() {
     <article className={styles['board']}>
       <div className={styles['board-title']}>
         <h1>
-          <Link to={boardId === undefined ? '/1' : `/${boardId}`}>
-            {getBoardName()}
-          </Link>
+          <Link to={boardId === undefined ? '/1' : `/${boardId}`}>{getBoardName()}</Link>
         </h1>
       </div>
       {loading ? (
@@ -132,53 +123,34 @@ export default function BoardPage() {
                   onChange={(e) => setNewPostContent(e.target.value)}
                 />
               </p>
-              <input
-                className={styles['file']}
-                type='file'
-                name='file'
-                multiple={true}
-              />
+              <input className={styles['file']} type='file' name='file' multiple={true} />
               <ol className={styles['thumbnails']}>
                 <li className={styles['new']} />
               </ol>
               <div className={styles['clearBothOnly']} />
-              <p
-                className={
-                  questionBool ? styles['question-on'] : styles['question-off']
-                }
-              >
+              <p className={questionBool ? styles['question-on'] : styles['question-off']}>
                 <div>
-                  질문 글을 작성하면 게시판 상단에 일정 기간 동안 노출되어, 더욱
-                  빠르게 답변을 얻을 수 있게 됩니다.
+                  질문 글을 작성하면 게시판 상단에 일정 기간 동안 노출되어, 더욱 빠르게 답변을 얻을
+                  수 있게 됩니다.
                   <br />
-                  또한, 다른 학우들이 정성껏 작성한 답변을 유지하기 위해, 댓글이
-                  달린 이후에는 <b>글을 수정 및 삭제할 수 없습니다.</b>
+                  또한, 다른 학우들이 정성껏 작성한 답변을 유지하기 위해, 댓글이 달린 이후에는{' '}
+                  <b>글을 수정 및 삭제할 수 없습니다.</b>
                 </div>
               </p>
               <ul className={styles['option']}>
                 <li title='해시태그' className={styles['hashtag']}></li>
                 <li title='첨부' className={styles['attach']}></li>
-                <li
-                  title='완료'
-                  className={styles['submit']}
-                  onClick={handleCreatePost}
-                ></li>
+                <li title='완료' className={styles['submit']} onClick={handleCreatePost}></li>
                 <li
                   title='익명'
-                  className={
-                    anonymBool ? styles['anonym-on'] : styles['anonym-off']
-                  }
+                  className={anonymBool ? styles['anonym-on'] : styles['anonym-off']}
                   onClick={() => {
                     setAnonymBool((e) => !e);
                   }}
                 ></li>
                 <li
                   title='질문'
-                  className={
-                    questionBool
-                      ? styles['question-on']
-                      : styles['question-off']
-                  }
+                  className={questionBool ? styles['question-on'] : styles['question-off']}
                   onClick={() => {
                     setQuestionBool((e) => !e);
                   }}
@@ -212,17 +184,11 @@ export default function BoardPage() {
               <option value='2'>글 제목</option>
               <option value='1'>글 내용</option>
             </select>
-            <input
-              name='keyword'
-              placeholder='검색어를 입력하세요.'
-              className={styles['text']}
-            />
+            <input name='keyword' placeholder='검색어를 입력하세요.' className={styles['text']} />
           </div>
         ) : (
           <Link
-            to={`/${boardId}/p/${(
-              (index === undefined ? 1 : Number(index)) - 1
-            ).toString()}`}
+            to={`/${boardId}/p/${((index === undefined ? 1 : Number(index)) - 1).toString()}`}
             className={styles['prev']}
           >
             이전
@@ -231,9 +197,7 @@ export default function BoardPage() {
         {Number(index === undefined ? 1 : index) + 1 <=
           (currentPosts === null ? Infinity : currentPosts.totalPages) && (
           <Link
-            to={`/${boardId}/p/${(
-              (index === undefined ? 1 : Number(index)) + 1
-            ).toString()}`}
+            to={`/${boardId}/p/${((index === undefined ? 1 : Number(index)) + 1).toString()}`}
             className={styles['next']}
           >
             다음
