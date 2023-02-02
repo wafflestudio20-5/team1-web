@@ -10,6 +10,7 @@ function BoardItem({ board }: { board: Board }) {
   const selectedBoardId = useAppSelector(
     (state: RootState) => state.board.selectedBoardId
   );
+  console.log(board);
 
   return (
     <li

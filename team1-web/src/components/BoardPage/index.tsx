@@ -53,7 +53,7 @@ export default function BoardPage() {
     useApiData(
       useApiGetBoardPosts(
         token,
-        Number(boardId),
+        boardId,
         Number(index === undefined ? 1 : index) - 1,
         20,
         loading
@@ -85,12 +85,25 @@ export default function BoardPage() {
     }
   };
 
+  const getBoardName = () => {
+    switch (boardId) {
+      case "myPost":
+        return "내가 쓴 글";
+      case "myCommentPost":
+        return "댓글 단 글";
+      case "myScrap":
+        return "내 스크랩";
+      default:
+        return currentBoard?.title ? currentBoard?.title : "(알 수 없음)";
+    }
+  };
+
   return (
     <article className={styles["board"]}>
       <div className={styles["board-title"]}>
         <h1>
           <Link to={boardId === undefined ? "/1" : `/${boardId}`}>
-            {currentBoard?.title}
+            {getBoardName()}
           </Link>
         </h1>
       </div>
@@ -185,7 +198,6 @@ export default function BoardPage() {
           {currentPosts !== null && (
             <PostItems
               Posts={currentPosts.contents}
-              boardId={boardId === undefined ? 1 : Number(boardId)}
               index={index === undefined ? 1 : Number(index)}
             />
           )}

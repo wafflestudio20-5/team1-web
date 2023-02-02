@@ -44,8 +44,8 @@ export default function Account() {
       </article>
       <article className={styles["my-Posts"]}>
         <Link to="myPost">내가 쓴 글</Link>
-        <Link to="mycommentPost">댓글 단 글</Link>
-        <Link to="myscrap">내 스크랩</Link>
+        <Link to="myCommentPost">댓글 단 글</Link>
+        <Link to="myScrap">내 스크랩</Link>
       </article>
       <article className={styles["banners"]}>배너</article>
     </article>

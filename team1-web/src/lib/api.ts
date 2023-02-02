@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AxiosResponse } from 'axios';
 import { title } from 'process';
 import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
-import { Board, BoardList, BoardPosts, HomeBoardPosts, Post, Replies, Post, UserInfo, Board } from './types';
+import { Board, BoardList, BoardPosts, HomeBoardPosts, Replies, Post, UserInfo } from './types';
 
 const url = (path: string, param?: Record<string, any>): string => {
   const validParamData =
@@ -119,16 +119,32 @@ export const useApiGetMyInfo = (token: string | null) =>
 
 export const useApiGetBoardPosts = (
   token: string | null,
-  boardId: number,
+  boardId?: string,
   page?: number,
   size?: number,
   loading?: boolean
 ) =>
   useCallback(
-    () =>
-      axios.get<BoardPosts>(url(`/api/board/${boardId}/posts`, { page, size }), {
-        headers: auth(token),
-      }),
+    () => {
+      switch (boardId) {
+        case 'myPost':
+          return axios.get<BoardPosts>(url(`/api/user/mypost`, { page, size }), {
+            headers: auth(token),
+          })
+        case 'myCommentPost':
+          return axios.get<BoardPosts>(url(`/api/user/myrepliedpost`, { page, size }), {
+            headers: auth(token),
+          })
+        case 'myScrap':
+          return axios.get<BoardPosts>(url(`/api/user/myscrap`, { page, size }), {
+            headers: auth(token),
+          })
+        default:
+          return axios.get<BoardPosts>(url(`/api/board/${boardId}/posts`, { page, size }), {
+            headers: auth(token),
+          })
+      }
+    },
     [token, boardId, page, size, loading]
   );
 export const useApiGetBoard = (token: string | null, boardId: number, loading: boolean) =>

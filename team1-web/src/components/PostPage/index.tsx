@@ -69,11 +69,24 @@ export default function PostPage() {
     }
   };
 
+  const getBoardName = () => {
+    switch (boardId) {
+      case "myPost":
+        return "내가 쓴 글";
+      case "myCommentPost":
+        return "댓글 단 글";
+      case "myScrap":
+        return "내 스크랩";
+      default:
+        return currentBoard?.title ? currentBoard?.title : "(알 수 없음)";
+    }
+  };
+
   return (
     <article className={styles["board"]}>
       <div className={styles["board-title"]}>
         <Link to={boardId === undefined ? "/1" : `/${boardId}`}>
-          {currentBoard?.title}
+          {getBoardName()}
         </Link>
       </div>
       {loading ? (

@@ -6,17 +6,15 @@ import PostItem from "./PostItem";
 export default function PostItems({
   Posts,
   index,
-  boardId,
 }: {
   Posts: Post[];
   index: number;
-  boardId: number;
 }) {
   return (
     <>
       {Posts &&
         Posts.map((Post: Post, index: number) => (
-          <PostItem Post={Post} boardId={boardId} />
+          <PostItem Post={Post} boardId={Post.boardId} />
         ))}
     </>
   );
