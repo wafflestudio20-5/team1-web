@@ -22,9 +22,7 @@ export default function Kakao() {
     };
     axios
       .post(
-        `http://api.staging.wafflytime.com/api/auth/social/signup/kakao?code=${params.get(
-          "code"
-        )}`
+        `http://api.staging.wafflytime.com/api/auth/social/signup/kakao?code=${params.get('code')}`
       )
       .then((response) => {
         // TODO: Set user data
@@ -53,9 +51,7 @@ export default function Kakao() {
     };
     axios
       .post(
-        `http://api.staging.wafflytime.com/api/auth/social/login/kakao?code=${params.get(
-          "code"
-        )}`
+        `http://api.staging.wafflytime.com/api/auth/social/login/kakao?code=${params.get('code')}`
       )
       .then((response) => {
         // TODO: Set user data
@@ -81,14 +77,8 @@ export default function Kakao() {
 
   return (
     <div className={styles['kakao-login-waiting']}>
-      <p className={styles['kakao-login-message']}>
-        카카오 로그인을 진행중입니다.
-      </p>
-      <img
-        className={styles['kakao-login-img']}
-        src={kakaoImg}
-        alt='kakao-img'
-      />
+      <p className={styles['kakao-login-message']}>카카오 로그인을 진행중입니다.</p>
+      <img className={styles['kakao-login-img']} src={kakaoImg} alt='kakao-img' />
       <div className={styles['spinner']} />
     </div>
   );

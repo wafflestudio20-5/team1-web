@@ -1,0 +1,104 @@
+.chat {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  right: 80px;
+  width: 350px;
+  max-width: 350px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 0 30px #eee;
+  > .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    font-weight: 900;
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+    cursor: default;
+    justify-content: space-between;
+    border-bottom: 2px solid #f5f5f5;
+    > .headerText {
+      width: 100%;
+      font-size: 17px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    > .close {
+      display: block;
+      float: right;
+      width: 20px;
+      height: 20px;
+      background: transparent url(../../../resources/container.modal.close.png) no-repeat center
+        center;
+      background-size: 15px 15px;
+      cursor: pointer;
+    }
+  }
+  > .messages {
+    width: 100%;
+    height: 400px;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: scroll;
+    > .messageBox {
+      width: 100%;
+      margin-top: 5px;
+      position: relative;
+      > .message {
+        position: relative;
+        display: inline-block;
+        font-size: 17px;
+        padding: 5px 12px;
+        border-radius: 15px;
+        cursor: default;
+        background: #f1f1f1;
+        transition: all 0.12s;
+        word-wrap: break-word;
+      }
+    }
+    > .messageBox-mine {
+      width: 100%;
+      margin-top: 5px;
+      position: relative;
+      text-align: right;
+      > .message {
+        position: relative;
+        display: inline-block;
+        font-size: 17px;
+        padding: 5px 12px;
+        border-radius: 15px;
+        cursor: default;
+        background: #c62917;
+        color: #fff;
+        transition: all 0.12s;
+        max-width: 200px;
+        word-wrap: break-word;
+        text-align: left;
+      }
+    }
+  }
+  > .inputPanel {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > .input {
+      font-family: 'Roboto';
+      font-size: 1em;
+      width: 100%;
+      border: none;
+      background: #f3f3f3;
+      margin: 0 10px;
+      padding: 5px 15px;
+      color: #444;
+      border-radius: 15px;
+      box-sizing: border-box;
+    }
+  }
+}

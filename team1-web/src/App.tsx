@@ -22,6 +22,8 @@ import ChangeNicknamePage from './components/MyPage/ChangeNicknamePage';
 import SearchBoardPage from './components/SearchBoardPage';
 import { useAppSelector, RootState } from './store';
 import { LoginProvider } from './LoginContext';
+import { toast } from 'react-toastify';
+import PostPage from './components/PostPage';
 
 function InValidateURL() {
   return (
@@ -67,9 +69,11 @@ function AppRoutes() {
         <Route element={<BoardLayout />}>
           <Route path='' element={<Home />} />
           <Route
-            path=':boardId(\\d+)'
+            path=':boardId/p/:index'
             element={redirectLoginPageIfNotLoginned(<BoardPage />, '')}
           />
+          <Route path=':boardId' element={redirectLoginPageIfNotLoginned(<BoardPage />, '')} />
+          <Route path=':boardId/v/:postId' element={<PostPage />} />
         </Route>
         <Route path='my'>
           <Route index element={redirectLoginPageIfNotLoginned(<MyPage />, '/my')} />
