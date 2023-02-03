@@ -1,0 +1,79 @@
+.detail {
+  box-sizing: border-box;
+  border: 1px solid #ededed;
+  border-radius: 12px;
+  margin: 24px auto;
+  padding: 24px;
+  width: 480px;
+  > h2 {
+    line-height: 30px;
+    color: #292929;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  > .input {
+    margin-top: 24px;
+    > div {
+      padding: 0 8px;
+      > label {
+        color: #444444;
+        font-size: 12px;
+        line-height: 20px;
+        font-weight: bold;
+      }
+      > p {
+        float: right;
+        color: #a6a6a6;
+      }
+    }
+    > input {
+      display: block;
+      box-sizing: border-box;
+      margin-bottom: 8px;
+      margin-top: 4px;
+      padding: 8px;
+      border: 1px solid #ededed;
+      border-radius: 12px;
+      width: 100%;
+      height: 40px;
+      line-height: 24px;
+      color: #292929;
+      font-size: 16px;
+      background-color: #f9f9f9;
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 24px 24px;
+      caret-color: #c62917;
+      outline: none;
+      font-family: '맑은 고딕';
+    }
+    > input::placeholder {
+      color: #a6a6a6;
+    }
+    > input.caution {
+      background-image: url('../../resources/input-caution.png');
+    }
+    > input.pass {
+      background-image: url('../../resources/input-pass.png');
+    }
+    > p.caution {
+      margin: 4px 0 0 8px;
+      line-height: 20px;
+      color: #c62917;
+      font-size: 12px;
+    }
+  }
+  > .submit {
+    display: block;
+    margin-top: 24px;
+    width: 100%;
+    height: 40px;
+    border: 0;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #c62917;
+    cursor: pointer;
+  }
+}

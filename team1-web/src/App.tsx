@@ -13,15 +13,19 @@ import BoardPage from './components/BoardPage';
 import MyPage from './components/MyPage';
 import Main from './components/Login/Main';
 import Login from './components/Login/Login';
-import Register from './components/Login/Register';
+import Register from './components/Register';
+import Detail from './components/Register/Detail';
 import Kakao from './components/Login/Oauth/Kakao';
 import Google from './components/Login/Oauth/Google';
 import NewKakao from './components/Login/Oauth/NewKakao';
 import ChangePasswordPage from './components/MyPage/ChangePasswordPage';
 import ChangeNicknamePage from './components/MyPage/ChangeNicknamePage';
 import SearchBoardPage from './components/SearchBoardPage';
+import EmailVerifyPage from './components/EmailVerifyPage';
 import { useAppSelector, RootState } from './store';
 import { LoginProvider } from './LoginContext';
+import { toast } from 'react-toastify';
+import PostPage from './components/PostPage';
 
 function InValidateURL() {
   return (
@@ -67,9 +71,11 @@ function AppRoutes() {
         <Route element={<BoardLayout />}>
           <Route path='' element={<Home />} />
           <Route
-            path=':boardId(\\d+)'
+            path=':boardId/p/:index'
             element={redirectLoginPageIfNotLoginned(<BoardPage />, '')}
           />
+          <Route path=':boardId' element={redirectLoginPageIfNotLoginned(<BoardPage />, '')} />
+          <Route path=':boardId/v/:postId' element={<PostPage />} />
         </Route>
         <Route path='my'>
           <Route index element={redirectLoginPageIfNotLoginned(<MyPage />, '/my')} />
@@ -86,12 +92,16 @@ function AppRoutes() {
           path='community/search'
           element={redirectLoginPageIfNotLoginned(<SearchBoardPage />, '/community/search')}
         />
+        <Route
+          path='/auth'
+          element={redirectLoginPageIfNotLoginned(<EmailVerifyPage />, '/auth')}
+        />
       </Route>
-
       <Route path='/login' element={checkIfLoginned(<Login />)} />
       <Route path='/oauth/kakao/callback' element={checkIfLoginned(<Kakao />)} />
       <Route path='/oauth/google/callback' element={checkIfLoginned(<Google />)} />
       <Route path='/register' element={checkIfLoginned(<Register />)} />
+      <Route path='/register/detail' element={checkIfLoginned(<Detail />)} />
       <Route path='*' element={<InValidateURL />} />
     </Routes>
   );

@@ -10,9 +10,9 @@ export type User = {
   nickname: string;
   name: string;
   ID: string;
-  myArticles: Article[];
-  myCommentedArticles: Article[];
-  myScrappedArticles: Article[];
+  myArticles: Post[];
+  myCommentedArticles: Post[];
+  myScrappedArticles: Post[];
 };
 
 export type UserInfo = {
@@ -23,40 +23,104 @@ export type UserInfo = {
   profilePreSignedUrl: string | null;
 };
 
-export type AdditionalComment = {
-  id: number;
-  motherComment: Comment[];
-  content: string;
-  author: User;
-  time: string;
-  like: number;
-};
-export type Comment = {
-  id: number;
-  content: string;
-  author: User;
-  time: string;
-  like: number;
-  additionalComments: AdditionalComment[];
-};
+export type Message = {
+  id: number,
+  sentAt: {
+    year: number,
+    month: number,
+    day: number,
+    hour: number,
+    minute: number
+  },
+  received: string,
+  contents: string
+}
 
-export type Article = {
+export type Room = {
+  id: number,
+  target: string,
+  recentMessage: string,
+  recentTime: {
+    year: number,
+    month: number,
+    day: number,
+    hour: number,
+    minute: number,
+    seconnd: number | null
+  },
+  unread: number,
+  blocked: boolean
+}
+
+export type Rooms = {
+  contents: Room[],
+  page: number | null,
+  cursor: number | null,
+  size: number,
+  isLast: boolean
+}
+
+export type Messages = {
+  contents: Message[],
+  page: number | null,
+  cursor: number | null,
+  size: number,
+  isLast: boolean
+}
+
+export type Chat = {
   id: number;
-  title: string;
-  author: User;
-  time: string;
-  like: number;
-  comments: Comment[];
-  scrap: number;
+  room: Room;
+  messages: Message[];
+}
+
+export type Replies = {
+  contents: Reply[];
+  pageable: {
+    sort: {
+      empty: Boolean,
+      sorted: Boolean,
+      unsorted: Boolean
+    },
+    offset: number,
+    pageNumber: number,
+    pageSize: number,
+    paged: boolean,
+    unpaged: boolean
+  },
+  totalPages: boolean,
+  totalElements: boolean,
+  last: boolean,
+  size: number,
+  number: number,
+  sort: {
+    empty: boolean,
+    sorted: boolean,
+    unsorted: boolean
+  },
+  numberOfElements: number,
+  first: boolean,
+  empty: boolean
+}
+
+export type Reply = {
+  replyId: number,
+  writerId: number,
+  nickname: string,
+  isRoot: boolean,
+  contents: string,
+  isDeleted: boolean,
+  isPostWriter: boolean,
+  isMyReply: boolean,
 };
 
 export type Board = {
   boardId: number;
-  name?: string;
   boardType?: string;
   title?: string;
   description?: string;
   allowAnonymous?: boolean;
+  // TODO: 데이터 수정 후 물음표 떼기
 };
 
 export type BoardList = {
@@ -66,6 +130,32 @@ export type BoardList = {
   defaultDisplayColumnSize: number;
   boards: Board[];
 };
+
+export type Image = {
+  imageId: number;
+  preSignedUrl: string;
+  description?: string;
+}
+
+export type ImageWithDesc = {
+  file: File;
+  description: string;
+}
+
+export type UploadImage = {
+  imageId: number;
+  fileName: string;
+  description: string | null;
+  file: File;
+}
+
+export type PutImage = {
+  imageId: number;
+  filename: String;
+  preSignedUrl: string;
+  description?: string;
+  file: File;
+}
 
 export type TimeObject = {
   year: number;
@@ -82,15 +172,12 @@ export type Post = {
   createdAt: TimeObject;
   writerId: number;
   nickname?: string; // 게시물 작성자가 익명인 경우 null
-  isWriterAnonymous: Boolean;
-  isQuestion: Boolean;
+  isWriterAnonymous: boolean;
+  isMyPost: boolean;
+  isQuestion: boolean;
   title?: string;
   contents: string;
-  images?: {
-    imageId: number;
-    preSignedUrl: string;
-    description?: string;
-  }[];
+  images?: Image[];
   nlikes: number;
   nscraps: number;
   nreplies: number;

@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useState } from 'react';
 import { useAppDispatch } from '../../store';
 import { login } from '../../store/sessionSlice';
+import { createReply } from '../../store/boardSlice';
 
 export default function Login() {
   const dispatch = useAppDispatch();

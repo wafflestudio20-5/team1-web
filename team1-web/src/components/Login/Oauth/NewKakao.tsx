@@ -25,14 +25,8 @@ export default function Kakao() {
 
   return (
     <div className={styles['kakao-login-waiting']}>
-      <p className={styles['kakao-login-message']}>
-        카카오 로그인을 진행중입니다.
-      </p>
-      <img
-        className={styles['kakao-login-img']}
-        src={kakaoImg}
-        alt='kakao-img'
-      />
+      <p className={styles['kakao-login-message']}>카카오 로그인을 진행중입니다.</p>
+      <img className={styles['kakao-login-img']} src={kakaoImg} alt='kakao-img' />
       <div className={styles['spinner']} />
     </div>
   );
