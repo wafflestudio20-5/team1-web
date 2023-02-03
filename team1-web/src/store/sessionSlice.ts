@@ -1,5 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { apiKakaoSignup, apiKakaoLogin, apiLogin, apiLogout, apiChangeUserInfo } from '../lib/api';
+import {
+  apiKakaoSignup,
+  apiKakaoLogin,
+  apiLogin,
+  apiLogout,
+  apiChangeUserInfo,
+  apiSubmitVerifyCode,
+} from '../lib/api';
 import { axiosErrorHandler, axiosErrorStatus } from '../lib/error';
 import { toast } from 'react-toastify';
 
@@ -51,17 +58,42 @@ export const logout = createAsyncThunk(
   }
 );
 
+export const verifyEmail = createAsyncThunk(
+  'sessionSlice/verifyEmail',
+  async (
+    {
+      token,
+      verifyCode,
+    }: {
+      token: string | null;
+      verifyCode: string;
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const { data } = await apiSubmitVerifyCode(token, verifyCode);
+      return data;
+    } catch (e) {
+      const error: string = axiosErrorHandler(e, '');
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const changeUserInfo = createAsyncThunk(
   'sessionSlice/changeUserInfo',
   async (
-    params: {
+    {
+      token,
+      newUserInfo,
+    }: {
       token: string | null;
       newUserInfo: { oldPassword?: string; newPassword?: string; nickname?: string };
     },
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await apiChangeUserInfo(params.token, params.newUserInfo);
+      const { data } = await apiChangeUserInfo(token, newUserInfo);
       return data;
     } catch (e) {
       const error: string = axiosErrorHandler(e, '변경에 실패했습니다');
@@ -112,7 +144,7 @@ const sessionSlice = createSlice({
       })
       // .addCase(kakaoLogin.pending, (state) => {
       //   state.status = 'loading';
-      // });
+      // })
       .addCase(kakaoLogin.fulfilled, (state, { payload }) => {
         // state.status = 'success';
         state.token = payload.accessToken;
@@ -124,12 +156,25 @@ const sessionSlice = createSlice({
       })
       // .addCase(changeUserInfo.pending, (state) => {
       //   state.status = 'loading';
-      // });
+      // })
       .addCase(changeUserInfo.fulfilled, (state, { payload }) => {
         // state.status = 'success';
         toast.success('변경하였습니다.');
       })
       .addCase(changeUserInfo.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
+      // .addCase(verifyEmail.pending, (state) => {
+      //   state.status = 'loading';
+      // })
+      .addCase(verifyEmail.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        state.token = payload.accessToken;
+        localStorage.setItem('refreshToken', payload.refreshToken);
+        toast.success('인증되었습니다.');
+      })
+      .addCase(verifyEmail.rejected, (state, { payload }) => {
         // state.status = 'failed';
         throw payload;
       });
