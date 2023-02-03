@@ -41,7 +41,7 @@ export default function Account() {
         </ul>
       </article>
       <article className={styles['my-Posts']}>
-        <Link to='my[ost'>내가 쓴 글</Link>
+        <Link to='mypost'>내가 쓴 글</Link>
         <Link to='mycommentpost'>댓글 단 글</Link>
         <Link to='myscrap'>내 스크랩</Link>
       </article>
