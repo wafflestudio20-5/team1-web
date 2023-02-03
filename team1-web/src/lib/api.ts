@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AxiosResponse } from 'axios';
 import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
-import { Board, BoardList, BoardPosts, HomeBoardPosts, Post, UserInfo } from './types';
+import { Board, BoardList, BoardPosts, ChatList, HomeBoardPosts, Post, UserInfo } from './types';
 
 const url = (path: string, param?: Record<string, any>): string => {
   const validParamData =
@@ -135,3 +135,11 @@ export const useApiGetBoardSearchResult = (token: string | null, keyword: string
         : Promise.reject(),
     [token, keyword]
   );
+
+
+export const useApiGetChats = (token: string | null, page?: number, size?: number) => 
+    useCallback(
+      () => 
+        axios.get<ChatList>(url('/api/chats', { page, size }), {headers: auth(token) }),
+        [token, page, size]
+    );

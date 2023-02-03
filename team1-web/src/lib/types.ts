@@ -147,3 +147,31 @@ export type HomeBoardPosts = {
   hasPostTitle: boolean;
   posts: HomePost[];
 };
+
+
+export type TimeObjectEx = {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+  second?: number;
+};
+
+
+export type ChatInfo = {
+  id: number;
+  target: string;
+  recentMessage: string;
+  recentTime: TimeObjectEx;
+  unread: number;
+  blocked: boolean;
+}
+
+export type ChatList = {
+  contents: ChatInfo[];
+  page? : number;
+  cursor? : number;
+  size: number;
+  isLast: boolean;
+}

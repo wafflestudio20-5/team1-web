@@ -22,6 +22,7 @@ import ChangeNicknamePage from './components/MyPage/ChangeNicknamePage';
 import SearchBoardPage from './components/SearchBoardPage';
 import { useAppSelector, RootState } from './store';
 import { LoginProvider } from './LoginContext';
+import Chat from "./components/Chat";
 
 function InValidateURL() {
   return (
@@ -85,6 +86,10 @@ function AppRoutes() {
         <Route
           path='community/search'
           element={redirectLoginPageIfNotLoginned(<SearchBoardPage />, '/community/search')}
+        />
+        <Route
+          path='message'
+          element={redirectLoginPageIfNotLoginned(<Chat />, '/message')}
         />
       </Route>
 
