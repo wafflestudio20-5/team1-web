@@ -30,7 +30,7 @@ function RealTimePopularPostCard({ postPair }: { postPair: Post[] | null }) {
   );
 }
 
-function HotPostCard({ hotPostList }: { hotPostList: Post[] | undefined }) {
+function HotPostCard({ hotPostList }: { hotPostList: Post[] | null }) {
   return (
     <section className={styles['card']}>
       <h1 className={styles['card-title']}>
