@@ -13,7 +13,8 @@ import BoardPage from './components/BoardPage';
 import MyPage from './components/MyPage';
 import Main from './components/Login/Main';
 import Login from './components/Login/Login';
-import Register from './components/Login/Register';
+import Register from './components/Register';
+import Detail from './components/Register/Detail';
 import Kakao from './components/Login/Oauth/Kakao';
 import Google from './components/Login/Oauth/Google';
 import NewKakao from './components/Login/Oauth/NewKakao';
@@ -96,6 +97,7 @@ function AppRoutes() {
       <Route path='/oauth/kakao/callback' element={checkIfLoginned(<Kakao />)} />
       <Route path='/oauth/google/callback' element={checkIfLoginned(<Google />)} />
       <Route path='/register' element={checkIfLoginned(<Register />)} />
+      <Route path='/register/detail' element={checkIfLoginned(<Detail />)} />
       <Route path='*' element={<InValidateURL />} />
     </Routes>
   );

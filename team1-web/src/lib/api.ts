@@ -20,6 +20,9 @@ const url = (path: string, param?: Record<string, any>): string => {
 
 const auth = (token: string | null) => (token ? { Authorization: `Bearer ${token}` } : {});
 
+export const apiRegister = (registerData: { id: string; password: string; nickname: string }) =>
+  axios.post(url('/api/auth/local/signup'), registerData, {});
+
 export const apiLogin = (loginData: { id: string; password: string }) =>
   axios.post(url('/api/auth/local/login'), loginData, {});
 
