@@ -26,7 +26,6 @@ export default function Account() {
       <article className={styles['my-info']}>
         <img src={userProfileImg} alt='프로필 이미지' />
         <p>{userInfo?.nickname || '(닉네임)'}</p>
-        <p>(이름)</p> {/* TODO: 이름 정보 백엔드와 협의 */}
         <p>{userInfo?.loginId || '(아이디)'}</p>
         <ul>
           <li>

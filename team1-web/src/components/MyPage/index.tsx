@@ -40,7 +40,7 @@ export default function MyPage() {
             <div>
               <p>{userInfo?.loginId || '(아이디)'}</p>
               {/* TODO: 이름 정보 백엔드와 협의 */}
-              <p>{`(이름) / ${userInfo?.nickname || '(닉네임)'}`}</p>
+              <p>{`${userInfo?.nickname || '(닉네임)'}`}</p>
               <p>서울대 OO학번</p> {/* TODO: 학번 정보 백엔드와 협의 */}
             </div>
           </div>
