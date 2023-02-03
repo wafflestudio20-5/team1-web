@@ -1,15 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { apiCreatePost, apiCreateReply, apiDeletePost, apiDeleteReply, apiLikePost, apiPutImage, apiScrapPost } from '../lib/api';
+import { apiCreateChat, apiCreatePost, apiCreateReply, apiDeletePost, apiDeleteReply, apiLikePost, apiPutImage, apiScrapPost, useApiGetChats, useApiGetMessages } from '../lib/api';
 import { axiosErrorHandler } from '../lib/error';
-import { Menu, PutImage, Reply, UploadImage } from '../lib/types';
+import { Chat, Menu, PutImage, Reply, UploadImage } from '../lib/types';
 
 type TBoardSlice = {
   selectedBoardId: number | null;
+  chats: Chat[];
+  selectedChatId: number | null;
 };
 
 const initialState: TBoardSlice = {
   selectedBoardId: null,
+  chats: [],
+  selectedChatId: null,
 };
 
 export const createPost = createAsyncThunk(
@@ -127,6 +131,24 @@ export const deleteReply = createAsyncThunk(
   }
 );
 
+export const createChat = createAsyncThunk(
+  'boardSlice/chat/create',
+  async (params: {
+    token: string | null,
+    boardId: number,
+    postId: number,
+    replyId: number | null
+  }, { rejectWithValue }) => {
+    try {
+      const { data } = await apiCreateChat(params)
+      return data;
+    } catch (e) {
+      const error: string = axiosErrorHandler(e, '잘못된 요청입니다');
+      return rejectWithValue(error)
+    }
+  }
+);
+
 const boardSlice = createSlice({
   name: 'boardSlice',
   initialState,
@@ -134,6 +156,12 @@ const boardSlice = createSlice({
     setSelectedBoardId: (state, { payload }) => {
       state.selectedBoardId = payload;
     },
+    setChats: (state, { payload }) => {
+      state.chats = payload
+    },
+    setSelectedChatId: (state, { payload }) => {
+      state.selectedChatId = payload
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -185,8 +213,18 @@ const boardSlice = createSlice({
         // state.status = 'failed';
         throw payload;
       })
+      .addCase(createChat.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        console.log(payload)
+        state.selectedChatId = payload.chatInfo.id;
+        toast.success('쪽지를 보낼 수 있습니다!');
+      })
+      .addCase(createChat.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
   }
 });
 
 export default boardSlice;
-export const { setSelectedBoardId } = boardSlice.actions;
+export const { setSelectedBoardId, setChats, setSelectedChatId } = boardSlice.actions;

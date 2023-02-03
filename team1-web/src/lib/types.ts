@@ -23,6 +23,57 @@ export type UserInfo = {
   profilePreSignedUrl: string | null;
 };
 
+export type Message = {
+  id: number,
+  sentAt: {
+    year: number,
+    month: number,
+    day: number,
+    hour: number,
+    minute: number
+  },
+  received: string,
+  contents: string
+}
+
+export type Room = {
+  id: number,
+  target: string,
+  recentMessage: string,
+  recentTime: {
+    year: number,
+    month: number,
+    day: number,
+    hour: number,
+    minute: number,
+    seconnd: number | null
+  },
+  unread: number,
+  blocked: boolean
+}
+
+export type Rooms = {
+  contents: Room[],
+  page: number | null,
+  cursor: number | null,
+  size: number,
+  isLast: boolean
+}
+
+export type Messages = {
+  contents: Message[],
+  page: number | null,
+  cursor: number | null,
+  size: number,
+  isLast: boolean
+}
+
+export type Chat = {
+  id: number;
+  room: Room;
+  messages: Message[];
+}
+
 export type Replies = {
   contents: Reply[];
   pageable: {

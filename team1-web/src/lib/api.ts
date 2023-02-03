@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AxiosResponse } from 'axios';
 import { title } from 'process';
 import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
-import { Board, BoardList, BoardPosts, HomeBoardPosts, Replies, Post, UserInfo, UploadImage, PutImage } from './types';
+import { Board, BoardList, BoardPosts, HomeBoardPosts, Replies, Post, UserInfo, UploadImage, PutImage, Rooms, Messages } from './types';
 
 const url = (path: string, param?: Record<string, any>): string => {
   const validParamData =
@@ -123,6 +123,15 @@ export const apiScrapPost = (params: {
 }) => axios.post(`http://api.wafflytime.com/api/board/${params.boardId}/post/${params.postId}/scrap`, {},
   { headers: auth(params.token) })
 
+export const apiCreateChat = (params: {
+  token: string | null,
+  boardId: number,
+  postId: number,
+  replyId: number | null
+}) => (params.replyId ? axios.post(`http://api.wafflytime.com/api/board/${params.boardId}/post/${params.postId}/chat?replyId=${params.replyId}`, { isAnonymous: true, contents: "쪽지를 시작합니다" },
+  { headers: auth(params.token) }) : axios.post(`http://api.wafflytime.com/api/board/${params.boardId}/post/${params.postId}/chat`, { isAnonymous: true, contents: "쪽지를 시작합니다" },
+    { headers: auth(params.token) }))
+
 export function useApiData<T>(fetch: () => Promise<AxiosResponse<T>>) {
   const [data, setData] = useState<T>();
   useLayoutEffect(() => {
@@ -219,6 +228,22 @@ export const useApiGetLatestPosts = (token: string | null, category: string, siz
   useCallback(
     () => axios.get<Post[]>(url('/api/latestposts', { category, size }), { headers: auth(token) }),
     [token, category, size]
+  );
+export const useApiGetMessages = (token: string | null, chatId?: number) =>
+  useCallback(
+    () =>
+      axios.get<Messages>(url(`/api/chat/${chatId}/messages?size=20`), {
+        headers: auth(token),
+      }),
+    [token, chatId]
+  );
+export const useApiGetChats = (token: string | null) =>
+  useCallback(
+    () =>
+      axios.get<Rooms>(url(`/api/chats`), {
+        headers: auth(token),
+      }),
+    [token]
   );
 
 export function useApiGetImg(imgUrl: string | null) {
