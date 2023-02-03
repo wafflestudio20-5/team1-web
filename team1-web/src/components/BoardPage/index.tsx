@@ -112,11 +112,11 @@ export default function BoardPage() {
 
   const getBoardName = () => {
     switch (boardId) {
-      case 'myPost':
+      case 'mypost':
         return '내가 쓴 글';
-      case 'myCommentPost':
+      case 'mycommentpost':
         return '댓글 단 글';
-      case 'myScrap':
+      case 'myscrap':
         return '내 스크랩';
       default:
         return currentBoard?.title ? currentBoard?.title : '(알 수 없음)';

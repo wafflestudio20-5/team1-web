@@ -158,15 +158,15 @@ export const useApiGetBoardPosts = (
   useCallback(
     () => {
       switch (boardId) {
-        case 'myPost':
+        case 'mypost':
           return axios.get<BoardPosts>(url(`/api/user/mypost`, { page, size }), {
             headers: auth(token),
           })
-        case 'myCommentPost':
+        case 'mycommentpost':
           return axios.get<BoardPosts>(url(`/api/user/myrepliedpost`, { page, size }), {
             headers: auth(token),
           })
-        case 'myScrap':
+        case 'myscrap':
           return axios.get<BoardPosts>(url(`/api/user/myscrap`, { page, size }), {
             headers: auth(token),
           })

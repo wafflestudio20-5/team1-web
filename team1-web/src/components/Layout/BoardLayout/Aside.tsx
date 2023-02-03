@@ -127,7 +127,7 @@ export default function Aside() {
 
       <section className={`${styles['card']} ${styles['best-board']}`}>
         <h1 className={styles['card-title']}>
-          <Link to='bestPost' className={styles['card-title-text']}>
+          <Link to='bestarticle' className={styles['card-title-text']}>
             BEST 게시판
           </Link>
         </h1>

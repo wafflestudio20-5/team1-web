@@ -116,10 +116,10 @@ export type Reply = {
 
 export type Board = {
   boardId: number;
-  boardType: string;
-  title: string;
-  description: string;
-  allowAnonymous: boolean;
+  boardType?: string;
+  title?: string;
+  description?: string;
+  allowAnonymous?: boolean;
   // TODO: 데이터 수정 후 물음표 떼기
 };
 
