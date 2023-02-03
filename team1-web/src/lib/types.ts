@@ -185,32 +185,10 @@ export type Post = {
 
 export type BoardPosts = {
   contents: Post[];
-  pageable: {
-    sort: {
-      empty: boolean;
-      sorted: boolean;
-      unsorted: boolean;
-    };
-    offset: number;
-    pageNumber: number;
-    pageSize: number;
-    paged: boolean;
-    unpaged: boolean;
-  };
-  totalPages: boolean;
-  totalElements: boolean;
-  last: boolean;
+  page?: number;
+  cursor?: number;
   size: number;
-  number: number;
-  sort: {
-    empty: boolean;
-    sorted: boolean;
-    unsorted: boolean;
-  };
-  numberOfElements: number;
-  first: boolean;
-  empty: boolean;
-  isLast: boolean;
+  isLast: Boolean;
 };
 
 export type HomePost = {

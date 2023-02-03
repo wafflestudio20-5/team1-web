@@ -30,7 +30,7 @@ function RealTimePopularPostCard({ postPair }: { postPair: Post[] | null }) {
   );
 }
 
-function HotPostCard({ hotPostList }: { hotPostList: Post[] | undefined }) {
+function HotPostCard({ hotPostList }: { hotPostList: Post[] | null }) {
   return (
     <section className={styles['card']}>
       <h1 className={styles['card-title']}>
@@ -82,9 +82,7 @@ function SchoolNewsPostCard({ postPair }: { postPair: Post[] | undefined }) {
 
 export default function Aside() {
   const token = useAppSelector((state: RootState) => state.session.token);
-  const { contents: hotPostList } = useApiData(useApiGetHotPosts(token)) || {
-    content: null,
-  };
+  const { contents: hotPostList } = useApiData(useApiGetHotPosts(token)) || { contents: null };
   const realTimePopularPostPair =
     hotPostList
       ?.sort(
