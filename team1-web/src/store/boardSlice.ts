@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { apiCreatePost, apiCreateReply, apiDeletePost, apiDeleteReply, apiLikePost, apiScrapPost } from '../lib/api';
+import { apiCreatePost, apiCreateReply, apiDeletePost, apiDeleteReply, apiLikePost, apiPutImage, apiScrapPost } from '../lib/api';
 import { axiosErrorHandler } from '../lib/error';
-import { Menu, Reply } from '../lib/types';
+import { Menu, PutImage, Reply, UploadImage } from '../lib/types';
 
 type TBoardSlice = {
   selectedBoardId: number | null;
@@ -20,10 +20,16 @@ export const createPost = createAsyncThunk(
     title: string | null,
     contents: string,
     isQuestion: boolean,
-    isWriterAnonymous: boolean
+    isWriterAnonymous: boolean,
+    images: UploadImage[]
   }, { rejectWithValue }) => {
     try {
       const { data } = await apiCreatePost(params)
+      data.images.map(async (image: PutImage, index: number) => {
+        console.log(params.images[index].file)
+        await apiPutImage({ token: params.token, image: image, file: params.images[index] })
+      })
+      console.log(data.images)
       return data;
     } catch (e) {
       const error: string = axiosErrorHandler(e, '잘못된 요청입니다');

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AxiosResponse } from 'axios';
 import { title } from 'process';
 import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
-import { Board, BoardList, BoardPosts, HomeBoardPosts, Replies, Post, UserInfo } from './types';
+import { Board, BoardList, BoardPosts, HomeBoardPosts, Replies, Post, UserInfo, UploadImage, PutImage } from './types';
 
 const url = (path: string, param?: Record<string, any>): string => {
   const validParamData =
@@ -85,14 +85,22 @@ export const apiCreatePost = (params: {
   title: string | null,
   contents: string,
   isQuestion: boolean,
-  isWriterAnonymous: boolean
+  isWriterAnonymous: boolean,
+  images: UploadImage[]
 }) => axios.post(`http://api.wafflytime.com/api/board/${params.boardId}/post`,
   {
     title: params.title,
     contents: params.contents,
     isQuestion: params.isQuestion,
-    isWriterAnonymous: params.isWriterAnonymous
+    isWriterAnonymous: params.isWriterAnonymous,
+    images: params.images
   }, { headers: auth(params.token) })
+
+export const apiPutImage = (params: {
+  token: string | null,
+  image: PutImage,
+  file: UploadImage,
+}) => axios.put(params.image.preSignedUrl, params.file.file)
 
 export const apiDeletePost = (params: {
   token: string | null,

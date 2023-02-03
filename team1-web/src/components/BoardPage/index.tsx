@@ -1,17 +1,20 @@
-import { useEffect, useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Board } from '../../lib/types';
+import { Board, ImageWithDesc } from '../../lib/types';
 import PostItems from './PostItems';
 import styles from './index.module.scss';
 import { RootState, useAppDispatch, useAppSelector } from '../../store';
 import { useApiData, useApiGetBoard, useApiGetBoardPosts } from '../../lib/api';
 import { createPost } from '../../store/boardSlice';
+import Thumbnail from './Thumbnail';
 
 export default function BoardPage() {
   const boardName = '자유게시판';
   const dispatch = useAppDispatch();
 
   const { boardId, index } = useParams();
+
+  const hiddenFileInput = useRef<any>(null);
 
   const newPostDescription = `
 와플리타임은 누구나 기분 좋게 참여할 수 있는 커뮤니티를 만들기 위해 커뮤니티 이용규칙을 제정하여 운영하고 있습니다.
@@ -47,6 +50,8 @@ export default function BoardPage() {
   const [questionBool, setQuestionBool] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
+  const [newFilesWithDesc, setNewFilesWithDesc] = useState<ImageWithDesc[]>([]);
+  const [fileBool, setFileBool] = useState(false);
 
   const token = useAppSelector((state: RootState) => state.session.token);
   const currentPosts =
@@ -55,7 +60,25 @@ export default function BoardPage() {
     ) || null;
   const currentBoard = useApiData(useApiGetBoard(token, Number(boardId), loading)) || null;
 
-  console.log(currentBoard);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (hiddenFileInput.current) hiddenFileInput.current.click();
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const fileUploaded = event.target.files;
+      console.log(fileUploaded);
+      setNewFilesWithDesc(
+        newFilesWithDesc.concat(
+          Array.from(fileUploaded).map((file) => {
+            return { file: file, description: '' };
+          })
+        )
+      );
+      setFileBool(true);
+    }
+    // handleFile(fileUploaded);
+  };
 
   const handleCreatePost = async () => {
     setLoading(true);
@@ -66,6 +89,14 @@ export default function BoardPage() {
       contents: newPostContent,
       isQuestion: questionBool,
       isWriterAnonymous: anonymBool,
+      images: newFilesWithDesc.map((image, index) => {
+        return {
+          imageId: index,
+          fileName: image.file.name,
+          description: image.description === '' ? null : image.description,
+          file: image.file,
+        };
+      }),
     };
     try {
       await dispatch(createPost(data));
@@ -124,9 +155,24 @@ export default function BoardPage() {
                   onChange={(e) => setNewPostContent(e.target.value)}
                 />
               </p>
-              <input className={styles['file']} type='file' name='file' multiple={true} />
-              <ol className={styles['thumbnails']}>
-                <li className={styles['new']} />
+              <ol className={fileBool ? styles['thumbnails'] : styles['thumbnails-off']}>
+                <>
+                  {newFilesWithDesc.map((image, index) => {
+                    const fileReader = new FileReader();
+                    fileReader.readAsDataURL(image.file);
+                    return (
+                      <Thumbnail
+                        file={image.file}
+                        fileReader={fileReader}
+                        newFilesWithDesc={newFilesWithDesc}
+                        setNewFilesWithDesc={setNewFilesWithDesc}
+                        desc={image.description}
+                        index={index}
+                      />
+                    );
+                  })}
+                </>
+                <li className={styles['new']} onClick={handleClick} />
               </ol>
               <div className={styles['clearBothOnly']} />
               <p className={questionBool ? styles['question-on'] : styles['question-off']}>
@@ -140,7 +186,16 @@ export default function BoardPage() {
               </p>
               <ul className={styles['option']}>
                 <li title='해시태그' className={styles['hashtag']}></li>
-                <li title='첨부' className={styles['attach']}></li>
+                <li title='첨부' onClick={handleClick} className={styles['attach']}></li>
+                <input
+                  className={styles['file']}
+                  id='file-upload'
+                  type='file'
+                  name='file'
+                  multiple={true}
+                  ref={hiddenFileInput}
+                  onChange={handleChange}
+                />
                 <li title='완료' className={styles['submit']} onClick={handleCreatePost}></li>
                 <li
                   title='익명'

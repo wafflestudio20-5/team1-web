@@ -86,6 +86,26 @@ export type Image = {
   description?: string;
 }
 
+export type ImageWithDesc = {
+  file: File;
+  description: string;
+}
+
+export type UploadImage = {
+  imageId: number;
+  fileName: string;
+  description: string | null;
+  file: File;
+}
+
+export type PutImage = {
+  imageId: number;
+  filename: String;
+  preSignedUrl: string;
+  description?: string;
+  file: File;
+}
+
 export type TimeObject = {
   year: number;
   month: number;
