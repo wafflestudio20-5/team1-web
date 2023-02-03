@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useApiData, useApiGetBoard, useApiGetComments, useApiGetPost } from '../../lib/api';
+import {
+  useApiData,
+  useApiGetBoard,
+  useApiGetChats,
+  useApiGetComments,
+  useApiGetPost,
+} from '../../lib/api';
 import { formattedTime } from '../../lib/format';
 import { RootState, useAppDispatch, useAppSelector } from '../../store';
-import { createReply, deletePost } from '../../store/boardSlice';
+import { createChat, createReply, deletePost, likePost, scrapPost } from '../../store/boardSlice';
 import { Image } from '../../lib/types';
 import Comments from './Comments';
 import styles from './index.module.scss';
@@ -40,6 +46,7 @@ export default function PostPage() {
       setLoading(false);
     } catch (e) {
       console.log(e);
+      setLoading(false);
     }
   };
 
@@ -54,6 +61,53 @@ export default function PostPage() {
       await dispatch(deletePost(data));
       setLoading(false);
       navigate(`/${boardId}`);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+    }
+  };
+
+  const handleLikePost = async () => {
+    setLoading(true);
+    const data = {
+      token: token,
+      boardId: Number(boardId),
+      postId: Number(postId),
+    };
+    try {
+      await dispatch(likePost(data));
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+    }
+  };
+
+  const handleScrapPost = async () => {
+    setLoading(true);
+    const data = {
+      token: token,
+      boardId: Number(boardId),
+      postId: Number(postId),
+    };
+    try {
+      await dispatch(scrapPost(data));
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+    }
+  };
+
+  const handleChat = async () => {
+    const data = {
+      token: token,
+      boardId: Number(boardId),
+      postId: Number(postId),
+      replyId: null,
+    };
+    try {
+      await dispatch(createChat(data));
     } catch (e) {
       console.log(e);
     }
@@ -103,6 +157,7 @@ export default function PostPage() {
                     data-modal='messageSend'
                     data-article-id='283735162'
                     data-is-anonym='1'
+                    onClick={handleChat}
                   >
                     쪽지
                   </li>
@@ -137,8 +192,12 @@ export default function PostPage() {
             </ul>
             <hr />
             <div className={styles['buttons']}>
-              <span className={styles['posvote']}>공감</span>
-              <span className={styles['scrap']}>스크랩</span>
+              <span className={styles['posvote']} onClick={handleLikePost}>
+                공감
+              </span>
+              <span className={styles['scrap']} onClick={handleScrapPost}>
+                스크랩
+              </span>
             </div>
           </div>
           <div className={styles['comments']}>

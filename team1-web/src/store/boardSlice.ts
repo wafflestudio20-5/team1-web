@@ -1,15 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { apiCreatePost, apiCreateReply, apiDeletePost, apiDeleteReply } from '../lib/api';
+import { apiCreateChat, apiCreatePost, apiCreateReply, apiDeletePost, apiDeleteReply, apiLikePost, apiPutImage, apiScrapPost, useApiGetChats, useApiGetMessages } from '../lib/api';
 import { axiosErrorHandler } from '../lib/error';
-import { Menu, Reply } from '../lib/types';
+import { Chat, Menu, PutImage, Reply, UploadImage } from '../lib/types';
 
 type TBoardSlice = {
   selectedBoardId: number | null;
+  chats: Chat[];
+  selectedChatId: number | null;
 };
 
 const initialState: TBoardSlice = {
   selectedBoardId: null,
+  chats: [],
+  selectedChatId: null,
 };
 
 export const createPost = createAsyncThunk(
@@ -20,10 +24,16 @@ export const createPost = createAsyncThunk(
     title: string | null,
     contents: string,
     isQuestion: boolean,
-    isWriterAnonymous: boolean
+    isWriterAnonymous: boolean,
+    images: UploadImage[]
   }, { rejectWithValue }) => {
     try {
       const { data } = await apiCreatePost(params)
+      data.images.map(async (image: PutImage, index: number) => {
+        console.log(params.images[index].file)
+        await apiPutImage({ token: params.token, image: image, file: params.images[index] })
+      })
+      console.log(data.images)
       return data;
     } catch (e) {
       const error: string = axiosErrorHandler(e, '잘못된 요청입니다');
@@ -69,6 +79,40 @@ export const deletePost = createAsyncThunk(
   }
 );
 
+export const likePost = createAsyncThunk(
+  'boardSlice/post/like',
+  async (params: {
+    token: string | null,
+    boardId: number,
+    postId: number
+  }, { rejectWithValue }) => {
+    try {
+      const { data } = await apiLikePost(params)
+      return data;
+    } catch (e) {
+      const error: string = axiosErrorHandler(e, '잘못된 요청입니다');
+      return rejectWithValue(error)
+    }
+  }
+);
+
+export const scrapPost = createAsyncThunk(
+  'boardSlice/post/scrap',
+  async (params: {
+    token: string | null,
+    boardId: number,
+    postId: number
+  }, { rejectWithValue }) => {
+    try {
+      const { data } = await apiScrapPost(params)
+      return data;
+    } catch (e) {
+      const error: string = axiosErrorHandler(e, '잘못된 요청입니다');
+      return rejectWithValue(error)
+    }
+  }
+);
+
 export const deleteReply = createAsyncThunk(
   'boardSlice/reply/delete',
   async (params: {
@@ -87,6 +131,24 @@ export const deleteReply = createAsyncThunk(
   }
 );
 
+export const createChat = createAsyncThunk(
+  'boardSlice/chat/create',
+  async (params: {
+    token: string | null,
+    boardId: number,
+    postId: number,
+    replyId: number | null
+  }, { rejectWithValue }) => {
+    try {
+      const { data } = await apiCreateChat(params)
+      return data;
+    } catch (e) {
+      const error: string = axiosErrorHandler(e, '잘못된 요청입니다');
+      return rejectWithValue(error)
+    }
+  }
+);
+
 const boardSlice = createSlice({
   name: 'boardSlice',
   initialState,
@@ -94,6 +156,12 @@ const boardSlice = createSlice({
     setSelectedBoardId: (state, { payload }) => {
       state.selectedBoardId = payload;
     },
+    setChats: (state, { payload }) => {
+      state.chats = payload
+    },
+    setSelectedChatId: (state, { payload }) => {
+      state.selectedChatId = payload
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -128,9 +196,35 @@ const boardSlice = createSlice({
       .addCase(deleteReply.rejected, (state, { payload }) => {
         // state.status = 'failed';
         throw payload;
-      });
+      })
+      .addCase(likePost.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        toast.success('게시물에 공감했습니다!');
+      })
+      .addCase(likePost.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
+      .addCase(scrapPost.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        toast.success('게시물을 스크랩 했습니다!');
+      })
+      .addCase(scrapPost.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
+      .addCase(createChat.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        console.log(payload)
+        state.selectedChatId = payload.chatInfo.id;
+        toast.success('쪽지를 보낼 수 있습니다!');
+      })
+      .addCase(createChat.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
   }
 });
 
 export default boardSlice;
-export const { setSelectedBoardId } = boardSlice.actions;
+export const { setSelectedBoardId, setChats, setSelectedChatId } = boardSlice.actions;

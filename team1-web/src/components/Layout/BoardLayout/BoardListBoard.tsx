@@ -8,7 +8,6 @@ import { RootState, useAppSelector } from '../../../store';
 function BoardItem({ board }: { board: Board }) {
   const navigate = useNavigate();
   const selectedBoardId = useAppSelector((state: RootState) => state.board.selectedBoardId);
-  console.log(board);
 
   return (
     <li
