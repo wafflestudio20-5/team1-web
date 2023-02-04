@@ -19,7 +19,8 @@ export default function Chat() {
   const [currentMessage, setCurrentMessage] = useState('');
   const [webSocket, setWebSocket] = useState<WebSocket>();
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
+  const [result, setResult] = useState<any>(null);
+  useLayoutEffect(() => {
     setWebSocket(new WebSocket(webSocketUrl));
   }, []);
   useLayoutEffect(() => {
@@ -32,31 +33,38 @@ export default function Chat() {
           })
         )
       );
-      currentMessagesFunc().then((res) => {
-        dispatch(
-          setChats(
-            chats.map((chat) => {
-              console.log(chat.id, chatId);
-              if (chat.id === chatId) {
-                console.log('found');
-                console.log(res.data.contents);
-                return { room: chat.room, messages: res.data.contents, id: chat.id };
-              } else {
-                return chat;
-              }
-            })
-          )
-        );
-      });
     });
   }, [currentChatsFunc]);
   useLayoutEffect(() => {
     console.log(chats);
     if (chats.length > 0 && chats.filter((chat) => chat.id === chatId).length > 0) {
+      console.log(chats.filter((chat) => chat.id === chatId));
       setLoading(false);
+    } else {
+      currentMessagesFunc().then((res) => {
+        setResult(res);
+      });
     }
   }, [chats]);
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (result) {
+      dispatch(
+        setChats(
+          chats.map((chat) => {
+            console.log(chat.id, chatId);
+            if (chat.id === chatId) {
+              console.log('found');
+              console.log({ room: chat.room, messages: result.data.contents, id: chat.id });
+              return { room: chat.room, messages: result.data.contents, id: chat.id };
+            } else {
+              return chat;
+            }
+          })
+        )
+      );
+    }
+  }, [result]);
+  useLayoutEffect(() => {
     if (webSocket) {
       webSocket.onopen = () => {
         console.log('Success');
@@ -68,9 +76,22 @@ export default function Chat() {
         const data = JSON.parse(evt.data);
         switch (data.type) {
           case 'MESSAGE':
+            console.log(chats);
             const newChats = chats.map((chat) => {
               if (chat.id === chatId) {
-                console.log(chat.messages);
+                console.log({
+                  id: chat.id,
+                  room: chat.room,
+                  messages: [
+                    ...chat.messages,
+                    {
+                      id: data.id,
+                      sentAt: data.sentAt,
+                      received: data.received,
+                      contents: data.contents,
+                    },
+                  ],
+                });
                 return {
                   id: chat.id,
                   room: chat.room,
@@ -90,7 +111,7 @@ export default function Chat() {
         }
       };
     }
-  }, [chatId, chats, dispatch, webSocket]);
+  }, [chatId, dispatch, chats, webSocket]);
   const handleKeyDown = (event: any) => {
     if (event.key === 'Enter') {
       if (!webSocket) return;
@@ -107,7 +128,7 @@ export default function Chat() {
     <div className={styles['chat']}>
       <div className={styles['header']}>
         <div className={styles['headerText']}>
-          {chats.length > 0
+          {chats.length > 0 && chats.filter((chat) => chat.id === chatId).length > 0
             ? chats.filter((chat) => chat.id === chatId)[0].room.target
             : '(알 수 없음)'}
         </div>
