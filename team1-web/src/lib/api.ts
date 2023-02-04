@@ -167,6 +167,7 @@ export const useApiGetBoardPosts = (
   boardId?: string,
   page?: number,
   size?: number,
+  keyword?: string,
   loading?: boolean
 ) =>
   useCallback(
@@ -185,12 +186,18 @@ export const useApiGetBoardPosts = (
             headers: auth(token),
           })
         default:
-          return axios.get<BoardPosts>(url(`/api/board/${boardId}/posts`, { page, size }), {
-            headers: auth(token),
-          })
+          if (keyword === '') {
+            return axios.get<BoardPosts>(url(`/api/board/${boardId}/posts`, { page, size }), {
+              headers: auth(token),
+            })
+          } else {
+            return axios.get<BoardPosts>(url(`/api/board/${boardId}/posts/search`, { keyword, page, size }), {
+              headers: auth(token),
+            })
+          }
       }
     },
-    [token, boardId, page, size, loading]
+    [token, boardId, page, size, loading, keyword]
   );
 export const useApiGetBoard = (token: string | null, boardId: number, loading: boolean) =>
   useCallback(

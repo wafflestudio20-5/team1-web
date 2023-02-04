@@ -52,11 +52,19 @@ export default function BoardPage() {
   const [newPostContent, setNewPostContent] = useState('');
   const [newFilesWithDesc, setNewFilesWithDesc] = useState<ImageWithDesc[]>([]);
   const [fileBool, setFileBool] = useState(false);
+  const [search, setSearch] = useState('');
 
   const token = useAppSelector((state: RootState) => state.session.token);
   const currentPosts =
     useApiData(
-      useApiGetBoardPosts(token, boardId, Number(index === undefined ? 1 : index) - 1, 20, loading)
+      useApiGetBoardPosts(
+        token,
+        boardId,
+        Number(index === undefined ? 1 : index) - 1,
+        20,
+        search,
+        loading
+      )
     ) || null;
   const currentBoard = useApiData(useApiGetBoard(token, Number(boardId), loading)) || null;
 
@@ -240,7 +248,13 @@ export default function BoardPage() {
               <option value='2'>글 제목</option>
               <option value='1'>글 내용</option>
             </select>
-            <input name='keyword' placeholder='검색어를 입력하세요.' className={styles['text']} />
+            <input
+              name='keyword'
+              placeholder='검색어를 입력하세요.'
+              className={styles['text']}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
         ) : (
           <Link
