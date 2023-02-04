@@ -5,11 +5,14 @@ import styles from './Kakao.module.scss';
 import { toast } from 'react-toastify';
 import { useLoginProvider } from '../../../LoginContext';
 import kakaoImg from '../../../resources/kakaotalk-seeklogo.com.svg';
+import { useAppDispatch } from '../../../store';
+import { setToken } from '../../../store/sessionSlice';
 
 export default function Kakao() {
   const [params, setParams] = useSearchParams();
+  const dispatch = useAppDispatch();
 
-  const { setToken, setRefreshToken, setUser } = useLoginProvider();
+  const { setRefreshToken, setUser } = useLoginProvider();
 
   const navigate = useNavigate();
 
@@ -21,13 +24,11 @@ export default function Kakao() {
       // credentials: "include",
     };
     axios
-      .post(
-        `http://api.staging.wafflytime.com/api/auth/social/signup/kakao?code=${params.get('code')}`
-      )
-      .then((response) => {
+      .post(`http://api.wafflytime.com/api/auth/social/signup/kakao?code=${params.get('code')}`)
+      .then(async (response) => {
         // TODO: Set user data
         // setUser(response["data"].owner);
-        setToken(response.data.accessToken);
+        await dispatch(setToken(response.data.accessToken));
         navigate('/home');
         toast.success('로그인되었습니다.');
       })
@@ -50,15 +51,17 @@ export default function Kakao() {
       // credentials: "include",
     };
     axios
-      .post(
-        `http://api.staging.wafflytime.com/api/auth/social/login/kakao?code=${params.get('code')}`
-      )
-      .then((response) => {
+      .post(`http://api.wafflytime.com/api/auth/social/login/kakao?code=${params.get('code')}`)
+      .then(async (response) => {
         // TODO: Set user data
         // setUser(response["data"].owner);
-        setToken(response.data.accessToken);
-        navigate('/home');
-        toast.success('로그인되었습니다.');
+        if (response.data.needNickname) {
+          KakaoSignup();
+        } else {
+          await dispatch(setToken(response.data.accessToken));
+          navigate('/home');
+          toast.success('로그인되었습니다.');
+        }
       })
       .catch((error) => {
         if (error.response.status === 401) {

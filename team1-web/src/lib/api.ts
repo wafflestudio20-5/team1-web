@@ -30,15 +30,21 @@ export const apiLogin = (loginData: { id: string; password: string }) =>
 export const apiLogout = (token: string | null) =>
   axios.delete(url('/api/auth/logout'), { headers: auth(token) });
 
-//TODO: code type 수정
-export const apiKakaoSignup = (code: any) =>
+export const apiKakaoSignup = (code: any, nickname: string) =>
   // TODO: url 수정
-  axios.post(`http://api.wafflytime.com/api/auth/social/signup/kakao?${code}`);
+  axios.post(`http://api.wafflytime.com/api/auth/social/signup/kakao?${code}`, { nickname: nickname });
 
-//TODO: code type 수정
 export const apiKakaoLogin = (code: any) =>
   // TODO: url 수정
   axios.post(`http://api.wafflytime.com/api/auth/social/login/kakao?${code}`);
+
+export const apiGoogleSignup = (code: any, nickname: string) =>
+  // TODO: url 수정
+  axios.post(`http://api.wafflytime.com/api/auth/social/signup/google?${code}`, { nickname: nickname });
+
+export const apiGoogleLogin = (code: any) =>
+  // TODO: url 수정
+  axios.post(`http://api.wafflytime.com/api/auth/social/login/google?${code}`);
 
 export const apiSendVerifyEmail = (token: string | null, email: string) =>
   axios.post(url('/api/user/verify-mail'), { email }, { headers: auth(token) });

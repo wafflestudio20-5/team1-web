@@ -21,9 +21,7 @@ export default function Google() {
       // credentials: "include",
     };
     axios
-      .post(
-        `http://api.staging.wafflytime.com/api/auth/social/signup/google?code=${params.get('code')}`
-      )
+      .post(`http://api.wafflytime.com/api/auth/social/signup/google?code=${params.get('code')}`)
       .then((response) => {
         // TODO: Set user data
         // setUser(response["data"].owner);
@@ -51,9 +49,7 @@ export default function Google() {
       // credentials: "include",
     };
     axios
-      .post(
-        `http://api.staging.wafflytime.com/api/auth/social/login/google?code=${params.get('code')}`
-      )
+      .post(`http://api.wafflytime.com/api/auth/social/login/google?code=${params.get('code')}`)
       .then((response) => {
         // TODO: Set user data
         // setUser(response["data"].owner);

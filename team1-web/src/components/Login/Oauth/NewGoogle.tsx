@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import styles from './Kakao.module.scss';
-import kakaoImg from '../../../resources/kakaotalk-seeklogo.com.svg';
-import { kakaoLogin, kakaoSignup } from '../../../store/sessionSlice';
+import styles from './Google.module.scss';
+import googleImg from '../../../resources/Google_logo.svg.png';
+import { googleLogin, googleSignup } from '../../../store/sessionSlice';
 import { RootState, useAppDispatch, useAppSelector } from '../../../store';
 
-export default function Kakao() {
+export default function NewGoogle() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [code] = useSearchParams();
@@ -15,9 +15,9 @@ export default function Kakao() {
   const [nickname, setNickname] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleKakaoLogin = async () => {
+  const handleGoogleLogin = async () => {
     try {
-      await dispatch(kakaoLogin(code));
+      await dispatch(googleLogin(code));
       if (token) {
         console.log(token);
         navigate('/home');
@@ -29,9 +29,9 @@ export default function Kakao() {
     }
   };
 
-  const handleKakaoSignup = async () => {
+  const handleGoogleSignup = async () => {
     try {
-      await dispatch(kakaoSignup({ code, nickname }));
+      await dispatch(googleSignup({ code, nickname }));
       navigate('/home');
     } catch (err) {
       console.log(err);
@@ -39,13 +39,13 @@ export default function Kakao() {
   };
 
   useEffect(() => {
-    // handleKakaoLogin();
+    handleGoogleLogin();
   }, []);
 
   return (
-    <div className={styles['kakao-login-waiting']}>
-      <p className={styles['kakao-login-message']}>카카오 로그인을 진행중입니다.</p>
-      <img className={styles['kakao-login-img']} src={kakaoImg} alt='kakao-img' />
+    <div className={styles['google-login-waiting']}>
+      <p className={styles['google-login-message']}>구글 로그인을 진행중입니다.</p>
+      <img className={styles['google-login-img']} src={googleImg} alt='google-img' />
       {loading ? (
         <div className={styles['spinner']} />
       ) : (
@@ -69,7 +69,7 @@ export default function Kakao() {
             className={styles['submit']}
             type='submit'
             value='다음'
-            onClick={handleKakaoSignup}
+            onClick={handleGoogleSignup}
           />
         </div>
       )}

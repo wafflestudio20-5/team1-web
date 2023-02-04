@@ -6,6 +6,8 @@ import {
   apiLogout,
   apiChangeUserInfo,
   apiSubmitVerifyCode,
+  apiGoogleLogin,
+  apiGoogleSignup,
 } from '../lib/api';
 import { axiosErrorHandler, axiosErrorStatus } from '../lib/error';
 import { toast } from 'react-toastify';
@@ -17,15 +19,45 @@ export const kakaoLogin = createAsyncThunk(
       const { data } = await apiKakaoLogin(code);
       return data;
     } catch (e) {
-      if (axiosErrorStatus(e) === 404) {
-        try {
-          const { data } = await apiKakaoSignup(code);
-          return data;
-        } catch (e) {
-          const error: string = axiosErrorHandler(e, '로그인에 실패했습니다');
-          return rejectWithValue(error);
-        }
-      }
+      const error = axiosErrorHandler(e, '로그인에 실패했습니다');
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const kakaoSignup = createAsyncThunk(
+  'sessionSlice/kakaoSignup',
+  async (params: { code: any, nickname: string }, { rejectWithValue }) => {
+    try {
+      const { data } = await apiKakaoSignup(params.code, params.nickname);
+      return data;
+    } catch (e) {
+      const error = axiosErrorHandler(e, '로그인에 실패했습니다');
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const googleLogin = createAsyncThunk(
+  'sessionSlice/googleLogin',
+  async (code: any, { rejectWithValue }) => {
+    try {
+      const { data } = await apiGoogleLogin(code);
+      return data;
+    } catch (e) {
+      const error = axiosErrorHandler(e, '로그인에 실패했습니다');
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const googleSignup = createAsyncThunk(
+  'sessionSlice/googleSignup',
+  async (params: { code: any, nickname: string }, { rejectWithValue }) => {
+    try {
+      const { data } = await apiGoogleSignup(params.code, params.nickname);
+      return data;
+    } catch (e) {
       const error = axiosErrorHandler(e, '로그인에 실패했습니다');
       return rejectWithValue(error);
     }
@@ -115,7 +147,11 @@ const initialState: TSessionSlice = {
 const sessionSlice = createSlice({
   name: 'sessionSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    setToken: (state, { payload }) => {
+      state.token = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // .addCase(login.pending, (state) => {
@@ -147,10 +183,45 @@ const sessionSlice = createSlice({
       // })
       .addCase(kakaoLogin.fulfilled, (state, { payload }) => {
         // state.status = 'success';
-        state.token = payload.accessToken;
-        toast.success('로그인되었습니다.');
+        if (!payload.needNickname) {
+          state.token = payload.authToken.accessToken;
+          console.log(payload)
+          toast.success('로그인되었습니다.');
+        }
       })
       .addCase(kakaoLogin.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
+      .addCase(kakaoSignup.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        state.token = payload.authToken.accessToken;
+        console.log(payload)
+        toast.success('로그인되었습니다.');
+      })
+      .addCase(kakaoSignup.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
+      .addCase(googleLogin.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        if (!payload.needNickname) {
+          state.token = payload.authToken.accessToken;
+          console.log(payload)
+          toast.success('로그인되었습니다.');
+        }
+      })
+      .addCase(googleLogin.rejected, (state, { payload }) => {
+        // state.status = 'failed';
+        throw payload;
+      })
+      .addCase(googleSignup.fulfilled, (state, { payload }) => {
+        // state.status = 'success';
+        state.token = payload.authToken.accessToken;
+        console.log(payload)
+        toast.success('로그인되었습니다.');
+      })
+      .addCase(googleSignup.rejected, (state, { payload }) => {
         // state.status = 'failed';
         throw payload;
       })
@@ -182,3 +253,4 @@ const sessionSlice = createSlice({
 });
 
 export default sessionSlice;
+export const { setToken } = sessionSlice.actions;

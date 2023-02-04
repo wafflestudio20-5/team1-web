@@ -26,6 +26,7 @@ import { useAppSelector, RootState } from './store';
 import { LoginProvider } from './LoginContext';
 import { toast } from 'react-toastify';
 import PostPage from './components/PostPage';
+import NewGoogle from './components/Login/Oauth/NewGoogle';
 
 function InValidateURL() {
   return (
@@ -98,8 +99,8 @@ function AppRoutes() {
         />
       </Route>
       <Route path='/login' element={checkIfLoginned(<Login />)} />
-      <Route path='/oauth/kakao/callback' element={checkIfLoginned(<Kakao />)} />
-      <Route path='/oauth/google/callback' element={checkIfLoginned(<Google />)} />
+      <Route path='/oauth/kakao/callback' element={checkIfLoginned(<NewKakao />)} />
+      <Route path='/oauth/google/callback' element={checkIfLoginned(<NewGoogle />)} />
       <Route path='/register' element={checkIfLoginned(<Register />)} />
       <Route path='/register/detail' element={checkIfLoginned(<Detail />)} />
       <Route path='*' element={<InValidateURL />} />
