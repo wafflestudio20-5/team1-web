@@ -4,8 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export default function Main() {
-  const REDIRECT_URI = 'http://localhost:3000/oauth/kakao/callback';
-  const GOOGLE_REDIRECT_URI = 'http://localhost:3000/oauth/google/callback';
+  const REDIRECT_URI = 'http://wafflytime.com/oauth/kakao/callback';
+  const GOOGLE_REDIRECT_URI = 'http://wafflytime.com/oauth/google/callback';
 
   const KAKAO_REST_API_KEY = '2e73508a53ba1108841a05a1612720fd';
   const GOOGLE_REST_API_KEY =
