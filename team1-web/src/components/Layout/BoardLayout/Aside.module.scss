@@ -1,0 +1,202 @@
+.topic {
+  width: 325px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  > .search-bar {
+    > input {
+      width: 100%;
+      height: 40px;
+      padding: 10px;
+      line-height: 20px;
+      border: 2px solid #d6d6d6;
+      box-sizing: border-box;
+      color: #292929;
+      font-size: 14px;
+      background-image: url(../../../resources/search-icon.png);
+      background-repeat: no-repeat;
+      background-position: right center;
+      background-size: 40px 40px;
+      outline-color: rgb(133, 133, 133);
+      font-family: '맑은 고딕';
+      vertical-align: center;
+    }
+  }
+  > .card {
+    border: 1px solid #d6d6d6;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    > .card-title {
+      display: block;
+      padding: 10px;
+    }
+    .card-title-text {
+      color: #3744a5;
+      line-height: 20px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    > .posts {
+      > .post {
+        border-top: 1px solid #e3e3e3;
+        box-sizing: border-box;
+        > a {
+          display: block;
+          box-sizing: border-box;
+          padding: 10px;
+          > p {
+            line-height: 18px;
+          }
+        }
+        > a:hover {
+          background-color: #fff;
+        }
+      }
+    }
+    > .hot-posts {
+      height: 152px;
+      > .post {
+        height: 37.8px;
+        > a {
+          height: 16.8px;
+          > p {
+            height: 17px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #444444;
+            font-size: 14px;
+          }
+          > time {
+            color: #a6a6a6;
+            font-size: 11px;
+            letter-spacing: 0;
+            float: right;
+            margin-left: 10px;
+            height: 17px;
+            line-height: 18px;
+          }
+        }
+      }
+    }
+    > .popular-posts {
+      height: 189.6px;
+      > .post {
+        > a {
+          height: 94.8px;
+          > p {
+            margin-bottom: 5px;
+            line-height: 18px;
+            white-space: normal;
+            overflow: hidden;
+            color: #444444;
+            font-size: 13px;
+          }
+          > .post-title {
+            height: 18px;
+            font-weight: bold;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+          > .post-contents {
+            height: 32px;
+            line-height: 16px;
+            color: #737373;
+            font-size: 12px;
+          }
+          > .post-board-title {
+            display: inline;
+            margin-right: 10px;
+            height: 14px;
+            line-height: 14px;
+            color: #a6a6a6;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0;
+          }
+          > .status {
+            display: inline;
+            > li {
+              display: inline;
+              margin-right: 5px;
+              padding-left: 15px;
+              height: 14px;
+              line-height: 14px;
+              font-size: 11px;
+              letter-spacing: 0;
+              background-repeat: no-repeat;
+              background-size: 11px 11px;
+              background-position: left center;
+            }
+            > .likes {
+              color: #c62917;
+              background-image: url('../../../resources/likes-icon.png');
+            }
+            > .replies {
+              color: #0ca5af;
+              background-image: url('../../../resources/replies-icon.png');
+            }
+          }
+        }
+      }
+    }
+    > .school-news-posts {
+      height: 151.6px;
+      > .post {
+        height: 75.8px;
+        > a {
+          height: 75.8px;
+          > .post-contents {
+            margin-bottom: 5px;
+            height: 36px;
+            line-height: 18px;
+            white-space: normal;
+            overflow: hidden;
+            color: #444444;
+            font-size: 13px;
+          }
+          > .post-board-title {
+            display: inline;
+            margin-right: 10px;
+            height: 14px;
+            line-height: 14px;
+            color: #a6a6a6;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0;
+          }
+          > .status {
+            display: inline;
+            > li {
+              display: inline;
+              margin-right: 5px;
+              padding-left: 15px;
+              height: 14px;
+              line-height: 14px;
+              font-size: 11px;
+              letter-spacing: 0;
+              background-repeat: no-repeat;
+              background-size: 11px 11px;
+              background-position: left center;
+            }
+            > .likes {
+              color: #c62917;
+              background-image: url('../../../resources/likes-icon.png');
+            }
+            > .replies {
+              color: #0ca5af;
+              background-image: url('../../../resources/replies-icon.png');
+            }
+          }
+        }
+      }
+    }
+  }
+
+  > .best-board {
+  }
+  > .news {
+  }
+  > .recent-lecture-review {
+  }
+}

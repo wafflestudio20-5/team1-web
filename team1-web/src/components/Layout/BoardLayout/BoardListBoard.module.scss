@@ -1,0 +1,72 @@
+.board-list-layout {
+  min-width: 1180px; // TODO: 원본과 다른 부분
+  display: flex;
+  margin-top: 80px;
+  height: 230px;
+  padding: 15px;
+  border-bottom: 1px solid #d6d6d6;
+  box-sizing: border-box;
+  background-color: #f2f2f2;
+  overflow-y: hidden;
+  overflow-x: auto;
+
+  > .board-list-board {
+    height: 200px;
+    margin: 0 auto;
+    display: flex;
+    > .divider {
+      width: 1px;
+      height: 200px;
+      margin-right: 15px;
+      background-color: #e3e3e3;
+    }
+    > .group {
+      height: 200px;
+      > ul {
+        max-height: 200px;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(8, auto);
+        > li {
+          width: 130px;
+          margin-right: 15px;
+          > a {
+            display: block;
+            width: 100%;
+            font-size: 13px;
+            color: #444444;
+            line-height: 25px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+          > .more {
+            display: block;
+            width: 100%;
+            font-size: 13px;
+            color: #444444;
+            line-height: 25px;
+            font-weight: bold;
+            color: #c62917;
+          }
+        }
+        > li:hover {
+          cursor: pointer;
+          > a {
+            color: #c62917;
+          }
+        }
+        > li.selected {
+          > a {
+            font-weight: bold;
+            color: #c62917;
+          }
+        }
+      }
+    }
+  }
+}
+
+.board-list-layout::-webkit-scrollbar {
+  display: none; /* 크롬, 사파리, 오페라, 엣지 */
+}

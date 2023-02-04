@@ -1,0 +1,81 @@
+.login {
+  padding: 40px 15px;
+  width: 360px;
+  height: 280px;
+  position: absolute;
+  left: 50%;
+  margin-left: -180px;
+  top: 50%;
+  margin-top: -170px;
+  > .logo {
+    display: block;
+    text-align: center;
+    margin-bottom: 40px;
+    > .img-logo {
+      height: 50px;
+      vertical-align: middle;
+    }
+  }
+  > .button-login {
+    display: block;
+    margin-bottom: 5px;
+    height: 40px;
+    line-height: 40px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #e3e3e3;
+    color: #737373;
+  }
+  > .button-login-google {
+    display: block;
+    margin-bottom: 5px;
+    height: 40px;
+    line-height: 40px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #e3e3e3;
+    color: #000;
+  }
+  > .button-login-kakao {
+    display: block;
+    margin-bottom: 5px;
+    height: 40px;
+    line-height: 40px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #f9e81e;
+    color: #000;
+  }
+  > .button-register {
+    display: block;
+    margin-bottom: 5px;
+    height: 40px;
+    line-height: 40px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    background-color: #c62917;
+  }
+  > .find {
+    float: right;
+    text-align: right;
+    padding: 5px 5px 0 5px;
+    width: 50%;
+    box-sizing: border-box;
+    > .link-find {
+      height: 15px;
+      line-height: 15px;
+      color: #444444;
+      font-size: 12px;
+      cursor: pointer;
+    }
+  }
+}

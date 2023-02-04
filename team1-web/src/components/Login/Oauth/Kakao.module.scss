@@ -1,0 +1,110 @@
+.kakao-login-waiting {
+  margin-top: 300px;
+  > .kakao-login-message {
+    font-size: 35px;
+    font-weight: 1000;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  > .kakao-login-img {
+    display: block;
+    width: 60px;
+    height: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+  > .spinner {
+    width: 50px;
+    height: 50px;
+    border: 8px solid;
+    border-color: #c62917 transparent #c62917 transparent;
+    border-radius: 50%;
+    animation: spin-anim 1.2s linear infinite;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @keyframes spin-anim {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  > .register {
+    box-sizing: border-box;
+    border: 1px solid #ededed;
+    border-radius: 12px;
+    margin: 24px auto;
+    padding: 24px;
+    width: 480px;
+    > h2 {
+      line-height: 30px;
+      color: #292929;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    > .description {
+      margin-top: 8px;
+      line-height: 20px;
+      color: #737373;
+      font-size: 14px;
+    }
+    > .school {
+      margin-top: 48px;
+    }
+    > strong {
+      color: #292929;
+    }
+    > .input {
+      margin-top: 24px;
+      display: block;
+      > .label {
+        display: flex;
+        padding: 0 8px;
+        > label {
+          flex: auto;
+          line-height: 20px;
+          color: #737373;
+          font-size: 12px;
+          font-weight: bold;
+        }
+      }
+      > input {
+        display: block;
+        box-sizing: border-box;
+        margin-top: 4px;
+        padding: 8px;
+        width: 100%;
+        height: 40px;
+        line-height: 24px;
+        border: 1px solid #ededed;
+        border-radius: 12px;
+        color: #292929;
+        font-size: 16px;
+        background-color: #f9f9f9;
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+        background-size: 24px 24px;
+        padding-right: 40px;
+      }
+    }
+    > .campuses {
+      margin-top: 16px;
+    }
+    > .submit {
+      display: block;
+      margin-top: 24px;
+      width: 100%;
+      height: 40px;
+      border: 0;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #c62917;
+      cursor: pointer;
+    }
+  }
+}

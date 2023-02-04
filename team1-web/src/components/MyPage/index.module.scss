@@ -53,6 +53,7 @@
           font-size: 12px;
           font-weight: bold;
           background-color: #c62917;
+          cursor: pointer;
         }
       }
       > .profile {
@@ -65,12 +66,12 @@
           margin-right: 16px;
         }
         > div {
-          > div {
+          > p {
             line-height: 18px;
             color: #a6a6a6;
             font-size: 12px;
           }
-          > div:first-child {
+          > p:first-child {
             line-height: 20px;
             color: #292929;
             font-size: 14px;

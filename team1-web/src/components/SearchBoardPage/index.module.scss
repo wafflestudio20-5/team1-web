@@ -1,0 +1,67 @@
+.search-board-page {
+  width: 100%;
+  background-color: #f8f8f8;
+  > .container {
+    position: relative;
+    width: 780px;
+    margin: 0 auto 25px auto;
+    padding: 25px;
+    > form {
+      > input {
+        padding: 10px;
+        width: 100%;
+        height: 40px;
+        line-height: 20px;
+        box-sizing: border-box;
+        border: 2px solid #d6d6d6;
+        color: #292929;
+        font-size: 14px;
+        vertical-align: middle;
+        background: transparent url('../../resources/search-icon.png') no-repeat right center;
+        background-size: 40px 40px;
+        outline-color: rgb(133, 133, 133);
+        font-family: '맑은 고딕';
+      }
+    }
+    > .search-result {
+      margin-top: 5px;
+      border: 1px solid #e3e3e3;
+      background-color: #fff;
+      box-sizing: border-box;
+      > .not-searched {
+        padding: 80px 0;
+        color: #737373;
+        font-size: 15px;
+        text-align: center;
+        font-family: '맑은 고딕';
+      }
+      > h1 {
+        border-bottom: 1px solid #e3e3e3;
+        box-sizing: border-box;
+        padding: 15px;
+        color: #c62917;
+        font-size: 18px;
+        font-weight: normal;
+        font-family: '맑은 고딕';
+      }
+      > .board-item {
+        display: block;
+        padding: 15px;
+        border-bottom: 1px solid #e3e3e3;
+        > h2 {
+          margin-bottom: 5px;
+          color: #292929;
+          font-size: 14px;
+        }
+        > p {
+          margin-bottom: 5px;
+          color: #737373;
+          font-size: 12px;
+        }
+      }
+      > .board-item:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}

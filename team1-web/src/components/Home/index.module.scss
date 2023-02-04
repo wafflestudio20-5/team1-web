@@ -1,11 +1,7 @@
 .home {
   width: 100%;
-  > .container {
-    width: 1130px;
-    margin: 25px auto;
-    display: grid;
-    grid-template: auto / 175px 600px 325px;
-    padding: 0 25px;
-    gap: 15px;
-  }
+  width: 790px;
+  display: grid;
+  grid-template: auto / 175px 600px;
+  gap: 15px;
 }
